@@ -1,0 +1,59 @@
+% !TEX encoding = IsoLatin2
+\documentclass[Bachelor, BIC, german]{twbook}
+
+\usepackage[T1]{fontenc}
+% Hier kann je nach Betriebssystem eine der folgenden Optionen notwendig sein, 
+% um die Umlaute korrekt wiederzugeben: utf8, latin, applemac
+\usepackage[utf8]{inputenc}
+
+\usepackage{lipsum}
+\setlipsumdefault{1-4}
+
+% Einstellungen der Class TWBOOK
+\title{DNS Client Security\\Bedrohungsszenarien und Lösungswege}
+\author{Michael Riedmann}
+\studentnumber{1510258054}
+\supervisor{FH-Prof. Dipl.-Ing. Alexander Mense}
+\place{Wien}
+
+\kurzfassung{\input{summary}}
+% TODO: Schlagwörter der Zusammenfassung ausfüllen
+\schlagworte{Schlagwort1, Schlagwort2, Schlagwort3, Schlagwort4}
+
+\outline{\input{abstract}}
+% TODO: Schlagwörter des Abstracts ausfüllen
+\keywords{Keyword1, Keyword2, Keyword3, Keyword4}
+
+% --------------------------------------------------------------------------- %
+\begin{document}
+\maketitle
+
+\include{introduction}
+
+\include{work}
+
+\include{conclusion}
+
+% Literaturverzeichnis
+\bibliography{literatur} 
+\bibliographystyle{ieeetr}
+\clearpage
+
+% Abbildungsverzeichnis
+\listoffigures
+\clearpage
+
+% Tabellenverzeichnis
+\listoftables
+\clearpage
+
+% Abkürzungsverzeichnis
+\phantomsection
+\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
+\chapter*{Abkürzungsverzeichnis}
+\begin{acronym}[XXXXX]
+    \acro{ABC}[ABC]{Alphabet}
+    \acro{WWW}[WWW]{world wide web}
+    \acro{ROFL}[ROFL]{Rolling on floor laughing}
+\end{acronym}
+\end{document}

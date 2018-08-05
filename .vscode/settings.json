@@ -1,0 +1,20 @@
+{
+    "editor.wordWrap":"on",
+    "latex-workshop.latex.recipes": [{
+        "name": "latexmk",
+        "tools": [
+          "latexmk"
+        ]
+    }],
+    "latex-workshop.latex.tools": [{
+    "name": "latexmk",
+    "command": "latexmk",
+    "args": [
+        "-f",
+        "-pdf",
+        "-pdflatex=\"pdflatex -synctex=1 -interaction=nonstopmode\"",
+        "-auxdir=out",
+        "%DOC%.tex"
+    ]
+    }]
+}
