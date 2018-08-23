@@ -1,11 +1,11 @@
 \chapter{Bedrohungen}
 
 Die meisten DNS-Sicherheitsrichtlinien richten sind an Betreiber von extern gerichteten Installationen. Das Thema "DNS Client Security" wird wenn nur am Rande behandelt. Der nachfolgende Abschnitt befasst sich daher von den gängigsten Bedrohungen mit speziellem Fokus auf die Interaktion zwischen DNS-Resolver und rekursivem DNS-Server. 
-Es gibt dabei zwei grundlegende Möglichkeiten einen DNS-Client anzugreifen: Erstens über direktes kommunizieren mit der Netzwerkschnittstelle des Clients, zweitens mittels Angriff auf einen Teil der Client-nahen Infrastruktur. Um die Auswirkung klar ersichtlich zu machen wird in \ref{sec:BedrohungenÜbersicht} eine tabellarische Zusammenfassung mit den verletzen Sicherheitskriterien (nach CIA-triade) geben. 
+Es gibt dabei zwei grundlegende Möglichkeiten einen DNS-Client anzugreifen: Erstens über direktes kommunizieren mit der Netzwerkschnittstelle des Clients, zweitens mittels Angriff auf einen Teil der Client-nahen Infrastruktur. Um die Auswirkung klar ersichtlich zu machen wird in \ref{sec:BedrohungenÜbersicht} eine tabellarische Zusammenfassung mit den verletzen Sicherheitskriterien (nach CIA-Triade) geben. 
 
 \section{Direkte Angriffe}
 
-Angriffe die das Verhalten einzelner DNS-Clients über eingreifen in deren Kommunikationsfluss beeinflusst kann als "direkte Angriffe" zusammenfassen. Diese Verfahren sind nur effezient wenn der Angreifer entweder passiv (Sniffing) oder aktiv (Man-in-the-middle) an der Netzwerkverbindung des Clients beteiligt ist. 
+Angriffe die das Verhalten einzelner DNS-Clients über eingreifen in deren Kommunikationsfluss beeinflusst kann als "direkte Angriffe" zusammenfassen. Diese Verfahren sind nur effizient wenn der Angreifer entweder passiv (Sniffing) oder aktiv (Man-in-the-middle) an der Netzwerkverbindung des Clients beteiligt ist. 
 
 \subsection{DNS Sniffing}
 
@@ -15,11 +15,9 @@ In IP-Netzen gibt es verschieden Möglichkeiten eine Sniffing Attacke (https://c
 
 Eine Möglichkeit ist der Angriff der Netzwerkhardware. Bei einem Hub als Netzwerkverteiler erhalten immer alle angeschlossenen Teilnehmer alle Packete. Es können daher die Packete aller anderen an diesem Hub angeschlossenen Geräte einfach mitgelesen werden. Wird ein Switch einsetzt wird für jeden Anschluss (Port) die MAC-Adresse des angeschlossenen Geräts in eine Tabelle eingetragen. Es werden somit nur noch Pakete mit passender MAC-Adresse an die entsprecheden Ports weitergeleitet. Ein Angreifer kann bestimme Switches jedoch durch kunstliche Füllen der MAC-Switching-Tabelle (MAC-Flooding Angriff) in ein, einem Hub ähnliches, Verhalten zwingen. Soll ein spezielles Endgerät mit bekannter MAC-Adresse angegriffen werden, kann bei anfälligen Switches auch ein MAC-Duplication Angriff durchgeführt werden. Dabei sendet der Angreifer Packete mit der gefälschter MAC-Adresse des Opfers was den Switch dazu verleitet die Adresse auf zwei Ports einzutragen. Anfällige Switches senden daraufhin die Pakete des Opfers auch auf den Port des Angreifers.
 
-Ist die Netzwerkhardware nicht angreifbar bleibt noch die Möglichkeit den Netzwerkstack der Client-Geräte direkt zu attackieren. Hier wird in den meißten Fällen eine Schwachstelle im "Address Resolution Protocol" (ARP) ausgenützt. Dieses ist für die Auflösung von IP- zu MAC-Adressen verantwortlich. Da es auf Ethernet-Broadcasts aufsetzt, somit Verbindungslos ist und keinerlei Form von Authentifizierung verlangt kann ein Angreifer seine MAC-Adresse als Antwort auf die Frage nach der IP-Adresse des Gateways senden. Somit senden betroffenen Rechner alle an den default Gateway adressierten Packete unwissentlich an das Gerät des Angreifers. Eine weitere Möglichkeit sich als gefälschter Gateway zu positionieren ist DHCP-Spoofing. Bei diesem Angriff werden gefälschte DHCP-Packete gesendet die statt des achten default Gateways die IP des Angreifers enthalten. Da DHCP oft auch für das verteilen von DNS-Server Andressen genützt wird, kann auch nur ein vom Angreifer kontrollierter DNS-Server eingetragen werden. Eine spezielle Methode stellt das ICMP-Redirect ...
+Ist die Netzwerkhardware nicht angreifbar bleibt noch die Möglichkeit den Netzwerkstack der Client-Geräte direkt zu attackieren. Hier wird in den meisten Fällen eine Schwäche im "Address Resolution Protocol" (ARP) ausgenützt. Dieses Protokoll ist für die Auflösung von IP- zu MAC-Adressen verantwortlich. Da es Ethernet-Broadcasts zur Kommunikation einsetzt, somit Verbindungslos ist und keinerlei Form von Authentifizierung verlangt, kann ein Angreifer seine MAC-Adresse als Antwort auf die Frage nach der IP-Adresse des Gateways senden. Dies bringt betroffenen Rechner dazu alle an den default Gateway adressierten Pakete unwissentlich an das Gerät des Angreifers zu senden. Eine weitere Möglichkeit sich als gefälschter Gateway zu positionieren ist DHCP-Spoofing. Bei diesem Angriff werden gefälschte DHCP-Pakete gesendet die statt des achten default Gateways die IP des Angreifers enthalten. Da DHCP oft auch für das verteilen von DNS-Server Andressen genützt wird, kann auch nur ein vom Angreifer kontrollierter DNS-Server eingetragen werden. Eine spezielle Methode stellt das ICMP-Redirect ...
 
-Außerdem wird DNS hauptsächlich über UDP verwendet, was ein fälschen (spoofing) der Absenderadresse trivial macht. Da dadurch auch die Transaktions ID und das Absendeport bekannt wird, kann der Angreifer sofort ein gefältes Antwortpacket senden und somit den Eintrag der abgefragten Domäne im Resolver des Ziels beliebig verändern oder erweitern. Durch das setzen von hohen TTL Werten kann dieser Zustand lange über die physische Präsenz des Angreifers hinaus aufrecht erhalten werden.
-
-
+Außerdem wird DNS hauptsächlich über UDP verwendet, was ein fälschen (spoofing) der Absenderadresse trivial macht. Da dadurch auch die Transaktions ID und das Absendeport bekannt wird, kann der Angreifer sofort ein gefälschtes Antwortpacket senden und somit den Eintrag der abgefragten Domäne im Resolver des Ziels beliebig verändern oder erweitern. Durch das setzen von hohen TTL Werten kann dieser Zustand lange über die physische Präsenz des Angreifers hinaus aufrecht erhalten werden.
 
 % Sniffing und Spoofing gemischt?!
 
@@ -28,6 +26,8 @@ Wenn sniffing des Netzwerks möglich, dann DNS kein problem, da keinerlei Privic
 \end{comment}
 
 \subsection{DNS Spoofing}
+
+
 
 \begin{comment}
 * DNS Spoofing/Faking ermöglicht MitM
@@ -50,7 +50,7 @@ Da DNS, wie in \ref{sec:DNS} beschreiben, auf UDP aufsetzt, kann die Absenderadr
 \begin{comment}
 * Unbemerkte übernehme von Domänen möglich
 * Komplimitierung von Stakeholder-Diensten möglich
-  * Bei Websites  (HTTP od. uralt Browser mit Mixed Active Content) führt die komprimitierung eines einzigen Ressourcenservers zum komprimitierung der gesamten Seite: XSS wird einfach möglich wenn z.B. eine JS-Datei eines Werbeanbieters in die Seite geladen werden kann.
+  * Bei Websites  (HTTP od. uralt Browser mit Mixed Active Content) führt die komprimitierung eines einzigen Ressourcenservers zum Kompromittierung der gesamten Seite: XSS wird einfach möglich wenn z.B. eine JS-Datei eines Werbeanbieters in die Seite geladen werden kann.
   * Wenn eine einzige aktive Ressource über http nachgeladen wird oder für TLS Attacken (Poodle, ) anfällig ist, kann die seite und somit der client angegriffen werden.
 * Bei nicht verschüsselten Netzwerkprotokollen (plain SMTP/POP3/IMAP, FTP, MQTT) kann die Verbindung vollständig übernommen werden.
 * In jedem Fall sorgt eine erfolgreiche Attacke zum Übergang der Verfügbarkeitskontrolle an den Angreifer (bis zum Erkennen das Problems und entfernen der eingeschläuschten Einträge)
@@ -74,6 +74,9 @@ Da DNS, wie in \ref{sec:DNS} beschreiben, auf UDP aufsetzt, kann die Absenderadr
 * Für sehr kleine Datenmengen durchaus zuverlässig (C&C)
 * KillChain: Data Exfiltration, Controll
 \end{comment}
+
+\section{Übersicht}
+\label{BedrohungenÜbersicht}
 
 \chapter{Lösungsmöglichkeiten}
 
