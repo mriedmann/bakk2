@@ -10,12 +10,70 @@ Diese Arbeit bietet eine kurze Einfühung in die Funktionsweise von DNS (\ref{se
 
 \section{DNS}
 \label{sec:DNS}
-\lipsum
+
+% ACHTUNG!!! KOPIE AUS "YANG ET AL"
+All DNS data are stored in core data structure called a
+Resource Record (RR), and each RR has an associated
+name, class, and type. For example, an IPv4 address for
+www.ucla.edu is stored in an RR with name www.ucla.edu,
+class IN (Internet), and type A (IPv4 address). The set of all
+RRs associated with the same name, class, and type is called
+an Resource Record Set (RRset). Since DNS resolvers issue
+queries for name, class, and type tuples, they are inherently
+querying for RRsets (and not individual RRs). For example,
+when a browser queries for hwww.ucla.edu, IN, Ai, the
+reply will be the RRset for www.ucla.edu with all of the
+IPv4 addresses for that name. Thus, the smallest unit that
+can be requested in a query is an RRset, and all DNS actions
+including cryptographic signatures discussed later, apply to
+RRsets rather than individual RRs.
+The global DNS is a distributed database organized in a
+tree structure. At the top of the tree, the root zone delegates
+authority to top level domains such as .com, .net, .org, and
+.edu. The .com zone then delegates authority to create
+ibm.com, .edu delegates authority to create ucla.edu,
+and so forth. The information repository that makes up the
+domain database is divided into sections called zones. Each
+zone belongs to a single administrative authority and is
+served by multiple authoritative name servers to provide
+name resolution services for all names in the zone. By
+definition, a zone can contain one or more connected
+domains in the DNS name tree; in practice, many zones
+contain only one domain—this is the case for top level
+domains as well as large domains in general. In the rest of
+this paper, we use the terms domain and zone interchangeably
+when a zone contains a single domain.
+Every RRset in the DNS belongs to a specific zone and is
+stored at the nameservers of that zone. For example, the
+RRset for hwww.ucla.edu, IN, Ai belongs to the
+ucla.edu zone and stored in the ucla.edu nameservers.
+Two important types of RRs, the NS RRs which hold the
+names of DNS servers, and the corresponding A RRs which
+hold the IP addresses of the NDS servers (called “glue
+records”), play a critical role in establishing and maintaining
+the DNS hierarchy. The NS RRset of each zone Z is
+stored both locally and at the parent zone P, so that the
+parent zone can refer the queries for Z’s DNS names to Z’s
+DNS servers. When a zone changes any of its DNS servers,
+it must notify its parent to update the NS RRset and A
+RRset stored at the parent zone.
+End users and applications resolve a DNS name by
+querying the DNS for the corresponding RRset. Typically, a
+simple stub resolver is implemented on every host which
+sends DNS queries to a local caching resolver which takes the
+responsibility of walking the DNS hierarchy to get the final
+answer and then sends the answer back to the stub resolver.
+% ACHTUNG!!! KOPIE AUS "YANG ET AL"
+
+% DNS Server Types: Stub resolvers, Authoritative Servers, Recursive resolvers, forwarding dns servers
+% Recursive Resolver position 
+% Phase1 Phase2
 
 % Wie funktioniert DNS?
 % Grobe übersicht max 2 Seiten
 
 \section{DNS Security}
+\label{sec:DNSSecurity}
 \lipsum 
 
 % Welche Probleme hat "klassisches" DNS? (Vertraulichkeit, Authentizität/Integrität)
@@ -26,3 +84,5 @@ Diese Arbeit bietet eine kurze Einfühung in die Funktionsweise von DNS (\ref{se
 \lipsum
 
 % 
+
+\include{11-relatedwork}
