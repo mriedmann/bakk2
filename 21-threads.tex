@@ -1,8 +1,10 @@
-\chapter{Probleme und Lösungsansätze}
-% Noch nicht auf spezielle technische Lösungen eingehen!
+\chapter{Bedrohungen}
+% Oberflächlich allgemein! TRICHTER!
+
+% TODO: Lösungen auf "solutions" auslagern! (high priv)
 
 \section{Authentizität der Records}
-Wie in \ref{} beschrieben baut sich das DNS aus verschiedenen Zonen auf, die wiederum aus Einträgen (Resource Records; RR) bestehen. Obwohl das Format und der Aufbau der beschreibenden Zonen-Files klar spezifiziert ist, wurde im System keine Möglichkeit zur Prüfung der Authentizität vorgesehen. Somit ist es weder für die Server-Software noch für die empfangenen Clients möglich die Unversehrtheit und Quellenauthentizität der Einträge zu prüfen. Dieser Umstand stellt eine der zentralen Schwachstellen der aktuellen DNS Infrastruktur dar und ist Grundlage für verschiedenste Angriffe.
+Wie in \ref{sec:DNS} beschrieben baut sich das DNS aus verschiedenen Zonen auf, die wiederum aus Einträgen (Resource Records; RR) bestehen. Obwohl das Format und der Aufbau der beschreibenden Zonen-Files klar spezifiziert ist, wurde im System keine Möglichkeit zur Prüfung der Authentizität vorgesehen. Somit ist es weder für die Server-Software noch für die empfangenen Clients möglich die Unversehrtheit und Quellenauthentizität der Einträge zu prüfen. Dieser Umstand stellt eine der zentralen Schwachstellen der aktuellen DNS Infrastruktur dar und ist Grundlage für verschiedenste Angriffe.
 
 Zur Lösung dieses Problems wurde schon früh eine Erweiterung des Standard um spezielle RRs vorgeschlagen. Mit diesen werden kryptografische Signaturen zu verschiedenen Einträgen, auf Anfrage, mitgeliefert. Dadurch wird es möglich die Integrität und Authentizität der empfangenen Einträge sicherzustellen. Werden die Zonendateien offline signiert, besteht sogar die Möglichkeit Server-Konfigurationen vor ungewollter Veränderung zu schützen. Dies kann durch das Verwenden von asymmetrischer Kryptografie ermöglicht werden. Wobei sich, wie bei allen Signaturverfahren, noch die Frage des Vertrauens stellt. Die notwendige Vertrauensstellung kann dabei auf verschiedenste Wege hergestellt werden. Die gängigsten sind "Chain-of-trust", "Web-of-trust", "Shared Key" und "Trust-On-First-Use".
 
@@ -27,8 +29,14 @@ Die nachhaltige Lösung ist, wie damals auch bei HTTP, der Einsatz einer geeigne
 \section{Vertraulichkeit der Anfragen}
 % Lösung für Vertraulichkeit der Anfragen => Mit DNS nicht möglich. Blockchain basierte ansätze möglich
 
+% TODO: write "Vertraulichkeit der Anfragen"
+
 \section{Nutzung als DoS-Amplifier}
 % Lösung für Nutzung als DoS-Amplifier => Protokolle mit Handshake
 
+% TODO: write "Nutzung als DoS-Amplifier"
 
+\section{Übersicht}
+\label{BedrohungenÜbersicht}
 
+% wirklich notwendig?

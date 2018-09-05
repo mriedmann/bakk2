@@ -28,11 +28,15 @@ Das Kernproblem der DNS Security besteht in der fehlender Authentizität und Ver
 Einen mit DoT vergleichbaren Ansatz wählt die im IETF Draft "DNS Queries over HTTPS" (DoH) beschriebene Technologie \cite{Mcmanus2018}. Diese Technik nützt HTTPS statt TLS als Trägerprotokoll und ermöglicht damit auch nativen Web Applikation die Auflösung von DNS Anfragen. Der Entwurf sieht zusätzlich die Möglichkeit einer "Server Push" Funktion vor, welche es DoH-DNS-Servers erlaubt, von sich aus Pakete an Clients zu senden. Es wird argumentiert, dass so der Auflösungsprozess beschleunigt werden kann, da zusätzlich zur eigentlichen Anfrage, zugehörige, andere Einträge mitgesendet werden können. Diese müssen dann nicht nochmals angefragt werden, sondern sind schon im Cache des Resolvers geladen. Zusätzlich soll es möglich sein, die bestehende HTTP-Caching-Infrastruktur für DoH-Anfragen mitzubenützen. Die Funktionsweise im Hinblick auf Vertraulichkeit und Authentizität unterscheidet sich nicht von DoT und ist somit grundlegend valide.
 
 \section{QNAME minimisation}
+% TODO: write QNAME minimisation
 
 \section{EncDNS & Oblivious DNS}
+% TODO: write EncDNS & Oblivious DNS
 
 \section{Alternative Ansätze: Namecoin, GNS, RAINS}
+% TODO: write (low priv!) Alternative Ansätze: Namecoin, GNS, RAINS
 
 \section{Übersicht}
+% TODO: write (low priv!) Übersicht
 % Eher in conclusio?
 % Tabelle aus Paper "Grothoff, C., Wachs, M., Ermert, M., & Appelbaum, J. (2018). Toward secure name resolution on the internet. Computers and Security. https://doi.org/10.1016/j.cose.2018.01.018"

@@ -1,0 +1,21 @@
+\chapter{Aussage}
+\lipsum
+
+\section{Allgemeine Empfehlungen}
+
+\subsection{DNSSEC}
+
+\subsection{DNS-over-TLS}
+\subsection{Server- / Netzwerkaufbau}
+\subsection{Netwerksetup}
+\subsection{Vertrauenswürdige Resolver / Upstream-DNS Server od. IDS}
+
+% *Nur mit entsprechender Validierung des Zeilservers (DoT, etc.) weil sonst anfällig auf MitM, BGP-Hijacking, usw.*
+
+\section{Konkrete Konzepte}
+
+\subsection{Enterprise: local-only DNS-Resolver mit DNSSEC und IDS, HTTP-Proxy for Clients/internal Servers}
+
+\subsection{Privat/EPU: DNS-over-TLS  mit Trusted Resolver (z.B. Stubby and Quad9)}
+
+\input{41-future}

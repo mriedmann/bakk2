@@ -12,9 +12,11 @@
     "args": [
         "-f",
         "-pdf",
-        "-pdflatex=\"pdflatex -synctex=1 -interaction=nonstopmode\"",
+        "-pdflatex=\"pdflatex -synctex=1 -interaction=nonstopmode --shell-escape\"",
         "-auxdir=out",
         "%DOC%.tex"
     ]
-    }]
+    }
+],
+"todo-tree.flat": false
 }
