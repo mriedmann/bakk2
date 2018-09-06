@@ -154,4 +154,159 @@ url = {https://trustee.ietf.org/license-info},
 year = {2018}
 }
 
+@inproceedings{Stevens2017,
+abstract = {SHA-1 is a widely used 1995 NIST cryptographic hash function standard that was officially deprecated by NIST in 2011 due to fundamental security weaknesses demonstrated in various analyses and theoretical attacks. Despite its deprecation, SHA-1 remains widely used in 2017 for document and TLS certificate signatures, and also in many software such as the GIT versioning system for integrity and backup purposes. A key reason behind the reluctance of many industry players to replace SHA-1 with a safer alternative is the fact that finding an actual collision has seemed to be impractical for the past eleven years due to the high complexity and computational cost of the attack. In this paper, we demonstrate that SHA-1 collision attacks have finally become practical by providing the first known instance of a collision. Furthermore, the prefix of the colliding messages was carefully chosen so that they allow an attacker to forge two PDF documents with the same SHA-1 hash yet that display arbitrarily-chosen distinct visual contents. We were able to find this collision by combining many special cryptanalytic techniques in complex ways and improving upon previous work. In total the computational effort spent is equivalent to 2 63.1 SHA-1 compressions and took approximately 6 500 CPU years and 100 GPU years. As a result while the computational power spent on this collision is larger than other public cryptanalytic computations, it is still more than 100 000 times faster than a brute force search.},
+author = {Stevens, Marc and Bursztein, Elie and Karpman, Pierre and Albertini, Ange and Markov, Yarik},
+file = {::},
+keywords = {collision attack,collision example,cryptanalysis,differential path,hash function},
+pages = {570--596},
+title = {{The First Collision for Full SHA-1}},
+url = {https://shattered.io},
+year = {2017}
+}
+
+@article{Dinaburg2011,
+abstract = {Computer hardware, especially RAM, can suffer from random errors that manifest as corruption of one or more bits. The causes of these errors range from manufacturing defects to environmental factors such as cosmic rays and overheating. While the probability of a single error is small, the total error amount in all RAM connected to the Internet is significant. Malicious attackers can exploit these random errors remotely. This paper presents an attack called bitsquatting that leverages random errors and DNS to direct Internet traffic to attacker-­‐controlled destinations. To prove the feasibility of bitsquatting, several frequently resolved domains were bitsquatted and all HTTP requests to the subsequent domains were logged. An analysis of six months of log data reveals that virtually every operating system and platform is affected. Fortunately, bitsquatting attacks are easy to mitigate.},
+author = {Dinaburg, Artem},
+file = {:E$\backslash$:/Users/Michael/OneDrive/Documents/FH/BIC6/SPEC/Recherche/BH{\_}US{\_}11{\_}Dinaburg{\_}Bitsquatting{\_}WP.pdf:pdf},
+pages = {22},
+title = {{Bitsquatting: DNS Hijacking without Exploitation}},
+url = {http://media.blackhat.com/bh-us-11/Dinaburg/BH{\_}US{\_}11{\_}Dinaburg{\_}Bitsquatting{\_}WP.pdf http://dynaburg.org},
+year = {2011}
+}
+
+@techreport{Cooper2013,
+abstract = {This document offers guidance for developing privacy considerations for inclusion in protocol specifications. It aims to make designers, implementers, and users of Internet protocols aware of privacy-related design choices. It suggests that whether any individual RFC warrants a specific privacy considerations section will depend on the document's content.},
+author = {Cooper, A. and Tschofenig, H and Aboba, B. and Peterson, J. and Morris, J. and Hansen, M. and Smith, R.},
+doi = {10.17487/rfc6973},
+file = {::},
+month = {jul},
+title = {{Privacy Considerations for Internet Protocols}},
+url = {http://trustee.ietf.org/license-info https://www.rfc-editor.org/info/rfc6973},
+year = {2013}
+}
+
+
+@techreport{Bortzmeyer2015,
+abstract = {This document describes the privacy issues associated with the use of the DNS by Internet users. It is intended to be an analysis of the present situation and does not prescribe solutions.},
+author = {Bortzmeyer, S.},
+doi = {10.17487/RFC7626},
+file = {::},
+issn = {2070-1721},
+keywords = {()},
+month = {aug},
+title = {{DNS Privacy Considerations}},
+url = {https://www.rfc-editor.org/info/rfc7626},
+year = {2015}
+}
+
+@techreport{Contavalli2016,
+abstract = {This document describes an Extension Mechanisms for DNS (EDNS0) option that is in active use to carry information about the network that originated a DNS query and the network for which the subsequent response can be cached. Since it has some known operational and privacy shortcomings, a revision will be worked through the IETF for improvement.},
+author = {Contavalli, C. and van der Gaast, W. and Lawrence, D. and Kumari, W.},
+file = {::},
+title = {{Client Subnet in DNS Queries}},
+url = {http://www.rfc-editor.org/info/rfc7871.},
+year = {2016}
+}
+
+@techreport{Licht2017,
+abstract = {This draft defines a DNS EDNS option to carry a client-specific identifier in DNS queries, with guidance for privacy protection of such information.},
+author = {Licht, R. and Lawrence, David C.},
+file = {::},
+title = {{Client ID in Forwarded DNS Queries}},
+url = {http://datatracker.ietf.org/drafts/current/.},
+year = {2017}
+}
+
+@article{ICANN2006,
+author = {ICANN},
+file = {::},
+number = {March},
+pages = {1--16},
+title = {{SSAC Advisory SAC008 DNS Distributed Denial of Service ( DDoS ) Attacks}},
+url = {https://www.icann.org/en/system/files/files/dns-ddos-advisory-31mar06-en.pdf},
+year = {2006}
+}
+
+@techreport{Alcoy2017,
+author = {Alcoy, Philippe and Bjarnason, Steinthor and Bowen, Paul and Chui, C.F. and Kasavchenko, Kirill and Sockrider, Gary},
+file = {::},
+institution = {NETSCOUT Arbor},
+title = {{13th Anual Wordwide Infrastructure Security Report}},
+year = {2017}
+}
+
+@article{Anagnostopoulos2013,
+abstract = {It is without doubt that the Domain Name System (DNS) is one of the most decisive elements of the Internet infrastructure; even a slight disruption to the normal operation of a DNS server could cause serious impairment to network services and thus hinder access to network resources. Hence, it is straightforward that DNS nameservers are constantly under the threat of Denial of Service (DoS) attacks. This paper presents a new, stealthy from the attacker's viewpoint, flavor of DNSSEC-powered amplification attack that takes advantage of the vast number of DNS forwarders out there. Specifically, for augmenting the amplification factor, the attacker utilizes only those forwarders that support DNSSEC-related resource records and advertize a large DNS size packet. The main benefits of the presented attack scenario as compared to that of the typical amplification attack are: (a) The revocation of the need of the aggressor to control a botnet, and (b) the elimination of virtually all traces that may be used toward disclosing the attacker's actions, true identity and geographical location. The conducted experiments taking into consideration three countries, namely Greece, Ireland and Portugal demonstrate that with a proper but simple planning and a reasonable amount of resources, a determined perpetrator is able to create a large torrent of bulky DNS packets towards its target. In the context of the present study this is translated to a maximum amplification factor of 44. {\textcopyright} 2012 Elsevier B.V. All rights reserved.},
+author = {Anagnostopoulos, Marios and Kambourakis, Georgios and Kopanos, Panagiotis and Louloudakis, Georgios and Gritzalis, Stefanos},
+doi = {10.1016/j.cose.2013.10.001},
+file = {:E$\backslash$:/Users/Michael/OneDrive/Documents/FH/BIC6/SPEC/Recherche/anagnostopoulos2013.pdf:pdf},
+issn = {01674048},
+journal = {Computers and Security},
+keywords = {Amplification attack,Cybersecurity,DNS,DNSSEC,DoS,Reflection attack},
+number = {PART B},
+pages = {475--485},
+publisher = {Elsevier Ltd},
+title = {{DNS amplification attack revisited}},
+url = {http://dx.doi.org/10.1016/j.cose.2013.10.001},
+volume = {39},
+year = {2013}
+}
+
+@article{VanRijswijk-Deij2014,
+abstract = {Over the past five years we have witnessed the introduction of DNSSEC, a security extension to the DNS that relies on digital signatures. DNSSEC strengthens DNS by preventing attacks such as cache poisoning. However, a common argu-ment against the deployment of DNSSEC is its potential for abuse in Distributed Denial of Service (DDoS) attacks, in particular reflection and amplification attacks. DNS re-sponses for a DNSSEC-signed domain are typically larger than those for an unsigned domain, thus, it may seem that DNSSEC could actually worsen the problem of DNS-based DDoS attacks. The potential for abuse in DNSSEC-signed domains has, however, never been assessed on a large scale. In this paper we establish ground truth around this open question. We perform a detailed measurement on a large dataset of DNSSEC-signed domains, covering 70{\%} (2.5 mil-lion) of all signed domains in operation today, and compare the potential for amplification attacks to a representative sample of domains without DNSSEC. At first glance, the outcome of these measurements confirms that DNSSEC in-deed worsens the DDoS phenomenon. Closer examination, however, gives a more nuanced picture. DNSSEC really only makes the situation worse for one particular query type (ANY), for which responses may be over 50 times larger than the original query (and in rare cases up to 179×). We also discuss a number of mitigation strategies that can have im-mediate impact for operators and suggest future research directions with regards to these mitigation strategies.},
+author = {van Rijswijk-Deij, Roland and Sperotto, Anna and Pras, Aiko},
+doi = {10.1145/2663716.2663731},
+file = {:E$\backslash$:/Users/Michael/OneDrive/Documents/FH/BIC6/SPEC/Recherche/10.1145@2663716.2663731.pdf:pdf},
+isbn = {9781450332132},
+journal = {Proceedings of the 2014 Conference on Internet Measurement Conference - IMC '14},
+keywords = {all or part of,amplification attack,attack,ddos,denial-of-service,dns,dnssec,measurements,or,or hard copies of,permission to make digital,reflection at-,tack,this work for personal},
+pages = {449--460},
+title = {{DNSSEC and its potential for DDoS attacks}},
+url = {http://dl.acm.org/citation.cfm?doid=2663716.2663731},
+year = {2014}
+}
+
+@inproceedings{Kim2011,
+abstract = {Domain Name System (DNS) amplification attack is a sophisticated Distributed Denial of Service (DDoS) attack by sending a huge volume of DNS name lookup requests to open DNS servers with the source address spoofed as a victim host. However, from the point of view of an individual network resource such as DNS server and switch, it is not easy to mitigate such attacks because a distributed attack could be performed with multiple DNS servers and/or switches. To overcome this limitation, we propose a novel security framework using Software-Defined Networking (SDN) to store the history of DNS queries as an evidence to distinguish normal DNS responses from attack packets. Our evaluation results demonstrate that the network traffic for DNS amplification attack can completely be blocked under various network conditions without incurring a significant communication overhead.},
+author = {Kim, Soyoung and Lee, Sora and Cho, Geumhwan and Ahmed, Muhammad Ejaz and Jeong, Jaehoon (Paul) and Kim, Hyoungshick},
+file = {::},
+keywords = {DNS amplification attack,Distributed Denial of Service (DDoS),Domain Name System (DNS),Software-Defined Networking (SDN)},
+pages = {135--152},
+title = {{Preventing DNS Amplification Attacks Using the History of DNS Queries with SDN}},
+url = {https://pdfs.semanticscholar.org/b086/3ebb089b36aa4fc9664bd4c89ee33e2bcef0.pdf},
+year = {2011}
+}
+@inproceedings{Kambourakis2008,
+abstract = {DNS amplification attacks massively exploit open recursive DNS servers mainly for performing bandwidth consumption DDoS attacks. The amplification effect lies in the fact that DNS response messages may be substantially larger than DNS query messages. In this paper, we present and evaluate a novel and practical method that is able to distinguish between authentic and bogus DNS replies. The proposed scheme can effectively protect local DNS servers acting both proactively and reactively. Our analysis and the corresponding real-usage experimental results demonstrate that the proposed scheme offers a flexible, robust and effective solution.},
+author = {Kambourakis, Georgios and Moschos, Tassos and Geneiatakis, Dimitris and Gritzalis, Stefanos},
+booktitle = {Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)},
+doi = {10.1007/978-3-540-89173-4_16},
+file = {::},
+isbn = {3540890955},
+issn = {03029743},
+keywords = {DNS Amplification Attacks,DNS Security,Denial of Service,Detection and repelling mechanisms},
+pages = {185--196},
+title = {{Detecting DNS amplification attacks}},
+url = {http://users.auth.gr/dgeneiat/papers/conferences/conference-08.pdf},
+volume = {5141 LNCS},
+year = {2008}
+}
+
+@inproceedings{Zhu2015,
+author = {Zhu, Liang and Hu, Zi and Heidemann, John and Wessels, Duane and Mankin, Allison and Somaiya, Nikita},
+booktitle = {2015 IEEE Symposium on Security and Privacy},
+doi = {10.1109/SP.2015.18},
+file = {:E$\backslash$:/Users/Michael/OneDrive/Documents/FH/BIC6/SPEC/Recherche/Zhu14a.pdf:pdf},
+isbn = {978-1-4673-6949-7},
+month = {may},
+number = {June},
+pages = {171--186},
+publisher = {IEEE},
+title = {{Connection-Oriented DNS to Improve Privacy and Security}},
+url = {http://ieeexplore.ieee.org/document/7163025/},
+year = {2015}
+}
+
+
 
