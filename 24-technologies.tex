@@ -29,15 +29,59 @@ Das Kernproblem der DNS Security besteht in der fehlender Authentizität und Ver
 Einen mit DoT vergleichbaren Ansatz wählt die im IETF Draft "DNS Queries over HTTPS" (DoH) beschriebene Technologie \cite{Mcmanus2018}. Diese Technik nützt HTTPS statt TLS als Trägerprotokoll und ermöglicht damit auch nativen Web Applikation die Auflösung von DNS Anfragen. Der Entwurf sieht zusätzlich die Möglichkeit einer "Server Push" Funktion vor, welche es DoH-DNS-Servers erlaubt, von sich aus Pakete an Clients zu senden. Es wird argumentiert, dass so der Auflösungsprozess beschleunigt werden kann, da zusätzlich zur eigentlichen Anfrage, zugehörige, andere Einträge mitgesendet werden können. Diese müssen dann nicht nochmals angefragt werden, sondern sind schon im Cache des Resolvers geladen. Zusätzlich soll es möglich sein, die bestehende HTTP-Caching-Infrastruktur für DoH-Anfragen mitzubenützen. Die Funktionsweise im Hinblick auf Vertraulichkeit und Authentizität unterscheidet sich nicht von DoT und ist somit grundlegend valide.
 
 \section{QNAME minimisation}
-% TODO: write QNAME minimisation
+
+Die grundlegende Idee hinter QNAME minimisation ist es, die Informationen der Anfragen an authoritative DNS-Server zu minimieren. Recursive Resolver senden ohne entsprechende Einstellung immer den vollen Domänen-Namen in ihren Anfragen, selbst wenn zu diesem Zeitpunkt klar ist, dass der Zielserver (z.B. ein Root-DNS-Server) keine vollständgige Antwort liefern werden kann. Um die Privicy von Client eines Recursive-Resolvers zu verbessern kann nun QNAME minimisation eingesetzt werden um nur noch den Teil der Domäne abzufragen, für den der Zielserver auch authoritativ ist. Dies führt dazu, dass die DNS Auflösung beteiligten DNS-Server nicht mehr auf die gewünschte Zieldomäne schließen können, solange sind nicht für diese verantwortlich sind. Diese Technologie ist in RFC7816 spezifiziert und wird von aktueller open-source DNS-Server-Software unterstützt. Da sich diese Technik auf den rekursiven Auflöseprozess auswirkt, hat sie keine Auswirkungen auf Stub- oder Forwarding-Resolver.
 
 \section{EncDNS und Oblivious DNS}
-% TODO: write EncDNS & Oblivious DNS
 
-\section{Alternative Ansätze: Namecoin, GNS, RAINS}
+Wie in Abschnitt \ref{sec:solutions-PrivRequest} angesprochen, besteht aus Sicht der Vertaulichkeit das Problem, dass der gewählte Recursive-Resolver einfach Zugriff auf die Kombination von Client-Adresse und angefragte Zieladresse besitzt. Spezielle relevant erhält das Thema, da Trusted Resolver aktuell einen starken Zulauf erhalten und so immer mehr dieser Daten binden. Lässt man das komplette Ersetzen von DNS außer acht, besteht nur noch die Möglichkeit diese Verknüpfung aufzuheben. 
+EncDNS\cite{Herrmann2014} und Oblivious DNS\cite{Schmitt2018} sind beides ähnliche Technologien mit eben diesem Ziel. Um die Verschleierung der Client-Adresse zu erreichen wird ein jeweils eigener Stub-Resolver eingesetzt. Dieser erstellt spezielle, DNS Standardkonforme Anfragen mit einem speziellen Aufbau. Die eigentliche DNS-Anfrage wird dabei verschlüsselt, als Präfix zu einer speziellen Domäne verpackt. Der authoritative Server dieser Domäne muss entsprechend fähig sein das Format zu verstehen. Dieser Aufbau veranlasst den Recursive-Resolver die Anfrage normal abzuarbeiten, was diese schlussendlich zum authoritativen Server leitet. Dieser entschlüsselt die spezielle Anfrage und führt die eigentliche Auflösung durch. Danach wird die verschlüsselte Antwort formuliert und an den Resolver zurückgeschickt, welcher sie an den Client weitergibt.
+Wie man sieht, ist der Recursive-Resolver durch die Verschlüsselung nicht möglich die echte Anfrage und Antwort zu lesen. Des weiteren ist aber auch der authoritative DNS-Server nicht in Kenntnis über die echte Adresse des Clients. Somit wurde die Verknüpfung zwischen Client-Adresse und Anfrage gelöst.
+Der unterschied wirschen EncDNS und ODNS besteht nun in den eingesetzten Protokollen zur Verschlüsselung und zum Transport der Nachrichten. EncDNS ist stark von DNSCurve inspiriert und baut somit auf die selben Algorithmen und Formaten auf. ODNS folgt zwar dem gundlegenden Konzept von EncDNS, legt den Fokus jedoch auf Performance und Verfügbarkeit. Diese Entscheidung spiegelt sich vor allem im Einsatz eines verteilten Key Distribution Mechanismus wieder. Dieser erlaubt es dem System einen, für den Resolver, optimalen DNS-Server zu wählen ohne das selbe Schlüsselpaar auf alle DNS-Server verteilen zu müssen. Als Algorithem setzt ODNS AES fpr Sitzungsschlüssel und ECIES für den Schlüsseltransport ein.
+Wie schon im Abschnitt DNSCurve erwähnt, erben damit beide Systeme sie selbe Schwäche im Trust-establishment Prozess. Es wäre einem Angreifer, der den kompletten Netzwerkverkehr des Opfers unter kontrolle hat, möglich den initialen öffentlichen Schlüssel zu verändern und sich somit als Resolver und EncDNS bzw. ODNS Server zu positionieren.
+
+% \section{Alternative Ansätze: Namecoin, GNS, RAINS}
 % TODO: write (low priv!) Alternative Ansätze: Namecoin, GNS, RAINS
 
 \section{Übersicht}
 % TODO: write (low priv!) Übersicht
 % Eher in conclusio?
 % Tabelle aus Paper "Grothoff, C., Wachs, M., Ermert, M., & Appelbaum, J. (2018). Toward secure name resolution on the internet. Computers and Security. https://doi.org/10.1016/j.cose.2018.01.018"
+
+\begin{table}[!h]
+\caption {...} \label {...} \centering \small
+\begin{tabular}{r|c|c|c|c|c|c|}
+\cline{2-7}
+\multicolumn{1}{l|}{} & 
+\multicolumn{3}{c|}{Verbindung} & 
+RR & 
+\multicolumn{2}{c|}{Anfragen} 
+\\
+
+\cline{2-7} 
+\multicolumn{1}{l|}{} & 
+\rotatebox[origin=c]{90}{\begin{tabular}[c]{c}Integrität \\ der Nachrichten \end{tabular}} & 
+\rotatebox[origin=c]{90}{\begin{tabular}[c]{c}Authentizität \\ des Resolvers \end{tabular}} & 
+\rotatebox[origin=c]{90}{\begin{tabular}[c]{c}Vertraulichkeit \\ der Verbindung \end{tabular}} & 
+\rotatebox[origin=c]{90}{\begin{tabular}[c]{c}Authentizität \\ der Antwort \end{tabular}} & 
+\rotatebox[origin=c]{90}{\begin{tabular}[c]{c}Vertraulichkeit \\ der Anfrage am Resolver \end{tabular}} & 
+\rotatebox[origin=c]{90}{\begin{tabular}[c]{c}Vertraulichkeit \\ der Anfrage am auth. DNS \end{tabular}} 
+\\ 
+
+\hline
+\multicolumn{1}{|r|}{DNS}           & N          & N             & N               & N             & N                          & N                           \\ 
+\hline
+\multicolumn{1}{|r|}{DNSSEC}        & Y          & N*             & N               & Y             & N                          & N                           \\ 
+\hline
+\multicolumn{1}{|r|}{DNSCurve}      & Y          & Y*            & Y               & N             & Y                          & N                           \\ 
+\hline
+\multicolumn{1}{|r|}{DNSCrypt}      & Y          & Y             & Y               & N             & N                          & N                           \\ 
+\hline
+\multicolumn{1}{|r|}{DoT / DoH}     & Y          & Y             & Y               & N             & N                          & N                           \\ 
+\hline
+\multicolumn{1}{|r|}{QNAME min.}    & N          & N             & N               & N             & N                          & Y*                          \\ 
+\hline
+\multicolumn{1}{|r|}{EncDNS / ODNS} & Y          & Y             & Y               & N             & Y                          & N                           \\ 
+\hline
+\end{tabular}
+\end{table}
