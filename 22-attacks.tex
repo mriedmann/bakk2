@@ -11,6 +11,7 @@ Es gibt dabei zwei grundlegende Möglichkeiten einen DNS-Client anzugreifen: Üb
 Angriffe die das Verhalten einzelner DNS-Clients über eingreifen in deren Kommunikationsfluss beeinflussen, können als \textit{direkte Angriffe} zusammenfasst werden. Diese Verfahren sind nur effizient wenn der Angreifer entweder passiv (Sniffing) oder aktiv (Man-in-the-middle) an der Netzwerkverbindung des Clients beteiligt ist. 
 
 \subsection{DNS Sniffing}
+% Sniffing / Spoofing zusammenlegen?
 
 Als Sniffing Angriffe werden, nach CAPEC, alle Arten von Angriffen bezeichnet die es ermöglichen Nachrichten zwischen mindestens 2 Parteien zu beobachten, mitlesen und/oder mithören. (https://capec.mitre.org/data/definitions/157.html). Im Kontext DNS hat dies eine spezielle Bedeutung da es, aufgrund des fehlenden Schutz der Vertraulichkeit, ermöglicht, alle Informationen der Anfragen und Antworten einzusehen. Somit ist das Kommunikationsverhalten der Opfergeräte leicht nachzuvollziehen, was zum Beispiel den Recon-Schritt der Cyber-Kill-Chain (siehe \ref{sec:DNSSecurity}) erheblich erleichtert. 
 
@@ -41,10 +42,11 @@ Außerdem wird DNS hauptsächlich über UDP verwendet, was ein fälschen (spoofi
 
 % Durch DoS von Resolvern oder DNS-Servern können kritischen Unternehmensdienste kurzfristig außer Betrieb genommen werden. Da die Verbindung zwischen diesen hoch vernetzten Diensten stark von DNS abhängt hat der Ausfall eines einzigen zentralen Dienstes (DynDns Vorfall) schwerwiegende Auswirkungen auf alle anhängenden Dienste.
 
-\subsection{DNS Spoofing (Blindflug)} % BS?!
-Da DNS, wie in \ref{sec:DNS} beschreiben, auf UDP aufsetzt, kann die Absenderadresse leicht gefälscht werden. Existiert nun eine Schwachstelle in der Implementierung des lokalen DNS-Resolver kann die TXID leicht erraten werden. 
+% \subsection{DNS Spoofing (Blindflug)} % BS?!
+% Da DNS, wie in \ref{sec:DNS} beschreiben, auf UDP aufsetzt, kann die Absenderadresse leicht gefälscht werden. Existiert nun eine Schwachstelle in der Implementierung des lokalen DNS-Resolver kann die TXID leicht erraten werden. 
 
 \section{Indirekte Angriffe}
+% Akademisch? Streichen?
 
 \subsection{Reliance Upon Transitive Trust}
 

@@ -1,6 +1,4 @@
-\chapter{Experiment}
-
-% TODO: Titel finden.
+\chapter{Implementierung}
 
 % TODO: schreiben! viel! Experiment! (mid/low priv)
 
@@ -9,11 +7,3 @@
 
 % Config und tests alles fertig, iptables config fehlt noch. Einfach: 22 TCP on LAN für management, 53 TCP/UDP für inbound DNS von LAN und 853 TCP richtung internet. 80/443 TCP outbound für updates. UDP 123 für NTP. ICMP Ping. Alles andere Drop inbound und outbound.
 
-\begin{lstlisting}
-rc-update add iptables 
-/etc/init.d/iptables save
-\end{lstlisting}
-
-\lstinputlisting[language=Bash,caption={test}]{set-fw.sh}
-
-\lstinputlisting[language=Bash]{unbound.conf}
