@@ -49,13 +49,14 @@ Um die globale, verteilte Datenbank des DNS nutzen zu können, ist es notwendig,
 
 Die Software, die auf jedem Client-Rechner DNS-Anfragen von Programmen entgegennimmt und diese an die DNS Infrastruktur zur Auflösung übergibt, werden als \textbf{Stub resolver} bezeichnet. Diese können nach außen ausschließlich mit \textit{rekursiven Resolvern} kommunizieren und nehmen selbst keine Form der Namensauflösung vor. In manchen Fällen verfügen sie jedoch über einen Cache oder können aufgrund lokaler Policies (z.B. einem Hosts-File) eine Namensauflösung auf anderem Wege durchführen.
 
-\textbf{Rekursive Resolver} (recursive Resolver) sind spezielle DNS-Server die von Clients genützt werden um Namen aufzulösen. Sie verfügen meistens über keine eigenen Zonen und sind damit als Vermittlungskomponente zwischen Endgeräten und den im Internet verfügbaren DNS-Servern zu verstehen.
+\textbf{Rekursive Resolver} (Recursive Resolver) sind spezielle DNS-Server die von Clients genützt werden um Namen aufzulösen. Sie verfügen meistens über keine eigenen Zonen und sind damit als Vermittlungskomponente zwischen Endgeräten und den im Internet verfügbaren DNS-Servern zu verstehen.
 
 Server deren Hauptaufgaben im Auflösen von Namen einer oder mehrerer bestimmter Zonen besteht, werden \textbf{authoritative Server} genannt. Die Bezeichnung spiel auf den Umstand an, dass die Antworten dieses Servers die finale Wahrheit über die von ihm verwalteten Zonen darstellt. Sie lesen die Antworten also direkt auf dem Zonen-File der entsprechenden Zone und verlassen sich nicht auf Antworten anderer Server oder Caches. Authoritative DNS-Server stellen damit die Endpunkte der Auflösung für die jeweiligen Domänen dar.
 
 Eine spezielle Form des \textit{Rekursive Resolver} wird als \textbf{Forwarding DNS Server} bezeichnet. Aus Sicht des Stub Resolvers wirkt es wie ein gewöhnlicher Rekursiver Resolver. Der Unterschied besteht darin, dass er selbst keinen Auflöseprozess durchführt sondern die Anfragen lediglich an einen anderen Server weiterleitet, welche dann die eigentliche Auflösung durchführen. Die Ergebnisse werden meist gecacht und an den Client weitergegeben. 
 
 \subsection{DNS Namensauflösungsprozess}
+\label{subsec:dnsresolution}
 
 Der Namensauflösungsprozess erfolgt über mehrere Schritte und kann am besten anhand eines Beispiels dargestellt werden. Nehmen wir an, eine Applikation möchte die IPv4-Adresse des Namen exampe.com herausfinden und stellt eine Anfrage an den lokalen Stub Resolver (kurz stub) des Client. Folgende Schritte zusammen mit Abb. \ref{img:dnsresolution} erläutern den Prozess: 
 
@@ -81,12 +82,27 @@ Der Namensauflösungsprozess erfolgt über mehrere Schritte und kann am besten a
 \section{DNS Security}
 \label{sec:DNSSecurity}
 
-Obwohl oder gerade weil DNS eines der grundlegendsten Protokolle im Internet darstellt wurde bei der Spezifikation des Netzwerkprotokolls bewusst auf eine Authentifizierung verzichtet. Dies ist auf die Idee einer öffentlich zugänglichen, globalen Datenbank, nach dem Vorbild eines globalen Telefonregisters, zurückzuführen. Die Datenbasis der Namensauflösung wurde somit als frei öffentlich zugänglich definiert. Außerdem stammt das Protokoll aus einer Zeit indem modernen Schutzzielen wie Sicherheit und Vertraulichkeit wenig Beachtung geschenkt wurde. Diese Umstände führten zu einer Vernachlässigung des Sicherheitsgedanken und hat sich über die Zeit zu einem ernstzunehmenden Problem entwickelt \cite{Grothoff2018}. Eine detaillierte Behandlung der Sicherheitsschwachstellen und der daraus resultierenden Bedrohungen ist den Kapiteln \ref{cap:weaknesses} und \ref{cap:threads} zu finden.
+Obwohl oder gerade weil DNS eines der grundlegendsten Protokolle im Internet darstellt wurde bei der Spezifikation des Netzwerkprotokolls bewusst auf eine Authentifizierung verzichtet. Dies ist auf die Idee einer öffentlich zugänglichen, globalen Datenbank, nach dem Vorbild eines globalen Telefonregisters, zurückzuführen. Die Datenbasis der Namensauflösung wurde somit als frei öffentlich zugänglich definiert. Außerdem stammt das Protokoll aus einer Zeit indem modernen Schutzzielen wie Sicherheit und Vertraulichkeit wenig Beachtung geschenkt wurde. Diese Umstände führten zu einer Vernachlässigung des Sicherheitsgedanken und hat sich über die Zeit zu einem ernstzunehmenden Problem entwickelt. Verschärfend kommt hinzu, dass kein allgemeiner Konsenz über die Sicherheitsziele herrscht. Dies Erschwert die Entwicklung eine Lösung und hat zu den verschiedensten Ansätzen und Technologien geführt \cite{Grothoff2018}. Keine dieser Erweiterungen bzw. Ersatzkonzepte hat es bisher geschafft die Sicherheit der Namensauflösung im Internet maßgeblich zu erhöhen. 
+
+\subsection{Resolver Position}
+Abgesehen von den Schwachstellen des Netzwerkprotokolls, welche in den Kapiteln \ref{cap:weaknesses} und \ref{cap:threads} näher behandelt werden, spiel auch der Aufbau der Client-nahen Infrastruktur eine wichtige Rolle in der Sicherheit des Gesamtablaufs. Wie im Unterabschnitt \ref{subsec:dnsresolution} beschrieben, wird vom Client einen Recursive Resolver benötigt um die eigentliche Auflösung der Namen durchzuführen. Die Lage dieser Komponente im Netzwerk ist dabei vor allem für Aspekte der Privicy ausschlaggebend. Es existieren insgesamt 5 mögliche Positionen die ein Recursive Resolver einnehmen kann:
+
+
+
+% Local recursive resolvers are located within the user’s network and share the same outgoing IP- address or network with the stub resolver. As the server is under a user’s control, no third parties can use logging/monitoring on the recursive resolver. The disadvantage is that there is no obfuscation of the stub/user’s IP-address in the recursive resolver to authoritative server phase of DNS resolution.
+
+% Private recursive resolvers are under control from the user, but use a different outgoing IP address or network than the stub resolver. This resolver location shares the advantages to logging/monitoring with the local resolver. There is obfuscation of the stub/user’s IP-address, but only if the used outgoing IP-address cannot be linked to the particular user.
+
+% ISP recursive resolvers are under control of a particular ISP and are often located in their network. For Internet at home and mobile Internet this resolver is often pushed to users by the ISP as the default resolver to use. In many cases this ISP resolver does not offer any of the mentioned privacy techniques and neither offers a no-logging service.
+
+% Public recursive resolvers can be found in many flavors: Some offer (parental) filtering, some focus on performance or privacy [33] [34]. Popular examples of public recursive resolvers are Google’s 8.8.8.8 and Cloudflare.
+
+% Installier am Client im Local Loopback
+
+
 
 % Welche Probleme hat "klassisches" DNS? (Vertraulichkeit, Authentizität/Integrität)
 % MitM (aLTEr, Crack, ARP-Poisoning, ...), Cache Poisoning, DNS Rebinding
 % Transitiver Trust 
 
 % Position des Resolvers
-
-\input{11-relatedwork}
