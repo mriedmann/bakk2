@@ -1,0 +1,28 @@
+\chapter{Ziele}
+Betrachtet man nun die unter Kapitel \label{cap:threads} angeführten Gefahren ergeben sich folgende Ziele die ein zukunftssicheres Namensauflösungssystem des Internets berücksichtigen sollte\cite{Grothoff2018}. 
+
+\section{Anonymität der Quelle}
+Um die sensiblen Verbindungsdaten zu Schützen ist es wichtig die Anonymität der anfragenden Person zu wahren. Die bedeutet, dass die Adresse des ausgehenden Rechners nicht auf die Person zurückzuführen sein sollt. Durch den Einsatz von rekursiven Resolvern wird diese zwar vor den authoritativen DNS-Servern verborgen, verschiebt das Problem jedoch lediglich auf den Resolver. Viele der offenen (z.B. Google DNS), wie geschlossenen (z.B. ISP Resolver) speichern und verarbeiten die Daten der Nutzenden um sie profitbringen weiterzuverkaufen.
+
+\section{Sicherstellen der Integrität und Authentizität der Daten}
+\label{subsec:IandAofRequests}
+Die meisten in Abschnitt \ref{sec:Attacks} beschriebenen Angriffe könnten mit der Einführung von Integritäts- und Authentizitätsprüfungen mitigiert werden. Abgesehen von einigen staatlichen Regulatorien, welche diese Schwäche aktiv zur Zensor bestimmter Services nutzen, besitzt dieses Ziel allgemeine Zustimmung. Dieser Umstand hat zu einer Fülle an Konzepten und Technologien geführt die versuchen dieses zu erfüllen (siehe Kapitel \ref{chap:technologies}). 
+
+\section{Vertraulichkeit von Anfragen und Antworten}
+Wie in Abschnitt \ref{sec:Thread-Priv} angesprochen besteht auch für die Anfragen und Antworten selbst ein hoher Bedarf an Vertraulichkeit. Die Summe aller Anfragen eines bestimmten Client kann, auch ohne dessen echte Adresse zu kennen, zur Identifizierung genützt werden können. Abgesehen davon, wäre es möglich, dass DNS-Anfragen sensible Daten (wie Passwörter oder Schlüsselmaterien) enthalten die ebenfalls vor den Betreibern der DNS-Server geheim gehalten werden müssen.
+
+\section{Traffic amplification}
+Abgesehen von der Verfügbarkeit des DNS selbst, wird es, wie in Abschnitt \ref{sec:Thread-DosAmp} und \ref{sec:sec:attack-dosamp} beschrieben, auch selbst als Verstärker (Traffic amplification; DoS amplification attack) für DoS-Attacken eingesetzt. Es ist daher für zum Schutz anderer Internet-Services essenziell, dass DNS und dessen Implementierungen nicht lohnender für Traffic-Amplification Versuche sind als andere Services. 
+
+\section{Sonstige}
+
+Da die nachfolgenden Ziele zwar hohe Relevanz für das Gesamtsystem DNS aufweisen, jedoch im Hinblick auf Client- und User-Security eine geringere Priorität ausweisen, werden sie in diesem Punkt zusammengefasst.
+
+\subsection{Geheimhaltung der Zoneninformationen}
+In den Anfängen des Internets wurden Namensinformationen über eine spezielle Datei auf alle am Netzwerk teilnehmenden Rechner verteilt \cite{rfc1035} und waren somit öffentlich zugänglich. Durch die Einführung von DNS wurde es möglich Teile der Zonendaten vor der Öffentlichkeit zu verbergen. Auch wenn dies nie im Sinner des ursprünglichen Konzepts war, vereinfacht es die reconnaissance eines potenziellen Angreifers erheblich und ist stellt somit eine Gefahr da. Die Möglichkeit alle Daten einer Zone effizient auszulesen sollte verhindert werden.
+
+\subsection{Maximierung der Verfügbarkeit}
+Da die Namensauflösung für nahezu alle Internet-Services einen der ersten Schritte des Kommunikationsaufbaus darstellt, würde dessen Totalausfall zum Ausfall aller Services führen. Dieser Umstand wurde beispielsweise durch den DoS-Angiff auf Dyn, Inc. im Jahre 2016 gezeigt \cite{Newman2016} bei dem die Websites vieler großer Serviceanbieter für Stunden nicht mehr erreicht werden konnten. Des weiteren ist somit, für staatliche Institutionen, einfach breitflächige Zensur auszuüben\cite{turkybbc2017}\cite{turkywp2018}. 
+
+\subsection{Timing Attacks auf Applikationsebene}
+Da DNS zur Verbesserung der Performance primär das Cachen von Antworten einsetzt, sind die Stellen an denen Caches gehalten werden gegen timing Attacken anfällig. Dies betrifft in den meisten Fällen Web Browser, da sie, zum Schutz vor DNS Rebinding, eigene DNS-Caches halten und das ausführen von ungeprüftem Code, in Form von Scripts, zulassen. Dadurch können Angreifer über speziell präparierte Websites die letzten, angewählten Domänen auslesen indem die den DNS-Cache auf Einträge prüfen. Diese als \textit{cache snooping} bezeichnete Attacke betrifft jede Art von Cache und kann somit auch gegen Netzwerk-Caches (z.B. lokale Resolver) durchgeführt werden. Da diese Information, wie in Punkt \ref{subsec:IandAofRequests} erläutert, schützenswerte Information darstellt, stellt auch das verhindern solcher angriffe ein wichtiges Schutzziel dar.

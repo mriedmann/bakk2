@@ -2,14 +2,12 @@
 Das Domain-Name-System (DNS) bietet eine einfache Möglichkeit zur Namesauflösung und damit die Grundlage für menschenles- und merkbare Namen in modernen Computernetzwerken. Außerdem dient es als verteile Datenbank für simple Informationen über Netzwerke und Hosts. Speziell im Internet nimmt dieses Service damit eine zentrale Rolle im Verbindungsaufbau zwischen den vernetzen Systemen ein. Betrachtet man nun das Netzwerkprotokoll des DNS genauer, stellt man fest, dass es ohne jedliche Ansprüche an Informationssicherheit konzipiert wurde. Dieser Umstand ist dem Alter, beziehungsweise der Historie des Systems geschuldet, entspricht den heutigen IT-Sicheitsstandards jedoch in keinster weise. Aufgrund dieser Tatsache, wurden in den letzten Jahrzehnten verschiedenste Ansätze zur Lösung dieses Problems entwicket. Trotz dieses Umstands hat es bis zum heutigen Tag keiner der postulierten Standards geschafft eine weitreichende Durchdringung zu erlangen. Der gängige Weg DNS zu nutzen, hat sich, aus Sicht der Informationssicherheit, seit dessen Einführung nicht verändert.
 
 % Grothoff Einbauen?
+% Problem der Namensauflösung allgemein
 
 % Warum DNS Client? 
 
 Diese Arbeit bietet eine kurze Einführung in die Funktionsweise von DNS (\ref{sec:DNS}) und gibt eine Übersicht der sicherheitsrelevanten Aspekten des Systems (\ref{sec:DNSSecurity}). Kern dieser Arbeit stellt eine Analyse der gängigsten Angriffsmethoden auf DNS-Clients, sowie deren Mitigation, dar (\ref{sec:Attacks}). Abschließend werden zwei konkrete Aufbauten beschrieben, die unter den Gesichtpunkten Sicherheit, Wirtschaftlichkeit und Wartbarkeit als optimal anzusehen sind. 
 % TODO: Abschlussparagraph Nicht mehr ganz richtig
-
-\section{Namensauflösung}
-% Zu oberflächlich? Besser nur als Satz in DNS ?!
 
 \section{DNS}
 \label{sec:DNS}
@@ -82,12 +80,12 @@ Der Namensauflösungsprozess erfolgt über mehrere Schritte und kann am besten a
 \section{DNS Security}
 \label{sec:DNSSecurity}
 
-Obwohl oder gerade weil DNS eines der grundlegendsten Protokolle im Internet darstellt wurde bei der Spezifikation des Netzwerkprotokolls bewusst auf eine Authentifizierung verzichtet. Dies ist auf die Idee einer öffentlich zugänglichen, globalen Datenbank, nach dem Vorbild eines globalen Telefonregisters, zurückzuführen. Die Datenbasis der Namensauflösung wurde somit als frei öffentlich zugänglich definiert. Außerdem stammt das Protokoll aus einer Zeit indem modernen Schutzzielen wie Sicherheit und Vertraulichkeit wenig Beachtung geschenkt wurde. Diese Umstände führten zu einer Vernachlässigung des Sicherheitsgedanken und hat sich über die Zeit zu einem ernstzunehmenden Problem entwickelt. Verschärfend kommt hinzu, dass kein allgemeiner Konsenz über die Sicherheitsziele herrscht. Dies Erschwert die Entwicklung eine Lösung und hat zu den verschiedensten Ansätzen und Technologien geführt \cite{Grothoff2018}. Keine dieser Erweiterungen bzw. Ersatzkonzepte hat es bisher geschafft die Sicherheit der Namensauflösung im Internet maßgeblich zu erhöhen. 
+Obwohl oder gerade weil DNS eines der grundlegendsten Protokolle im Internet darstellt wurde bei der Spezifikation des Netzwerkprotokolls bewusst auf eine Authentifizierung verzichtet. Dies ist auf die Idee einer öffentlich zugänglichen, globalen Datenbank, nach dem Vorbild eines globalen Telefonregisters, zurückzuführen. Die Datenbasis der Namensauflösung wurde somit als frei öffentlich zugänglich definiert. Außerdem stammt das Protokoll aus einer Zeit indem modernen Schutzzielen wie Sicherheit und Vertraulichkeit wenig Beachtung geschenkt wurde. Diese Umstände führten zu einer Vernachlässigung des Sicherheitsgedanken und hat sich über die Zeit zu einem ernstzunehmenden Problem entwickelt. Verschärfend kommt hinzu, dass kein allgemeiner Konsenz über die Sicherheitsziele herrscht. Dies Erschwert die Entwicklung eine Lösung und hat zu den verschiedensten Ansätzen und Technologien geführt \cite{Grothoff2018}. Generell können die diskutieren Sicherheitsziele wie folgt zusammengefasst werden:
 
 \subsection{Resolver Position}
 Abgesehen von den Schwachstellen des Netzwerkprotokolls, welche in den Kapiteln \ref{cap:weaknesses} und \ref{cap:threads} näher behandelt werden, spiel auch der Aufbau der Client-nahen Infrastruktur eine wichtige Rolle in der Sicherheit des Gesamtablaufs. Wie im Unterabschnitt \ref{subsec:dnsresolution} beschrieben, wird vom Client einen Recursive Resolver benötigt um die eigentliche Auflösung der Namen durchzuführen. Die Lage dieser Komponente im Netzwerk ist dabei vor allem für Aspekte der Privicy ausschlaggebend. Es existieren insgesamt 5 mögliche Positionen die ein Recursive Resolver einnehmen kann:
 
-
+Ist der Recursive Resolver im Netzwerk des Clients positioniert und benützt die selbe öffentliche IP-Adresse zur externen Kommunikation, spricht man von einem \textit{Local Recursive Resolver}. Da diesem in den meisten Fällen unter der Kontrolle des Benutzers steht und auch nicht von Dritten überwacht wird, ist es unbedenklich, dass Anfrage und Client-IP einfach ausgelesen werden können. Da für den recursiven Auflöseprozess jedoch die selbe Adresse wie der Client verwendet wird, ist es für authoritative DNS-Server einfach eine Verbindung zwischen Anfrage und User herzustellen.  
 
 % Local recursive resolvers are located within the user’s network and share the same outgoing IP- address or network with the stub resolver. As the server is under a user’s control, no third parties can use logging/monitoring on the recursive resolver. The disadvantage is that there is no obfuscation of the stub/user’s IP-address in the recursive resolver to authoritative server phase of DNS resolution.
 

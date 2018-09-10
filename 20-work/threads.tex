@@ -1,4 +1,4 @@
-\chapter{Bedrohungen}
+\chapter{Schwachstellen und Bedrohungen}
 \label{cap:threads}
 % Oberflächlich allgemein! TRICHTER!
 
@@ -13,10 +13,10 @@ Die verteilte Natur von DNS sorgt zusätzlich dafür, dass Einträge für lange 
 
 Wie in Abschnitt \ref{sec:DNS} beschrieben baut sich das DNS aus verschiedenen Zonen auf, die wiederum aus Einträgen (Resource Records; RR) bestehen. Obwohl das Format und der Aufbau der beschreibenden Zonen-Files klar spezifiziert ist, wurde im System keine Möglichkeit zur Prüfung der Authentizität vorgesehen. Somit ist es weder für die Server-Software noch für die empfangenen Clients möglich die Unversehrtheit und Quellenauthentizität der Einträge zu prüfen. Dieser Umstand stellt eine der zentralen Schwachstellen der aktuellen DNS Infrastruktur dar und ist Grundlage für verschiedenste Angriffe.
 
- Eine weiter Angriffsmöglichkeit bietet das sogenannte \textit{BitSquatting}. Bei diesem Angriff werden zufällige Fehler im Speicher von Geräten ohne fehlererkennenden Speichermodulen ausgenützt \cite{Dinaburg2011}. Da es dadurch zu falschen Anfragen kommt, gibt es auch keine Möglichkeit sich auf Protokoll- bzw. System-Ebene zu schützen. Die einzige effektive Lösung stellt der Einsatz von "Error-correcting code memory" Hardware dar.  
-
+Eine weiter Angriffsmöglichkeit bietet das sogenannte \textit{BitSquatting}. Bei diesem Angriff werden zufällige Fehler im Speicher von Geräten ohne fehlererkennenden Speichermodulen ausgenützt \cite{Dinaburg2011}. Da es dadurch zu falschen Anfragen kommt, gibt es auch keine Möglichkeit sich auf Protokoll- bzw. System-Ebene zu schützen. Die einzige effektive Lösung stellt der Einsatz von "Error-correcting code memory" Hardware dar.  
 
 \section{Vertraulichkeit}
+\label{sec:Thread-Priv}
 
 Das Internet als globale, vernetzende Technologie, rück immer weiter in den Mittelpunkt der Telekommunikation. Damit verbunden ist der steigende Bedarf an Sicherheit und Schutz dieses Gesamtsystem. Die IETF behandelt dieses Thema in verschiedensten RFCs, wobei Privicy einen der Schwerpunkte darstellt. Mit der 2013 veröffentlichten RFC6973 \textit{Privacy Considerations for Internet Protocols} wurde der Grundstein für die aktive Förderung von vertraulicher Kommunikation im Internet gelegt \cite{Cooper2013}. 
 Für den DNS Kontext wichtiger ist die darauf aufbauenden RFC7626 \textit{DNS Privacy Considerations}\cite{Bortzmeyer2015} welche die Relevanz von DNS Privicy klar macht. Im speziellen wird auf die notwendige Unterscheidung zwischen der freien Zugänglichkeit der DNS Daten an sich und der Öffentlichkeit der Anfragen aufmerksam gemacht. Das plakatives Beispiel wird die Website der Anonymen Alkoholiker genannt, die öffentlich Zugänglich ist, wobei die personenbezogenen Zugriffsdaten auf keinen Fall öffentlich gemacht werden dürfen. Da DNS in im ursprünglichen Konzept jedoch keine Unterscheidung macht, sind die Anfragedaten für alle Zwischenstellen einfach lesbar. Darüber hinaus, existiert kein Schutz der Vertraulichkeit der Übertragung, was es jeder Zwischenstelle das einsehen aller Anfragen und Antworten erlaubt.
