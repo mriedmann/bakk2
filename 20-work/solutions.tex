@@ -5,8 +5,8 @@
 \label{sec:Solution-RecordAuth}
 
 Wie in Kapitel \ref{sec:Thread-Auth} beschrieben wurde, ist die Authentizität der RR ein zentrales Problem in DNS. Zur Lösung wurde schon früh der Einsatz kryptografischer Signaturen postuliert. Mithilfe dieser könnten alle Einträge bei der Erstellung signiert, zusammen mit den Signaturen übertragen und dann von der Gegenstelle validiert werden. Dadurch wird es möglich die Integrität und Authentizität der empfangenen Einträge eindeutig sicherzustellen. Werden die Zonendateien nur bei Änderung signiert und der private Schlüsselteil anschließend wieder entfernt, besteht sogar die Möglichkeit Server-Konfigurationen vor ungewollter Veränderung zu schützen. 
-Die zentralen Fragen sind dabei, wie bei allen Signaturverfahren, das Schlüsselmanagement und die damit verbundene Vertrauensstellung zwischen den einzelnen Parteien. Das notwendige Vertrauen kann dabei auf verschiedenste Wege erreicht werden. Die gängigsten Methoden sind "Chain-of-trust", "Web-of-trust", "Shared Key" und "Trust-On-First-Use" (TOFU). Wie im folgenden Kapitel beschrieben wird, beantworten die unterschiedlichen Technologien diese Frage auf diverse weise, wobei zumindest TOFU als unzureichend Sicher eingestuft werden kann \cite{Wendlandt2008}.
-Des weitern ist zu erwähnen , dass die Integrität der Nachrichten trotz Signatur nicht immer garantiert werden kann. Einige Signaturmechanismen, konkret die darin genützten Hash-Algorithmen, weisen bekannte Schwächen aus, die bei einem Angriff ausgenützt werden können. Modernes Beispiel stellt dabei der Angriff "Shattered" auf den SHA-1 Algorithmus dar \cite{Stevens2017}. 
+Die zentralen Fragen sind dabei, wie bei allen Signaturverfahren, das Schlüsselmanagement und die damit verbundene Vertrauensstellung zwischen den einzelnen Parteien. Das notwendige Vertrauen kann dabei auf verschiedenste Wege erreicht werden. Die gängigsten Methoden sind \textit{Chain-of-trust}, \textit{Web-of-trust}, \textit{Shared Key} und \textit{Trust-On-First-Use} (TOFU). Wie im folgenden Kapitel beschrieben wird, beantworten die unterschiedlichen Technologien diese Frage auf diverse weise, wobei zumindest TOFU als unzureichend Sicher eingestuft werden kann \cite{Wendlandt2008}.
+Des weitern ist zu erwähnen , dass die Integrität der Nachrichten trotz Signatur nicht immer garantiert werden kann. Einige Signaturmechanismen, konkret die darin genützten Hash-Algorithmen, weisen bekannte Schwächen aus, die bei einem Angriff ausgenützt werden können. Modernes Beispiel stellt dabei der Angriff \textit{Shattered} auf den SHA-1 Algorithmus dar \cite{Stevens2017}. 
 
 \section{Authentizität der Endstelle}
 
@@ -27,7 +27,7 @@ Auf der einen Seite gibt es Vorschläge die darauf abzielen personenbezogene Inf
 
 Ein komplett anderer Entwurf basiert auf der Ablöse des DNS als Gesamtheit, da davon ausgegangen wird, das DNS, aufgrund seines Grundkonzepts, nie strengen Ansprüchen auf Vertraulichkeit genügen wird. Diese Alternativkonzepte bauen die für ein Namensauflösungssystem notwendige verteile Datenbank mithilfe von Technologien wie Dirstibute-Hash-Tables (DHT) oder Public Ledger auf Blockchain-basis auf. Da diese Lösungsentwürfe radikal vom bestehenden Konzept des DNS abweichen, werden sie hier nicht weiter behandelt.      
 
-% VPN / TOR / etc. auch eine Möglichkeit => Langsam, usw.
+\todo[inline]{Kurze Anmerkung über VPN / TOR / etc. => Langsam, usw. (Steht in irgendeinen Paper -> Referenz)}
 
 \section{Denial-Of-Service}
 

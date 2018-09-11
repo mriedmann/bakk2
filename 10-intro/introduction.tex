@@ -1,13 +1,12 @@
 \chapter{Einleitung}
 Das Domain-Name-System (DNS) bietet eine einfache Möglichkeit zur Namesauflösung und damit die Grundlage für menschenles- und merkbare Namen in modernen Computernetzwerken. Außerdem dient es als verteile Datenbank für simple Informationen über Netzwerke und Hosts. Speziell im Internet nimmt dieses Service damit eine zentrale Rolle im Verbindungsaufbau zwischen den vernetzen Systemen ein. Betrachtet man nun das Netzwerkprotokoll des DNS genauer, stellt man fest, dass es ohne jedliche Ansprüche an Informationssicherheit konzipiert wurde. Dieser Umstand ist dem Alter, beziehungsweise der Historie des Systems geschuldet, entspricht den heutigen IT-Sicheitsstandards jedoch in keinster weise. Aufgrund dieser Tatsache, wurden in den letzten Jahrzehnten verschiedenste Ansätze zur Lösung dieses Problems entwicket. Trotz dieses Umstands hat es bis zum heutigen Tag keiner der postulierten Standards geschafft eine weitreichende Durchdringung zu erlangen. Der gängige Weg DNS zu nutzen, hat sich, aus Sicht der Informationssicherheit, seit dessen Einführung nicht verändert.
 
-% Grothoff Einbauen?
-% Problem der Namensauflösung allgemein
+\todo[inline]{Inleitung von Grothoff Einbauen?}
+\todo[inline]{Problem der Namensauflösung allgemein beschreiben?}
+\todo[inline]{Warum DNS Client? Noch ausführen?}
 
-% Warum DNS Client? 
-
-Diese Arbeit bietet eine kurze Einführung in die Funktionsweise von DNS (\ref{sec:DNS}) und gibt eine Übersicht der sicherheitsrelevanten Aspekten des Systems (\ref{sec:DNSSecurity}). Kern dieser Arbeit stellt eine Analyse der gängigsten Angriffsmethoden auf DNS-Clients, sowie deren Mitigation, dar (\ref{sec:Attacks}). Abschließend werden zwei konkrete Aufbauten beschrieben, die unter den Gesichtpunkten Sicherheit, Wirtschaftlichkeit und Wartbarkeit als optimal anzusehen sind. 
-% TODO: Abschlussparagraph Nicht mehr ganz richtig
+Diese Arbeit bietet eine kurze Einführung in die Funktionsweise von DNS (\ref{sec:DNS}) und gibt eine Übersicht der sicherheitsrelevanten Aspekten des Systems (\ref{sec:DNSSecurity}). Kern dieser Arbeit stellt eine Analyse der gängigsten Angriffsmethoden auf DNS-Clients, sowie deren Mitigation, dar (\ref{sec:Attacks}). Abschließend werden zwei konkrete Aufbauten beschrieben, die unter den Gesichtpunkten Sicherheit, Wirtschaftlichkeit und Wartbarkeit als optimal anzusehen sind.
+\todo[inline]{Abschlussparagraph aktualisieren} 
 
 \section{DNS}
 \label{sec:DNS}
@@ -97,10 +96,9 @@ Ist der Recursive Resolver im Netzwerk des Clients positioniert und benützt die
 
 % Installier am Client im Local Loopback
 
+\subsection{Transitiver Trust}
+\todo[inline]{Problem des transitiven Trusts beschreiben (weil schon darauf Bezug genommen wurde)}
 
 
-% Welche Probleme hat "klassisches" DNS? (Vertraulichkeit, Authentizität/Integrität)
-% MitM (aLTEr, Crack, ARP-Poisoning, ...), Cache Poisoning, DNS Rebinding
-% Transitiver Trust 
 
-% Position des Resolvers
+

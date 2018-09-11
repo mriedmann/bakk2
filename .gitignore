@@ -1,6 +1,9 @@
 out/*
 /*.pdf
 ~*
+/_markdown*
+*markdown.in
+*markdown.lua
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

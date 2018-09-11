@@ -7,16 +7,21 @@
         ]
     }],
     "latex-workshop.latex.tools": [{
-    "name": "latexmk",
-    "command": "latexmk",
-    "args": [
-        "-f",
-        "-pdf",
-        "-pdflatex=\"pdflatex -synctex=1 -interaction=nonstopmode --shell-escape\"",
-        "-auxdir=out",
-        "%DOC%.tex"
+        "name": "latexmk",
+        "command": "latexmk",
+        "args": [
+            "-f",
+            "-pdf",
+            "-pdflatex=\"pdflatex -synctex=1 -interaction=nonstopmode --shell-escape\"",
+            "%DOC%.tex"
+        ]
+        }
+    ],
+    "todo-tree.flat": false,
+    "todo-tree.regex": "((//|#|<!--|;|/\\*|%|\\\\|^)\\s*($TAGS)|^\\s*- \\[ \\])",
+    "todo-tree.tags": [
+        "TODO",
+        "FIXME",
+        "todo"
     ]
-    }
-],
-"todo-tree.flat": false
 }

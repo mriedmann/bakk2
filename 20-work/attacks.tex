@@ -1,7 +1,7 @@
 \chapter{Angriffe}
 \label{sec:Attacks}
 
-Die meisten DNS-Sicherheitsrichtlinien richten sind an Betreiber von extern gerichteten Installationen. Das Thema "DNS Client Security" wird wenn nur am Rande behandelt. Der nachfolgende Abschnitt befasst sich daher von allem mit Bedrohungen der Interaktion zwischen DNS-Resolver und rekursivem DNS-Server. 
+Die meisten DNS-Sicherheitsrichtlinien richten sind an Betreiber von extern gerichteten Installationen. Das Thema \textit{DNS Client Security} wird wenn nur am Rande behandelt. Der nachfolgende Abschnitt befasst sich daher von allem mit Bedrohungen der Interaktion zwischen DNS-Resolver und rekursivem DNS-Server. 
 Es gibt dabei zwei grundlegende Möglichkeiten einen DNS-Client anzugreifen: Über direktes kommunizieren mit der Netzwerkschnittstelle des Clients oder mittels Angriff auf einen Teil der Client-nahen Infrastruktur. Um die Auswirkung klar ersichtlich zu machen wird in Abschnitt \ref{sec:Attacks-Summary} eine tabellarische Zusammenfassung mit den verletzen Sicherheitskriterien (nach CIA-Triade) gegeben. 
 
 % Trennung wirklich sinnvoll?
@@ -10,7 +10,7 @@ Es gibt dabei zwei grundlegende Möglichkeiten einen DNS-Client anzugreifen: Üb
 
 Angriffe die das Verhalten einzelner DNS-Clients über eingreifen in deren Kommunikationsfluss beeinflussen, können als \textit{direkte Angriffe} zusammenfasst werden. Diese Verfahren sind nur effizient wenn der Angreifer entweder passiv (Sniffing) oder aktiv (Man-in-the-middle) an der Netzwerkverbindung des Clients beteiligt ist. 
 
-\subsection{DNS Sniffing}
+\subsection{DNS Sniffing und Spoofing}
 % Sniffing / Spoofing zusammenlegen?
 
 Als Sniffing Angriffe werden, nach CAPEC, alle Arten von Angriffen bezeichnet die es ermöglichen Nachrichten zwischen mindestens 2 Parteien zu beobachten, mitlesen und/oder mithören. (https://capec.mitre.org/data/definitions/157.html). Im Kontext DNS hat dies eine spezielle Bedeutung da es, aufgrund des fehlenden Schutz der Vertraulichkeit, ermöglicht, alle Informationen der Anfragen und Antworten einzusehen. Somit ist das Kommunikationsverhalten der Opfergeräte leicht nachzuvollziehen, was zum Beispiel den Recon-Schritt der Cyber-Kill-Chain (siehe \ref{sec:DNSSecurity}) erheblich erleichtert. 
@@ -19,63 +19,79 @@ In IP-Netzen gibt es verschieden Möglichkeiten eine Sniffing Attacke durchzufü
 
 Eine Möglichkeit ist der Angriff der Netzwerkhardware. Bei einem Hub als Netzwerkverteiler erhalten immer alle angeschlossenen Teilnehmer alle Pakete. Es können daher die Pakete aller anderen an diesem Hub angeschlossenen Geräte einfach mitgelesen werden. Wird ein Switch einsetzt wird für jeden Anschluss (Port) die MAC-Adresse des angeschlossenen Geräts in eine Tabelle eingetragen. Es werden somit nur noch Pakete mit passender MAC-Adresse an die entsprechenden Ports weitergeleitet. Ein Angreifer kann bestimme Switches jedoch durch künstliche Füllen der MAC-Switching-Tabelle (MAC-Flooding Angriff) in ein, einem Hub ähnliches, Verhalten zwingen. Soll ein spezielles Endgerät mit bekannter MAC-Adresse angegriffen werden, kann bei anfälligen Switches auch ein MAC-Duplication Angriff durchgeführt werden. Dabei sendet der Angreifer Pakete mit der gefälschter MAC-Adresse des Opfers was den Switch dazu verleitet die Adresse auf zwei Ports einzutragen. Anfällige Switches senden daraufhin die Pakete des Opfers auch auf den Port des Angreifers.
 
-Ist die Netzwerkhardware nicht angreifbar bleibt noch die Möglichkeit den Netzwerkstack der Client-Geräte zu attackieren. Hier kann eine Schwäche im "Address Resolution Protocol" (ARP) ausgenützt werden. Dieses Protokoll ist für die Auflösung von logischen Adressen (z.B. IP-Adressen) zu Adressen der Hardware (MAC-Adresse) verantwortlich (https://tools.ietf.org/html/rfc826). Da ARP stateless konzeptioniert wurde und auch keine Art von Authentifizierung verlangt kann eine als "ARP Spoofing" bekannte Attacke durchgeführt werden. Mit dieser kann die Zuordnung zwischen MAC-Adresse und logischer Adresse (z.B. IP-Adresse) im lokalen Netzwerk bewusst manipuliert werden. Damit ist es einem Angreifer leicht möglich sich als vertrauenswürdiger Host des Netzwerks auszugeben. Wird die MAC-Adresse des Netzwerk-Gateways mit der eines abhörenden Rechners getauscht ist auch ein umfangreiches Abhören des Netzwerkverkehrs möglich.
+Ist die Netzwerkhardware nicht angreifbar bleibt noch die Möglichkeit den Netzwerkstack der Client-Geräte zu attackieren. Hier kann eine Schwäche im \textit{Address Resolution Protocol} (ARP) ausgenützt werden. Dieses Protokoll ist für die Auflösung von logischen Adressen (z.B. IP-Adressen) zu Adressen der Hardware (MAC-Adresse) verantwortlich (https://tools.ietf.org/html/rfc826). Da ARP stateless konzeptioniert wurde und auch keine Art von Authentifizierung verlangt kann eine als \textit{ARP Spoofing} bekannte Attacke durchgeführt werden. Mit dieser kann die Zuordnung zwischen MAC-Adresse und logischer Adresse (z.B. IP-Adresse) im lokalen Netzwerk bewusst manipuliert werden. Damit ist es einem Angreifer leicht möglich sich als vertrauenswürdiger Host des Netzwerks auszugeben. Wird die MAC-Adresse des Netzwerk-Gateways mit der eines abhörenden Rechners getauscht ist auch ein umfangreiches Abhören des Netzwerkverkehrs möglich.
 
 % Da es Ethernet-Broadcasts zur Kommunikation einsetzt, somit Verbindungslos ist und keinerlei Form von Authentifizierung verlangt, kann ein Angreifer jede MAC-Adresse als Antwort auf die Frage nach jeder beliebigen IP-Adresse senden. Dies setzt natürlich die selbe Layer-2 Broadcast-Domain und das fehlen entsprechender Schutzmaßnahmen voraus. Gelingt das Eintragen einer gefälschten MAC-Adresse, werden alle Pakete die an die IP-Adresse des Ziels gesendet werden an die Maschine mit der gewählte MAC-Adresse geschickt. Wird nun die Hardware-Adresse des default Gateway gegen die des Angreifers getauscht, ist es diesem Problemlos möglich den gesamten Netzwerkverkehr außerhalb des lokalen Subnetzes mitzuschneiden und zu verändern.  
 
-Eine weitere Möglichkeit sich als gefälschter Gateway zu positionieren ist es das "Dymamic Host Configuration Protocol" (DHCP) mittels "DPHC-Spoofing" auszunutzen. Bei diesem Angriff wird ein eigener DHCP-Server im Subnet des Opfers positioniert. Dieser gibt zwar gültige IP-Adressen aus, verändert aber die default Gateway und/oder die DNS Server Einstellungen. Somit kann ein Host des Angreifers als Gateway oder DNS-Resolver zwischengeschalten werden und den Netzwerkverkehr kontrollieren. Da DHCP wie ARP auf Ethernet-Broadcasts ohne Authentifizierung setzt sind die Schwachstellen sehr ähnlich. Da der attackierte Client jedoch auch das Annahmen der gefälschten Sitzung über Broadcast verteilt ist das Erkennen etwas einfachen als vom ARP-Spoofing. 
+Eine weitere Möglichkeit sich als gefälschter Gateway zu positionieren ist es das \textit{Dymamic Host Configuration Protocol} (DHCP) mittels \textit{DPHC-Spoofing} auszunutzen. Bei diesem Angriff wird ein eigener DHCP-Server im Subnet des Opfers positioniert. Dieser gibt zwar gültige IP-Adressen aus, verändert aber die default Gateway und/oder die DNS Server Einstellungen. Somit kann ein Host des Angreifers als Gateway oder DNS-Resolver zwischengeschalten werden und den Netzwerkverkehr kontrollieren. Da DHCP wie ARP auf Ethernet-Broadcasts ohne Authentifizierung setzt sind die Schwachstellen sehr ähnlich. Da der attackierte Client jedoch auch das Annahmen der gefälschten Sitzung über Broadcast verteilt ist das Erkennen etwas einfachen als vom ARP-Spoofing. 
 
-Eine spezielle Methode zum umlenken der Netzwerkpakete stellt das ein Angriff auf das "Internet Control Message Protocol" (ICMP) dar. Dieses Protokoll dient als Grundlage für verschiedenste Unterstützungsaufgaben in IP-Netzen. Am bekanntesten ist die ICMP-Ping Funktion, mit der sich die Konnektivität von Hosts prüfen lässt. Obwohl ICMP oft auf diese Funktionalität reduziert wird beinhaltet es eine Vielzahl von teils wenig bekannten Aufgaben. Die, in Hinblick auf Sniffing, relevante Schwachstelle verbirgt sich dabei in der ICMP-Redirect Funktion, welche für Optimierung des Routing-Prozesses vorgesehen ist. 
+Eine spezielle Methode zum umlenken der Netzwerkpakete stellt das ein Angriff auf das \textit{Internet Control Message Protocol} (ICMP) dar. Dieses Protokoll dient als Grundlage für verschiedenste Unterstützungsaufgaben in IP-Netzen. Am bekanntesten ist die ICMP-Ping Funktion, mit der sich die Konnektivität von Hosts prüfen lässt. Obwohl ICMP oft auf diese Funktionalität reduziert wird beinhaltet es eine Vielzahl von teils wenig bekannten Aufgaben. Die, in Hinblick auf Sniffing, relevante Schwachstelle verbirgt sich dabei in der ICMP-Redirect Funktion, welche für Optimierung des Routing-Prozesses vorgesehen ist. 
 
 Außerdem wird DNS hauptsächlich über UDP verwendet, was ein fälschen (spoofing) der Absenderadresse trivial macht. Da dadurch auch die Transaktions ID und das Absendeport bekannt wird, kann der Angreifer sofort ein gefälschtes Antwortpacket senden und somit den Eintrag der abgefragten Domäne im Resolver des Ziels beliebig verändern oder erweitern. Durch das setzen von hohen TTL Werten kann dieser Zustand lange über die physische Präsenz des Angreifers hinaus aufrecht erhalten werden.
 
-% Sniffing und Spoofing gemischt?!
-
-% Wenn sniffing des Netzwerks möglich, dann DNS kein problem, da keinerlei Privicy. Auch bei DNSSEC ein Problem. DNSCrypt, DNSCurve, DNS-over-TLS, DNS-over-HTTPS lösen diese Probleme. Noch kein nativer support in vielen OS (atm nur experimentell in Andoid)
-
-\subsection{DNS Spoofing}
-
-% * DNS Spoofing/Faking ermöglicht MitM
-% * Speziell bei IOT da durch begrenzte Leistung oft keine Verschlüsselung. Bei HTTPS trotzdem Möglichkeiten durch Social-Engineering
+\todo[inline]{Sniffing und Spoofing klar auftrennen?!}
 
 \subsection{DNS Rebinding}
 
-% Durch DoS von Resolvern oder DNS-Servern können kritischen Unternehmensdienste kurzfristig außer Betrieb genommen werden. Da die Verbindung zwischen diesen hoch vernetzten Diensten stark von DNS abhängt hat der Ausfall eines einzigen zentralen Dienstes (DynDns Vorfall) schwerwiegende Auswirkungen auf alle anhängenden Dienste.
-
-% \subsection{DNS Spoofing (Blindflug)} % BS?!
-% Da DNS, wie in \ref{sec:DNS} beschreiben, auf UDP aufsetzt, kann die Absenderadresse leicht gefälscht werden. Existiert nun eine Schwachstelle in der Implementierung des lokalen DNS-Resolver kann die TXID leicht erraten werden. 
+\todo[inline]{DNS Rebinding kurz beschrieben (weil schon Angesprochen)}
 
 \section{Indirekte Angriffe}
 % Akademisch? Streichen?
 
 \subsection{Reliance Upon Transitive Trust}
 
-% * Unbemerkte übernehme von Domänen möglich
-% * Komplimitierung von Stakeholder-Diensten möglich
-%   * Bei Websites  (HTTP od. uralt Browser mit Mixed Active Content) führt die komprimitierung eines einzigen Ressourcenservers zum Kompromittierung der gesamten Seite: XSS wird einfach möglich wenn z.B. eine JS-Datei eines Werbeanbieters in die Seite geladen werden kann.
-%   * Wenn eine einzige aktive Ressource über http nachgeladen wird oder für TLS Attacken (Poodle, ) anfällig ist, kann die seite und somit der client angegriffen werden.
-% * Bei nicht verschüsselten Netzwerkprotokollen (plain SMTP/POP3/IMAP, FTP, MQTT) kann die Verbindung vollständig übernommen werden.
-% * In jedem Fall sorgt eine erfolgreiche Attacke zum Übergang der Verfügbarkeitskontrolle an den Angreifer (bis zum Erkennen das Problems und entfernen der eingeschläuschten Einträge)
+\todo[inline]{Angriff über Trust Reliance beschreiben}
+
+\begin{draft}
+\begin{markdown}
+* Unbemerkte übernehme von Domänen möglich
+* Kompromittierung von Stakeholder-Diensten möglich
+  * Bei Websites  (HTTP od. uralt Browser mit Mixed Active Content) führt die Kompromittierung eines einzigen Ressourcenservers zum Kompromittierung der gesamten Seite: XSS wird einfach möglich wenn z.B. eine JS-Datei eines Werbeanbieters in die Seite geladen werden kann.
+  * Wenn eine einzige aktive Ressource über http nachgeladen wird oder für TLS Attacken (Poodle, ) anfällig ist, kann die Seite und somit der Client angegriffen werden.
+* Bei nicht verschlüsselten Netzwerkprotokollen (plain SMTP/POP3/IMAP, FTP, MQTT) kann die Verbindung vollständig übernommen werden.
+* In jedem Fall sorgt eine erfolgreiche Attacke zum Übergang der Verfügbarkeitskontrolle an den Angreifer (bis zum Erkennen das Problems und entfernen der eingeschläuschten Einträge)
+\end{markdown}
+\end{draft}
 
 \subsection{Name Collisions and Leaked Queries} 
 
-% * Durch eigene interne TLDs (z.B. .local) kann es zu Kollisionen im globalen Namespace kommen (new TLDs).
-% * Mögliche Kollisionen können bewusst ausgenutzt werden.
-% * Durch falsch/schlecht konfigurierte DNS-Resolver können interne Anfragen zu externen DNS-Servern getragen werden -> Information Disclousure
-% * Speziell bei "home-use" und ohne "LockDown" kann durch lokale Proxies und Resolver von "leakage" betroffen sein. Auch BYOD-Geräte speziell gefährdet wenn durch falsche Konfiguration DNS-Anfragen zum Auflösen internen Ressourcen an externe DNS-Server gestellt werden.
+\todo[inline]{Leaked Queries wirklich relevant? Vielleicht für Quellen Authentizität?}
+
+\begin{draft}
+  \begin{markdown}
+* Durch eigene interne TLDs (z.B. .local) kann es zu Kollisionen im globalen Namespace kommen (new TLDs).
+* Mögliche Kollisionen können bewusst ausgenutzt werden.
+* Durch falsch/schlecht konfigurierte DNS-Resolver können interne Anfragen zu externen DNS-Servern getragen rden -> Information Disclousure
+* Speziell bei "home-use" und ohne "LockDown" kann durch lokale Proxies und Resolver von "leakage" betroffen sein. Auch BYOD-Geräte speziell gefährdet wenn durch falsche Konfiguration DNS-Anfragen zum Auflösen internen Ressourcen an externe DNS-Server gestellt werden.
+\end{markdown}
+\end{draft}
 
 \subsection{C\&C/Exfiltration über DNS Tunneling}
 
-% * Mit allen "offenen" resolvern nutzbar
-% * Bei "best-practice"-Einstellungen des resolvers sehr langsam
-% * Nicht einfach zu erkennen
-% * Für sehr kleine Datenmengen durchaus zuverlässig (C&C)
-% * KillChain: Data Exfiltration, Controll
+\todo[inline]{Überlegen ob DNS Tunneling wirklich reinpasst}
+
+\begin{draft}
+  \begin{markdown}
+* Mit allen "offenen" resolvern nutzbar
+* Bei "best-practice"-Einstellungen des resolvers sehr langsam
+* Nicht einfach zu erkennen
+* Für sehr kleine Datenmengen durchaus zuverlässig (C&C)
+* KillChain: Data Exfiltration, Controll
+\end{markdown}
+\end{draft}
 
 \subsection{DoS-Amplification Angriff}
 \label{sec:attack-dosamp}
 
-% TODO: DoS Angriff schreiben.
+\todo[inline]{DoS Angriff schreiben}
+
+\begin{draft}
+Durch DoS von Resolvern oder DNS-Servern können kritischen Unternehmensdienste kurzfristig außer Betrieb genommen werden. Da die Verbindung zwischen diesen hoch vernetzten Diensten stark von DNS abhängt hat der Ausfall eines einzigen zentralen Dienstes (DynDns Vorfall) schwerwiegende Auswirkungen auf alle anhängenden Dienste.
+\end{draft}
+
+\todo[inline]{DoS Angriff schreiben}
 
 \section{Übersicht}
 \label{sec:Attacks-Summary}
+
+\todo[inline]{Angiffszusammenfassung schreiben. (Nicht sicher ob notwendig)}

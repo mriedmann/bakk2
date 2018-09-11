@@ -45,6 +45,20 @@
 \graphicspath{ {./PICs/} }
 \DeclareGraphicsExtensions{.pdf,.png}
 
+\usepackage[textsize=tiny]{todonotes}
+
+\usepackage[inlineFootnotes,citations,fencedCode,definitionLists,hashEnumerators,smartEllipses,hybrid]{markdown}
+
+\usepackage[]{tcolorbox}
+
+% Eigene Commands
+\newenvironment{draft}
+{\par
+  \begin{tcolorbox}[title=Entwurfstext,breakable,boxrule=0pt]
+}{\par
+  \end{tcolorbox}
+}
+
 % Einstellungen der Class TWBOOK
 \title{DNS Client Security\\Bedrohungsszenarien und Lösungswege}
 \author{Michael Riedmann}
@@ -63,6 +77,8 @@
 % --------------------------------------------------------------------------- %
 \begin{document}
 \maketitle
+
+\listoftodos
 
 \include{10-intro/introduction}
 

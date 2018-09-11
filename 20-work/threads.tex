@@ -1,8 +1,7 @@
 \chapter{Schwachstellen und Bedrohungen}
 \label{cap:threads}
-% Oberflächlich allgemein! TRICHTER!
 
-% Fail! Schon zu detailliert ... Trennung in Schwachstellen, Bedrohungen, Angriffe?
+\todo[inline]{Bedrohungen sind schon zu detailliert ... Trennung in Schwachstellen, Bedrohungen, Angriffe? Einfach Kürzen?}
 
 \section{Authentizität}
 \label{sec:Thread-Auth}
@@ -13,7 +12,7 @@ Die verteilte Natur von DNS sorgt zusätzlich dafür, dass Einträge für lange 
 
 Wie in Abschnitt \ref{sec:DNS} beschrieben baut sich das DNS aus verschiedenen Zonen auf, die wiederum aus Einträgen (Resource Records; RR) bestehen. Obwohl das Format und der Aufbau der beschreibenden Zonen-Files klar spezifiziert ist, wurde im System keine Möglichkeit zur Prüfung der Authentizität vorgesehen. Somit ist es weder für die Server-Software noch für die empfangenen Clients möglich die Unversehrtheit und Quellenauthentizität der Einträge zu prüfen. Dieser Umstand stellt eine der zentralen Schwachstellen der aktuellen DNS Infrastruktur dar und ist Grundlage für verschiedenste Angriffe.
 
-Eine weiter Angriffsmöglichkeit bietet das sogenannte \textit{BitSquatting}. Bei diesem Angriff werden zufällige Fehler im Speicher von Geräten ohne fehlererkennenden Speichermodulen ausgenützt \cite{Dinaburg2011}. Da es dadurch zu falschen Anfragen kommt, gibt es auch keine Möglichkeit sich auf Protokoll- bzw. System-Ebene zu schützen. Die einzige effektive Lösung stellt der Einsatz von "Error-correcting code memory" Hardware dar.  
+Eine weiter Angriffsmöglichkeit bietet das sogenannte \textit{BitSquatting}. Bei diesem Angriff werden zufällige Fehler im Speicher von Geräten ohne fehlererkennenden Speichermodulen ausgenützt \cite{Dinaburg2011}. Da es dadurch zu falschen Anfragen kommt, gibt es auch keine Möglichkeit sich auf Protokoll- bzw. System-Ebene zu schützen. Die einzige effektive Lösung stellt der Einsatz von \textit{Error-correcting code memory} Hardware dar.  
 
 \section{Vertraulichkeit}
 \label{sec:Thread-Priv}
