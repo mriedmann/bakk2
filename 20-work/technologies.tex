@@ -1,11 +1,11 @@
 \chapter{Technische Umsetzungen}
-\ref{chap:technologies}
+\label{chap:technologies}
 % Kurzbeschreibung, Löst welches Problem?, Vorteile/Nachteile, Verbreitung
 % Mehr Struktur? Bilder?!
 
 \section{DNSSEC}
 
-Wie in \ref{sec:DNSSecurity} ausführlich beschrieben, erfüllt des DNS System selbst keinerlei Schutzziele der Informationssicherheit. DNSSEC, als eine Sammlung an IETF-Spezifikationen, erweitert DNS mit dem Ziel die Integrität und Authentizität der Ressourceneinträge sicherzustellen (\cite{Arends2005}). Dies wird über die krypographische Signatur der Einträge erreicht. Um die Signaturen validieren zu können, wird eine Chain-Of-Trust genützt, die ihren Ankerpunkt im von der ICANN veröffentlichten DNSSEC-Root-Key besitzt. Der Umstand, dass die ICANN somit als \textit{single point of trust} fungiert und somit den Grundgedanken der \textit{Verteiltheit des Internets} unterwandert ist einer der Hauptkritikpunkte an DNSSEC. Des weiteren findet die Erweiterung aufgrund der langen Entwicklungszeit, der (verglichen zum DNS-Protokoll) hohen Komplexität und dem erhöhtem administrativem Aufwand, nur wenig anklang. Seit der finalen Veröffentlichen 2005 konnten zwar 90 Prozent der TLD Betreibenden zum signieren ihrer Zonen bewegt werden, die Verbreitung signierter 2LDs ist mit ca. 4 Prozent jedoch viel zu gering um Maßgeblich zur Sicherheit des globalen DNS beizutragen (http://rick.eng.br/dnssecstat/). Zusätzlich wurde das Schutzziel der Vertraulichkeit bewusst bei der Konzeptionierung ausgeklammert. Aufgrund verschiedenster Entwicklungen der nahen Vergangenheit ((Türkei, Deutschland, USA Prism, etc)) ist der Bedarf nach einer vertrauten Möglichkeit zur Auflösung von Namen im Internet stark angestiegen. Betrachtet man nun zusätzlich den Umstand, dass das DNSSEC Netzwerkprotokoll noch stärker als reines DNS, für DoS-Amplification genützt werden kann, ist klar warum diese Spezifikationssammlung so wenig positive Resonanz erhält.
+DNSSEC, als eine Sammlung an IETF-Spezifikationen, erweitert DNS mit dem Ziel die Integrität und Authentizität der Ressourceneinträge sicherzustellen (\cite{Arends2005}). Dies wird über die krypographische Signatur der Einträge erreicht. Um die Signaturen validieren zu können, wird eine Chain-Of-Trust genützt, die ihren Ankerpunkt im von der ICANN veröffentlichten DNSSEC-Root-Key besitzt. Der Umstand, dass die ICANN somit als \textit{single point of trust} fungiert und somit den Grundgedanken der \textit{Verteiltheit des Internets} unterwandert ist einer der Hauptkritikpunkte an DNSSEC. Des weiteren findet die Erweiterung aufgrund der langen Entwicklungszeit, der (verglichen zum DNS-Protokoll) hohen Komplexität und dem erhöhtem administrativem Aufwand, nur wenig anklang. Seit der finalen Veröffentlichen 2005 konnten zwar 90 Prozent der TLD Betreibenden zum signieren ihrer Zonen bewegt werden, die Verbreitung signierter 2LDs ist mit ca. 4 Prozent jedoch viel zu gering um Maßgeblich zur Sicherheit des globalen DNS beizutragen (http://rick.eng.br/dnssecstat/). Zusätzlich wurde das Schutzziel der Vertraulichkeit bewusst bei der Konzeptionierung ausgeklammert. Aufgrund verschiedenster Entwicklungen der nahen Vergangenheit ((Türkei, Deutschland, USA Prism, etc)) ist der Bedarf nach einer vertrauten Möglichkeit zur Auflösung von Namen im Internet stark angestiegen. Betrachtet man nun zusätzlich den Umstand, dass das DNSSEC Netzwerkprotokoll noch stärker als reines DNS, für DoS-Amplification genützt werden kann, ist klar warum diese Spezifikationssammlung so wenig positive Resonanz erhält.
 
 \todo[inline]{Anmerkung Einfügen: Problem mit Privacy ist, dass der ISP oder der Staat auch einfach SNI oder IP Kommunikation untersuchen kann. Damit lassen sich Verkehrsdaten ähnlicher Qualtität bilden. Privicy ist also nicht das beste Argument. (Referenz? Einfach weglassen?)}
 
@@ -49,7 +49,7 @@ In Tabelle \ref{tbl:technologiesSummery} sind alle beschriebenen Technologien an
 \footnotetext[2]{\label{fn2}Minimal mögliche Informationsweitergabe an authentitive DNS-Server}
 \footnotetext[3]{\label{fn3}Es bestehen Zweifel am Key Management Konzept was die praktische Authentizitätssicherheit fraglich macht}
 
-\begin{table}[!h]
+\begin{table}[!ht]
 \caption{Technologien anhand ihrer Schutzziele. Gegliedert nach Integrität (I), Authentizität (A) und Vertraulichkeit (V).} \label{tbl:technologiesSummery} \centering \small
 \begin{tabular}{r|c|c|c|c|c|c|}
 \cline{2-7}

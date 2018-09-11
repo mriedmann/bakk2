@@ -1,4 +1,5 @@
 \chapter{Lösungsansätze}
+\label{chap:solutions}
 % Noch nicht auf spezielle technische Lösungen eingehen!
 
 \section{Authentizität der Records}
@@ -29,16 +30,6 @@ Ein komplett anderer Entwurf basiert auf der Ablöse des DNS als Gesamtheit, da 
 
 \todo[inline]{Kurze Anmerkung über VPN / TOR / etc. => Langsam, usw. (Steht in irgendeinen Paper -> Referenz)}
 
-\section{Denial-Of-Service}
+\section{Einsatz eines verbindungorientierten Transportprotokolls}
 
-Über die Zeit sind verschiedenste Lösungsvorschläge zum, in Abschnitt \ref{sec:Thread-DosAmp} behandelten, Problem der DoS-Verstärkung ausgearbeitet worden. Die einfachste Möglichkeit einer Lösung besteht im Ablösen des Verbindungslosen UDP zugunsten eines Verbindungsorientierten Protokolls wie TCP. Der notwendige Verbindungsaufbau könnte im Falle eines klassischen IP-Spoofings nicht abgeschlossen werden, was das Stellen einer Anfrage verhindern würde. Damit wäre DNS nicht mehr als Verstärker nutzbar. Die Nachteile dieser Lösung bestehen jedoch in ihrem Vorteil, da der Verbindungsaufbau viel Zeit in Anspruch nimmt und zusätzliche Ressourcen auf dem Server binden würde. Wie Zuh et al. \cite{Zhu2015} jedoch feststellen konnte, ist die Auswirkung auf die Performance in den meisten Fällen jedoch stark überschätzt. In seiner Arbeit wurde festgestellt, dass bei einer TLS Verbindung wischen Stub-Resolver und Recursive Resolver lediglich 21\% Zeitverlust auftritt, wobei die Ressourcenerhöhung bei den meisten Resolvern vernachlässigbar ist. 
-
-Sieht man dennoch von diesen Umständen ab und konzentriert man sich auf eine Lösung bei minimaler Änderung der bestehenden Vorgehensweisen, werden von Anagnostopoulos et al.\cite{Anagnostopoulos2013} und van Rijswijk-Deij et al.\cite{VanRijswijk-Deij2014} folgende Punkte vorgeschlagen.
-
-\textbf{Source validation:} Router an Netzwerkübergängen (z.B. ISP zu Internet-Backbone) können die IP-Quelladresse von ausgehenden Paketen prüfen. Wird erkannt, dass die Adresse nicht aus dem eigenen IP-Adressraum kommt, sollte diese verworfen werden. Dies beugt IP-Spoofing im allgemeinen vor und verhindert so Angriffe aus dem eigenen Netz auf andere Netzwerkteilnehmer.
-
-\textbf{Deaktivieren von offenen Resolvern:} Diese Empfehlung richtet sich an alle Betreiber von rekursiv auflösenden Nameservern und empfiehlt keine Anfragen von Client-Adressen außerhalb des eigenen Adressraums zuzulassen. Dies würde das Ausnutzen von Resolvern als DoS-Verstärker massiv erschweren. Obwohl dieser Ratschlag formal richtig ist, zeigt der aktuelle Trend eher Richtung Trusted Resolver wie Google DNS und Quad9, die per Definition von allen Netzen aus erreichbar sind. Die Empfehlung sollte also insofern verstanden werden, dass private Resolver nur von den vorgesehenen Clients erreichbar sein sollten.
-
-\textbf{DNS Amplification Detection:} Wie Kambourakis et al.\cite{Kambourakis2008} sowie Kim et al.\cite{Kim2011} zeigen ist das erkennen von DNS-Amplification-Attacken zwar überaus komplex, aber möglich. Große Netzwerkbetreiber sollten die in diesen Arbeiten genannten Methoden berücksichtigen und wenn möglich implementieren.
-
-\textbf{DNS Response Rate Limiting (DNS RRL):} Diese Technologie limitiert die Anzahl an exakt gleichlautenden Anfragen pro Quelladresse pro Zeiteinheit. Diese Limitierung macht speziell bei authoritativen DNS-Servern Sinn, da die anfragenden Recursive Resolver die erhaltenen Anfragen im Cache behalten. Größere cone-NAT Installationen mit mehreren Resolvern oder Resolver ohne cache werden somit jedoch ebenfalls beeinträchtigt. Van Rijswijk-Deij et al.\cite{VanRijswijk-Deij2014} schlägt als abgeschwächte Variante das Beschränken von ANY-Anfragen vor, da diese, aufgrund des hohen Anfrage- zu Antwort-Größenverhältnisses, ein, im Vergleich zu anderen Anfrage-Typen, unverhältnismäßig hohes Schadenspotenzial darstellen.
+Über die Zeit sind verschiedenste Lösungsvorschläge zum, in Abschnitt \ref{sec:Thread-DosAmp} behandelten, Problem der DoS-Verstärkung ausgearbeitet worden. Die einfachste Möglichkeit einer Lösung besteht im Ablösen des Verbindungslosen UDP zugunsten eines Verbindungsorientierten Protokolls wie TCP. Der notwendige Verbindungsaufbau könnte im Falle eines klassischen IP-Spoofings nicht abgeschlossen werden, was das Stellen einer Anfrage verhindern würde. Damit wäre DNS nicht mehr als Verstärker nutzbar. Die Nachteile dieser Lösung bestehen jedoch in ihrem Vorteil, da der Verbindungsaufbau viel Zeit in Anspruch nimmt und zusätzliche Ressourcen auf dem Server binden würde. Wie Zuh et al. \cite{Zhu2015} jedoch feststellen konnte, ist die Auswirkung auf die Performance in den meisten Fällen jedoch stark überschätzt. In seiner Arbeit wurde festgestellt, dass bei einer TLS Verbindung wischen Stub-Resolver und Recursive Resolver lediglich 21\% Zeitverlust auftritt, wobei die Ressourcenerhöhung bei den meisten Resolvern vernachlässigbar ist.

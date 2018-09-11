@@ -49,14 +49,29 @@
 
 \usepackage[inlineFootnotes,citations,fencedCode,definitionLists,hashEnumerators,smartEllipses,hybrid]{markdown}
 
-\usepackage[]{tcolorbox}
+\usepackage{framed}
+
+\renewenvironment{leftbar}[1][\hsize]
+{%
+    \def\FrameCommand
+    {%
+        {\color{red}\vrule width 3pt}%
+        \hspace{0pt}%must no space.
+        \fboxsep=\FrameSep\colorbox{yellow}%
+    }%
+    \MakeFramed{\hsize#1\advance\hsize-\width\FrameRestore}%
+}
+{\endMakeFramed}
+
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10,babel]{microtype}
 
 % Eigene Commands
 \newenvironment{draft}
 {\par
-  \begin{tcolorbox}[title=Entwurfstext,breakable,boxrule=0pt]
+  
+  \begin{leftbar}
 }{\par
-  \end{tcolorbox}
+  \end{leftbar}
 }
 
 % Einstellungen der Class TWBOOK
@@ -73,6 +88,11 @@
 \outline{\input{00-main/abstract}}
 % TODO: Schlagwörter des Abstracts ausfüllen
 \keywords{Keyword1, Keyword2, Keyword3, Keyword4}
+
+% Allgemeine Einstellungen
+\pretolerance=4000
+\tolerance=2000 
+\emergencystretch=10pt
 
 % --------------------------------------------------------------------------- %
 \begin{document}

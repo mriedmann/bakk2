@@ -1,5 +1,5 @@
 \chapter{Angriffe}
-\label{sec:Attacks}
+\label{chap:attacks}
 
 Die meisten DNS-Sicherheitsrichtlinien richten sind an Betreiber von extern gerichteten Installationen. Das Thema \textit{DNS Client Security} wird wenn nur am Rande behandelt. Der nachfolgende Abschnitt befasst sich daher von allem mit Bedrohungen der Interaktion zwischen DNS-Resolver und rekursivem DNS-Server. 
 Es gibt dabei zwei grundlegende Möglichkeiten einen DNS-Client anzugreifen: Über direktes kommunizieren mit der Netzwerkschnittstelle des Clients oder mittels Angriff auf einen Teil der Client-nahen Infrastruktur. Um die Auswirkung klar ersichtlich zu machen wird in Abschnitt \ref{sec:Attacks-Summary} eine tabellarische Zusammenfassung mit den verletzen Sicherheitskriterien (nach CIA-Triade) gegeben. 
@@ -13,7 +13,7 @@ Angriffe die das Verhalten einzelner DNS-Clients über eingreifen in deren Kommu
 \subsection{DNS Sniffing und Spoofing}
 % Sniffing / Spoofing zusammenlegen?
 
-Als Sniffing Angriffe werden, nach CAPEC, alle Arten von Angriffen bezeichnet die es ermöglichen Nachrichten zwischen mindestens 2 Parteien zu beobachten, mitlesen und/oder mithören. (https://capec.mitre.org/data/definitions/157.html). Im Kontext DNS hat dies eine spezielle Bedeutung da es, aufgrund des fehlenden Schutz der Vertraulichkeit, ermöglicht, alle Informationen der Anfragen und Antworten einzusehen. Somit ist das Kommunikationsverhalten der Opfergeräte leicht nachzuvollziehen, was zum Beispiel den Recon-Schritt der Cyber-Kill-Chain (siehe \ref{sec:DNSSecurity}) erheblich erleichtert. 
+Als Sniffing Angriffe werden, nach CAPEC, alle Arten von Angriffen bezeichnet die es ermöglichen Nachrichten zwischen mindestens 2 Parteien zu beobachten, mitlesen und/oder mithören. (https://capec.mitre.org/data/definitions/157.html). Im Kontext DNS hat dies eine spezielle Bedeutung da es, aufgrund des fehlenden Schutz der Vertraulichkeit, ermöglicht, alle Informationen der Anfragen und Antworten einzusehen. Somit ist das Kommunikationsverhalten der Opfergeräte leicht nachzuvollziehen, was zum Beispiel den Recon-Schritt der Cyber-Kill-Chain (siehe \ref{sec:dnssecurity}) erheblich erleichtert. 
 
 In IP-Netzen gibt es verschieden Möglichkeiten eine Sniffing Attacke durchzuführen: 
 
@@ -36,7 +36,6 @@ Außerdem wird DNS hauptsächlich über UDP verwendet, was ein fälschen (spoofi
 \todo[inline]{DNS Rebinding kurz beschrieben (weil schon Angesprochen)}
 
 \section{Indirekte Angriffe}
-% Akademisch? Streichen?
 
 \subsection{Reliance Upon Transitive Trust}
 
@@ -75,7 +74,7 @@ Außerdem wird DNS hauptsächlich über UDP verwendet, was ein fälschen (spoofi
 * Mit allen "offenen" resolvern nutzbar
 * Bei "best-practice"-Einstellungen des resolvers sehr langsam
 * Nicht einfach zu erkennen
-* Für sehr kleine Datenmengen durchaus zuverlässig (C&C)
+* Für sehr kleine Datenmengen durchaus zuverlässig (C\&C)
 * KillChain: Data Exfiltration, Controll
 \end{markdown}
 \end{draft}
@@ -90,6 +89,24 @@ Durch DoS von Resolvern oder DNS-Servern können kritischen Unternehmensdienste 
 \end{draft}
 
 \todo[inline]{DoS Angriff schreiben}
+
+\subsection{BitSquatting}
+
+Eine weiter Angriffsmöglichkeit bietet das sogenannte \textit{BitSquatting}. Bei diesem Angriff werden zufällige Fehler im Speicher von Geräten ohne fehlererkennenden Speichermodulen ausgenützt. Es konnte gezeigt werden, dass es durch solche Fehler zum stellen fehlerhafter Anfragen an potenziell existente Domänen kommen kann\cite{Dinaburg2011}. Dieser Effekt kann nun bewusst ausgenutzt werden indem eine große Anzahl an Domänen registriert werden, deren Name sich nur um ein Bit von viel besichten Domänen unterscheidet (siehe Listing \ref{lst:bitquatting}). Da es dadurch zu falschen Anfragen kommt, gibt es auch keine Möglichkeit sich auf Protokoll- bzw. System-Ebene zu schützen. Die einzige effektive Lösung stellt der Einsatz von \textit{Error-correcting code memory} Hardware dar.  
+
+\begin{lstlisting}[caption={Drei mögliche BitSquatting-Domänen für die Zieldomäne \texttt{amazon.com}}, label={lst:bitquatting}]
+amazon.com = 61   6d   61 7a   6f   6e 2e 63 6f 6d
+           ... 01101101 ... 01101111 ... 
+aeazon.com = 61   65   61 7a   6f   6e 2e 63 6f 6d  
+           ... 01100101 ...
+                   ^
+a-azon.com = 61   e2   61 7a   6f   6e 2e 63 6f 6d 
+           ... 00101101 ...
+                ^
+amazgn.com = 61   6d   61 7a   67   6e 2e 63 6f 6d
+                        ... 01100111 ...
+                                ^
+\end{lstlisting}
 
 \section{Übersicht}
 \label{sec:Attacks-Summary}
