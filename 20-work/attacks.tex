@@ -17,7 +17,7 @@ Das DNS Netzwerkprotokoll verlässt sich beim prüfen der Authentizität der Ant
 
 \begin{figure}[htbp]
     \centering
-    \missingfigure{DNS Spoofing}
+    \includegraphics[width=0.7\textwidth]{DNS_Spoofing}
     \caption{}
     \label{img:dnsspoofing}
 \end{figure}
@@ -29,7 +29,7 @@ DNS Spoofings ermöglicht den DNS-Cache eines Zielrechners aktiv zu Manipulieren
 
 \begin{figure}[htbp]
     \centering
-    \missingfigure{Cache Poisoning}
+    \includegraphics[width=\textwidth]{DNS_CachePoisoning}
     \caption{}
     \label{img:dnscachepoisoning}
 \end{figure}
@@ -41,7 +41,7 @@ Der Vorteil dieses Angriffs besteht in seiner beliebigen Wiederholbarkeit, da de
 
 \begin{figure}[htbp]
     \centering
-    \missingfigure{Kaminsky}
+    \includegraphics[width=\textwidth]{DNS_Kaminsky}
     \caption{}
     \label{img:dnskaminsky}
 \end{figure}
@@ -70,7 +70,7 @@ Denial-Of-Service Attacken (DoS) zielen darauf ab die Nutzung bestimmter Dienstl
 \section{DoS-Amplification Angriff}
 \label{sec:attack-dosamp}
 
-(siehe \ref{sec:attack-dosamp})
+Die Nutzbarkeit von DNS als Verstärker (Amplifier) von DoS Attacken ist schon länger bekannt und wurde auch schon früher als Problem erkannt \cite{ICANN2006}. Nach dem Anual Wordwide Infrastructure Security Report 2017 befindet sich DNS als Trägertechnologie von DoS-Attacken auf Platz 1 \cite{Alcoy2017}. Die leichte Ausnutzbarkeit und schlechte Zurückverfolgbarkeit macht DNS neben NTP zu den beliebtesten Verstärkungsmethoden. Wie Anagnostopoulos et al.\cite{Anagnostopoulos2013} und van Rijswijk-Deij et at.\cite{VanRijswijk-Deij2014} zeigen konnte besteht darüber hinaus das Problem, dass DNSSEC die Situation bei steigender Verbreitung weiter verschärft. Mithilfe von DNSSEC konnte ein durchschnittlichen Verstärkungsfaktor von 47,2 erreicht werden, wobei die maximale Verstärkungsrate bei DNS ohne DNSSEC bei 12,8 liegt. Dieser Umstand ist auf die mit DNSSEC eingeführte Erweiterung EDNS0 zurückzuführen, die es ermöglicht Antworten, die größer als die ursprüngliche Grenze von 512 bytes sind, zu empfangen. Es konnte gezeigt werden, dass 90\% der offenen Resolver maximale Packetgrößen von 4k bytes unterstützen, was bei einer Anfragegröße von 40 byte einen maximalen Verstärkungsfaktor von 102,4 zulassen würde. Dies birgt zusammen mit anderen Kritikpunkten ein massives Hemmnis für die Verbreitung von DNSSEC und ist unter anderem ein Grund für die schlechte Verbreitungsrate. Das Kernproblem liegt hier jedoch an dem eingesetztem Transportprotokoll UDP zusammen mit dem Umstand, dass DNS keinerlei Authentifizierung des Clients verlangt. Betrachtet man andere Protokolle mit ähnlichen Bedingungen (z.B. NTP) zeichnet sich ein ähnliches Bild. Der Vorwurf an DNSSEC als Verursacher der DoS-Amplifikation Problematik ist somit kritisch zu betrachten.
 
 \section{BitSquatting}
 

@@ -38,8 +38,10 @@
   showstringspaces=false,          % underline spaces within strings only
   showtabs=false,                  % show tabs within strings adding particular underscores
   stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
-  tabsize=2,	                   % sets default tabsize to 2 spaces
-  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+  tabsize=2,	                     % sets default tabsize to 2 spaces
+  %linewidth=15.5cm,
+  %xleftmargin=10pt,
+  title=\lstname                  % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
 
 \graphicspath{ {./PICs/} }
@@ -64,6 +66,10 @@
 {\endMakeFramed}
 
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10,babel]{microtype}
+
+\usepackage{parskip}
+
+% \usepackage{showframe}
 
 % Eigene Commands
 \newenvironment{draft}
@@ -93,6 +99,11 @@
 \pretolerance=4000
 \tolerance=2000 
 \emergencystretch=10pt
+\par\smallskip
+
+\RedeclareSectionCommand[
+  beforeskip=-1sp,
+  afterskip=.25\baselineskip]{chapter}
 
 % --------------------------------------------------------------------------- %
 \begin{document}
@@ -101,6 +112,8 @@
 \listoftodos
 
 \include{10-intro/introduction}
+
+\include{10-intro/dns}
 
 \include{20-work/threads}
 
