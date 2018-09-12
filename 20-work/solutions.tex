@@ -33,3 +33,19 @@ Ein komplett anderer Entwurf basiert auf der Ablöse des DNS als Gesamtheit, da 
 \section{Einsatz eines verbindungorientierten Transportprotokolls}
 
 Über die Zeit sind verschiedenste Lösungsvorschläge zum, in Abschnitt \ref{sec:Thread-DosAmp} behandelten, Problem der DoS-Verstärkung ausgearbeitet worden. Die einfachste Möglichkeit einer Lösung besteht im Ablösen des Verbindungslosen UDP zugunsten eines Verbindungsorientierten Protokolls wie TCP. Der notwendige Verbindungsaufbau könnte im Falle eines klassischen IP-Spoofings nicht abgeschlossen werden, was das Stellen einer Anfrage verhindern würde. Damit wäre DNS nicht mehr als Verstärker nutzbar. Die Nachteile dieser Lösung bestehen jedoch in ihrem Vorteil, da der Verbindungsaufbau viel Zeit in Anspruch nimmt und zusätzliche Ressourcen auf dem Server binden würde. Wie Zuh et al. \cite{Zhu2015} jedoch feststellen konnte, ist die Auswirkung auf die Performance in den meisten Fällen jedoch stark überschätzt. In seiner Arbeit wurde festgestellt, dass bei einer TLS Verbindung wischen Stub-Resolver und Recursive Resolver lediglich 21\% Zeitverlust auftritt, wobei die Ressourcenerhöhung bei den meisten Resolvern vernachlässigbar ist.
+
+\section{Härten des Resolvers}
+
+\begin{draft}
+\begin{markdown}
+* Source Port randomization
+* ACLs am Resolver
+* In-Domain check for Glue Records
+* 0x20
+* TXID Redomization
+* TTL min. 
+\end{markdown}
+
+(https://tools.ietf.org/html/rfc545)
+
+\end{draft}

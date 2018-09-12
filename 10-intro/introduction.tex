@@ -74,6 +74,7 @@ Der Namensauflösungsprozess erfolgt über mehrere Schritte und kann am besten a
 
 \section{Informationssicherheit}
 \todo[inline]{Definition Informationssicherheit, kurzes Bescheiben der CIA-Triade, Privacy definieren, Trust (CoT, WoT, SK, TOFU).}
+\todo[inline]{Cyber-Kill-Chain erklären (Verweis unter Angriffe)}
 
 \section{DNS Security}
 \label{sec:dnssecurity}
@@ -92,9 +93,6 @@ Die Mehrheit der Nutzenden im privaten oder einzelunternehmerischen Umfeld verwe
 Sogenannte \textbf{Public Recursive Resolver} sind über ihre freie Zugänglichkeit definiert und haben je nach Fokus des Anbieters verschiedenste Regelungen was Privicy betrifft \cite{Prince2018}\cite{Quad92018}. Wird nun ein Anbieter mit speziellem Fokus auf Sicherheit und Vertaulichkeit gewählt, kann ein akzeptabler Grad an Privicy erreicht werden. Voraussetzung ist dafür die Sicherung der Übertragung zwischen Stub-Resolver und Recursive Resolver. Einige Projekte bieten dafür Unterstützung für spezielle Netzwerkprotokolle, die diesen Zweck erfüllen sollen (siehe dazu Kapitel \ref{chap:technologies}. Resolver die speziellen, selbst auferlegten Vorschriften zur Verbesserung der Informationssicherheit folgen werden auch als \textit{Trusted Resolver} bezeichnet, wobei diese öffentlich (public) oder nur mit Authentifizierung (private) zugänglich sein können.
 
 Eine Sonderform stellt der \textbf{Local-Looback Resolver} dar. Dieser wird direkt auf dem Client-Rechner installiert und ist nur für Programme auf eben diesem Host erreichbar. Dies führt zu dem Umstand, dass der Stub-Resolver keine, für das umliegende Netzwerk sichtbare Kommunikation mehr durchführt. Der Installierte Resolver löst die Anfragen dann entweder rekursiv über das Netzwerk auf oder fungiert als Forwarding Resolver (siehe Abschnitt \ref{subsec:dnsserver}) und verhält sich somit wie ein Stub-Resolvers. Dieser Aufbau hat nur einen einzigen Vorteil gegenüber anderen Aufbauten: Sollte der Local-Looback Resolver als Forwarding Resolver eingesetzt werden, kann die Kommunikation zum nachfolgenden Resolver über ein alternatives Netzwerkprotokoll erfolgen. So kann, für das Betriebssystem transparent, eine sichere Kommunikation zwischen dem Client und einem Trusted Resolver hergestellt werden. Der Nachteile ist dabei der erhöhte Ressourcenaufwand sowohl am eigenen Rechner, als auch am Netzwerk. Es ist des weiteren besteht keine Möglichkeit den Resolver über ein Konfigurationsprotokolle wie DHCP zu verwalten, was den administrativen Aufwand erheblich erhöhen kann. 
-
-\subsection{Transitiver Trust}
-\todo[inline]{Problem des transitiven Trusts beschreiben (weil schon darauf Bezug genommen wurde)}
 
 
 
