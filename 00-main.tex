@@ -67,7 +67,10 @@
 
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10,babel]{microtype}
 
-\usepackage{parskip}
+%\usepackage{parskip}
+\usepackage{wrapfig}
+
+\usepackage{enumitem}
 
 % \usepackage{showframe}
 
@@ -81,7 +84,7 @@
 }
 
 % Einstellungen der Class TWBOOK
-\title{DNS Client Security\\Bedrohungsszenarien und Lösungswege}
+\title{DNS Client Security\\Bedohungen und Lösungswege}
 \author{Michael Riedmann}
 \studentnumber{1510258054}
 \supervisor{FH-Prof. Dipl.-Ing. Alexander Mense}
@@ -99,11 +102,24 @@
 \pretolerance=4000
 \tolerance=2000 
 \emergencystretch=10pt
-\par\smallskip
+%\par\smallskip
 
 \RedeclareSectionCommand[
-  beforeskip=-1sp,
+  beforeskip=-1pt plus -16pt minus -1pt,
   afterskip=.25\baselineskip]{chapter}
+\RedeclareSectionCommand[
+  beforeskip=-1em plus -3em minus -0.5em,
+  afterskip=.25\baselineskip]{section}
+\RedeclareSectionCommand[
+  beforeskip=-.25\baselineskip,
+  afterskip=.1\baselineskip]{subsection}
+\RedeclareSectionCommand[
+  beforeskip=-.25\baselineskip,
+  afterskip=1pt]{subsubsection}
+\RedeclareSectionCommands[
+    beforeskip=-1.2ex plus -1ex minus -0.2ex,
+    afterskip=1sp,% smallest possible positive value
+]{paragraph,subparagraph}
 
 % --------------------------------------------------------------------------- %
 \begin{document}
@@ -112,6 +128,8 @@
 \listoftodos
 
 \include{10-intro/introduction}
+
+\include{10-intro/itsecurity}
 
 \include{10-intro/dns}
 

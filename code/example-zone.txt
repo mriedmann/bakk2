@@ -1,0 +1,7 @@
+test.example.com.  3600  IN  A       172.30.0.7
+                         IN  A       172.30.0.8
+                         IN  TXT     "Text"
+example.com.       1800  IN  MX      10 test.example.com.
+example.com.       1800      NS      nameserver.example.org.
+nameserver               IN  A       172.30.0.2
+                         IN  AAAA    2001:db8:10::2
