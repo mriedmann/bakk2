@@ -1,0 +1,44 @@
+Final benchmark results, sorted by nameserver performance:
+ (average cached name retrieval speed, fastest to slowest)
+
+  192.168.100.  1 |  Min  |  Avg  |  Max  |Std.Dev|Reliab%|
+  ----------------+-------+-------+-------+-------+-------+
+  + Cached Name   | 0.001 | 0.002 | 0.005 | 0.001 | 100.0 |
+  + Uncached Name | 0.147 | 0.436 | 0.834 | 0.177 | 100.0 |
+  + DotCom Lookup | 0.142 | 0.294 | 0.535 | 0.127 | 100.0 |
+  ---<O-OO---->---+-------+-------+-------+-------+-------+
+           Non-routable local internet address
+                Local Network Nameserver
+
+
+  159. 69.192.  7 |  Min  |  Avg  |  Max  |Std.Dev|Reliab%|
+  ----------------+-------+-------+-------+-------+-------+
+  - Cached Name   | 0.020 | 0.023 | 0.027 | 0.001 | 100.0 |
+  - Uncached Name | 0.031 | 0.093 | 0.313 | 0.069 | 100.0 |
+  - DotCom Lookup | 0.027 | 0.041 | 0.112 | 0.018 | 100.0 |
+  ---<OOOOOOOO>---+-------+-------+-------+-------+-------+
+       static.7.192.69.159.clients.your-server.de
+                     HETZNER-AS, DE
+
+
+  159. 69.156.140 |  Min  |  Avg  |  Max  |Std.Dev|Reliab%|
+  ----------------+-------+-------+-------+-------+-------+
+  - Cached Name   | 0.020 | 0.023 | 0.026 | 0.001 | 100.0 |
+  - Uncached Name | 0.033 | 0.123 | 0.409 | 0.101 | 100.0 |
+  - DotCom Lookup | 0.028 | 0.040 | 0.130 | 0.016 | 100.0 |
+  ---<OOOOOOOO>---+-------+-------+-------+-------+-------+
+      static.140.156.69.159.clients.your-server.de
+                     HETZNER-AS, DE
+
+
+  159. 69.196.199 |  Min  |  Avg  |  Max  |Std.Dev|Reliab%|
+  ----------------+-------+-------+-------+-------+-------+
+  - Cached Name   | 0.020 | 0.023 | 0.027 | 0.001 | 100.0 |
+  - Uncached Name | 0.033 | 0.128 | 0.628 | 0.125 | 100.0 |
+  - DotCom Lookup | 0.030 | 0.052 | 0.141 | 0.033 | 100.0 |
+  ---<OOOOOOOO>---+-------+-------+-------+-------+-------+
+      static.199.196.69.159.clients.your-server.de
+                     HETZNER-AS, DE
+
+
+  UTC: 2018-09-15, from 11:29:49 to 11:30:10, for 00:21.276

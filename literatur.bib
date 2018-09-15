@@ -562,3 +562,133 @@ url = {https://u.cs.biu.ac.il/{~}herzbea/security/13-03-frag.pdf},
 year = {2013}
 }
 
+@techreport{Finch2014,
+abstract = {At the moment the root DNSSEC key is a single point of trust and a single point of failure for the whole system. This memo describes a mechanism for dispersing trust in the root key. Witnesses vouch for the root trust anchor by publishing WS records in the DNS. Validators only update their root trust anchors if multiple witnesses agree. The root-witnesses.arpa zone enables a validator to bootstrap trust when it has no working trust anchors other than its witnesses.},
+author = {Finch, T},
+file = {::},
+institution = {IETF},
+title = {{The WS resource record: dispersing trust in the DNSSEC root keys}},
+url = {http://datatracker.ietf.org/drafts/current/.},
+year = {2014}
+}
+
+@inproceedings{Antic2014,
+abstract = {DNS (Domain Name System) is an Internet system that provides translation between domain names and numerical IP addresses. As an answer to security threats, DNSSEC (DNS Security Extensions) has been developed to strengthen DNS, using public-key cryptography through digital signatures. However, Internet-wide deployment has been slow, due to system complexity and operational difficulties. This paper provides information on the technologies involved, deployment and challenges that have been encountered.},
+address = {Belgrade, Serbia},
+author = {Anti{\'{c}}, Đorđe},
+booktitle = {Proceedings of the 1st International Scientific Conference - Sinteza 2014},
+doi = {10.15308/sinteza-2014-678-682},
+file = {::},
+isbn = {978-86-7912-539-2},
+keywords = {Cryptography,DNS,DNSSEC,Security},
+pages = {678--682},
+publisher = {Singidunum University},
+title = {{DNSSEC deployment and challenges}},
+url = {http://portal.sinteza.singidunum.ac.rs/Media/files/2014/678-682.pdf http://portal.sinteza.singidunum.ac.rs/paper/134},
+year = {2014}
+}
+
+@misc{DCCommunications2018,
+author = {{DC Communications}, Inc},
+title = {{DNSSEC Deployment Report}},
+url = {https://rick.eng.br/dnssecstat/},
+urldate = {2018-09-14},
+year = {2018}
+}
+
+@inproceedings{Siby2018,
+author = {Siby, Sandra and Juarez, Marc and Vallina-rodriguez, Narseo and Troncoso, Carmela},
+booktitle = {The 11th Workshop on Hot Topics in Privacy Enhancing Technologies (HotPETs 2018)},
+file = {::},
+pages = {3--4},
+title = {{DNS Privacy not so private : the traffic analysis perspective}},
+url = {http://s3.amazonaws.com/alexa-static/top-},
+year = {2018}
+}
+
+@techreport{Egevang1994,
+abstract = {The two most compelling problems facing the IP Internet are IP address depletion and scaling in routing. Long-term and short-term solutions to these problems are being developed. The short-term solution is CIDR (Classless InterDomain Routing). The long-term solutions consist of various proposals for new internet protocols with larger addresses. It is possible that CIDR will not be adequate to maintain the IP Internet until the long-term solutions are in place. This memo proposes another short-term solution, address reuse, that complements CIDR or even makes it unnecessary. The address reuse solution is to place Network Address Translators (NAT) at the borders of stub domains. Each NAT box has a table consisting of pairs of local IP addresses and globally unique addresses. The IP addresses inside the stub domain are not globally unique. They are reused in other domains, thus solving the address depletion problem. The globally unique IP addresses are assigned according to current CIDR address allocation schemes. CIDR solves the scaling problem. The main advantage of NAT is that it can be installed without changes to routers or hosts. This memo presents a preliminary design for NAT, and discusses its pros and cons.},
+author = {Egevang, K. and Francis, P.},
+doi = {10.17487/rfc1631},
+isbn = {2070-1721},
+issn = {2070-1721},
+month = {may},
+title = {{The IP Network Address Translator (NAT)}},
+url = {https://tools.ietf.org/html/rfc1631 https://www.rfc-editor.org/info/rfc1631},
+year = {1994}
+}
+
+@techreport{rfc1631,
+abstract = {The two most compelling problems facing the IP Internet are IP address depletion and scaling in routing. Long-term and short-term solutions to these problems are being developed. The short-term solution is CIDR (Classless InterDomain Routing). The long-term solutions consist of various proposals for new internet protocols with larger addresses. It is possible that CIDR will not be adequate to maintain the IP Internet until the long-term solutions are in place. This memo proposes another short-term solution, address reuse, that complements CIDR or even makes it unnecessary. The address reuse solution is to place Network Address Translators (NAT) at the borders of stub domains. Each NAT box has a table consisting of pairs of local IP addresses and globally unique addresses. The IP addresses inside the stub domain are not globally unique. They are reused in other domains, thus solving the address depletion problem. The globally unique IP addresses are assigned according to current CIDR address allocation schemes. CIDR solves the scaling problem. The main advantage of NAT is that it can be installed without changes to routers or hosts. This memo presents a preliminary design for NAT, and discusses its pros and cons.},
+author = {Egevang, K. and Francis, P.},
+doi = {10.17487/rfc1631},
+isbn = {2070-1721},
+issn = {2070-1721},
+month = {may},
+title = {{The IP Network Address Translator (NAT)}},
+url = {https://tools.ietf.org/html/rfc1631 https://www.rfc-editor.org/info/rfc1631},
+year = {1994}
+}
+
+@article{Bau2010,
+abstract = {Domain Name System Security Extensions (DNSSEC) and Hashed Authenticated Denial of Existence (NSEC3) are slated for adoption by important parts of the DNS hierar- chy, including the root zone, as a solution to vulnerabili- ties such as ”cache-poisoning” attacks. We study the secu- rity goals and operation of DNSSEC/NSEC3 using Mur휑, a finite-state enumeration tool, to analyze security prop- erties that may be relevant to various deployment scenar- ios. Our systematic study reveals several subtleties and po- tential pitfalls that can be avoided by proper configuration choices, including resource records that may remain valid after the expiration of relevant signatures and potential in- sertion of forged names into a DNSSEC-enabled domain via the opt-out option. We demonstrate the exploitability of DNSSEC opt-out options in an enterprise setting by con- structing a browser cookie-stealing attack on a laboratory domain. Under recommended configuration settings, fur- ther Mur휑 model checking finds no vulnerabilities within our threat model, suggesting that DNSSEC with NSEC3 provides significant security benefits. 1},
+author = {Bau, Jason and Mitchell, Jc},
+file = {::},
+journal = {IACR Cryptology ePrint Archive},
+title = {{A Security Evaluation of DNSSEC with NSEC3.}},
+url = {www.example.com http://crypto.stanford.edu/cs155/papers/dnssec{\_}ndss10.pdf},
+year = {2010}
+}
+
+@techreport{rfc6347,
+abstract = {This document specifies version 1.2 of the Datagram Transport Layer Security (DTLS) protocol. The DTLS protocol provides communications privacy for datagram protocols. The protocol allows client/server applications to communicate in a way that is designed to prevent eavesdropping, tampering, or message forgery. The DTLS protocol is based on the Transport Layer Security (TLS) protocol and provides equivalent security guarantees. Datagram semantics of the underlying transport are preserved by the DTLS protocol. This document updates DTLS 1.0 to work with TLS version 1.2. Status},
+author = {Rescorla, E. and Modadugu, N.},
+booktitle = {IETF RFC},
+doi = {10.17487/rfc6347},
+file = {::},
+issn = {2070-1721},
+keywords = {()},
+month = {jan},
+pages = {1--32},
+title = {{Datagram Transport Layer Security Version 1.2}},
+url = {http://www.rfc-editor.org/info/rfc6347. https://www.rfc-editor.org/info/rfc6347},
+year = {2012}
+}
+
+@inproceedings{Shulman2014,
+abstract = {As awareness for privacy of Domain Name System (DNS) is increasing, a number of mechanisms for encryption of DNS packets were proposed. We study the prominent defences, focusing on the privacy guarantees, interoperability with the DNS infrastructure, and the efficiency overhead. In particular: ? We explore dependencies in DNS and show techniques that utilise side channel leaks, due to transitive trust, allowing to infer information about the target domain in an encrypted DNS packet. ? We examine common DNS servers configurations and show that the proposals are expected to encounter deploy- ment obstacles with (at least) 38{\%} of 50K-top Alexa domains and (at least) 12{\%} of the top-level domains (TLDs), and will disrupt the DNS functionality and availability for clients. ? We show that due to the non-interoperability with the caches, the proposals for end-to-end encryption may have a prohibitive traffic overhead on the name servers. Our work indicates that further study may be required to adjust the proposals to stand up to their security guarantees, and to make them suitable for the common servers' config- urations in the DNS infrastructure. Our study is based on collection and analysis of the DNS traffic of 50K-top Alexa domains and 568 TLDs.},
+author = {Shulman, Haya},
+booktitle = {Proceedings of the 13th Workshop on Privacy in the Electronic Society - WPES '14},
+doi = {10.1145/2665943.2665959},
+file = {:C$\backslash$:/Users/Michael/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Shulman - 2014 - Pretty Bad Privacy.pdf:pdf},
+isbn = {9781450331487},
+issn = {15437221},
+keywords = {C20 [Computer-Communication Networks]: General-Sec,C24 [Computer-Communication Networks]: Dis-tribute,DNS infrastructure,DNS security,K41 [Computers and Society]: Public Policy Issues-,SSL/TLS,availability,caching,encryption,side chan-nel attacks,tran-sitive trust},
+pages = {191--200},
+title = {{Pretty Bad Privacy}},
+url = {http://dx.doi.org/10.1145/2665943.2665959. http://dl.acm.org/citation.cfm?doid=2665943.2665959},
+year = {2014}
+}
+
+@techreport{rfc7830,
+abstract = {This document specifies the EDNS(0) ``Padding'' option, which allows DNS clients and servers to pad request and response messages by a variable number of octets.},
+author = {Mayrhofer, A},
+doi = {10.17487/RFC7830},
+file = {:C$\backslash$:/Users/Michael/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Mayrhofer - 2016 - The EDNS(0) Padding Option.pdf:pdf},
+institution = {IETF},
+issn = {2070-1721},
+keywords = {()},
+month = {may},
+title = {{The EDNS(0) Padding Option}},
+url = {http://www.rfc-editor.org/info/rfc7830. https://www.rfc-editor.org/info/rfc7830},
+year = {2016}
+}
+
+@misc{Greenwald2013,
+author = {Greenwald, Glenn},
+booktitle = {The Guardian},
+title = {{NSA collecting phone records of millions of Verizon customers daily}},
+url = {https://www.theguardian.com/world/2013/jun/06/nsa-phone-records-verizon-court-order},
+urldate = {2018-09-15},
+year = {2013}
+}

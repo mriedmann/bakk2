@@ -1,0 +1,97 @@
+
+\footnotetext[1]{\label{fn1}Nicht Sicherheitsrelevant, da kein Verfälschen der Antwort möglich}
+\footnotetext[2]{\label{fn2}Minimal mögliche Informationsweitergabe an autoritativem DNS-Server}
+\footnotetext[3]{\label{fn3}Es bestehen Zweifel am Key Management Konzept was die praktische Authentizitätssicherheit fraglich macht}
+
+\begin{table}[!ht]
+\caption{Technologien anhand ihrer Schutzziele. Gegliedert nach Integrität (I), Authentizität (A) und Vertraulichkeit (V).} \label{tbl:technologiesSummery} \centering \small
+\begin{tabular}{r|c|c|c|c|c|c|}
+\cline{2-7}
+\multicolumn{1}{l|}{} & 
+\multicolumn{1}{c|}{I} & 
+\multicolumn{2}{c|}{A} & 
+\multicolumn{3}{c|}{V} 
+\\
+
+\cline{2-7} 
+\multicolumn{1}{l|}{} & 
+\rotatebox[origin=c]{90}{\begin{tabular}[c]{c}Nachrichten \end{tabular}} & 
+\rotatebox[origin=c]{90}{\begin{tabular}[c]{c}Resolver \end{tabular}} & 
+\rotatebox[origin=c]{90}{\begin{tabular}[c]{c}Antwort \end{tabular}} & 
+\rotatebox[origin=c]{90}{\begin{tabular}[c]{c}Verbindung \end{tabular}} & 
+\rotatebox[origin=c]{90}{\begin{tabular}[c]{c}Anfrage am Resolver \end{tabular}} & 
+\rotatebox[origin=c]{90}{\begin{tabular}[c]{c}Anfrage am auth. DNS \end{tabular}} 
+\\ 
+
+\hline
+\multicolumn{1}{|r|}{DNS}           & 
+N                                   & % I d. Nachricht
+N                                   & % A d. Resolvers
+N                                   & % A d. Antwort
+N                                   & % V d. Verbindung
+N                                   & % V d. Resolver Antwort
+N                                     % V d. auth. DNS                          
+\\ 
+
+\hline
+\multicolumn{1}{|r|}{DNSSEC}        & 
+Y                                   & % I d. Nachricht
+N\textsuperscript{\ref{fn1}}        & % A d. Resolvers
+Y                                   & % A d. Antwort
+N                                   & % V d. Verbindung
+N                                   & % V d. Resolver Antwort
+N                                     % V d. auth. DNS       
+\\ 
+\hline
+\multicolumn{1}{|r|}{DNSCurve\textsuperscript{\ref{fn3}}}      & 
+Y                                   & % I d. Nachricht
+N\textsuperscript{\ref{fn1}}        & % A d. Resolvers
+Y                                   & % A d. Antwort
+Y                                   & % V d. Verbindung
+Y                                   & % V d. Resolver Antwort
+N                                     % V d. auth. DNS        
+\\ 
+
+\hline
+\multicolumn{1}{|r|}{DNSCrypt}      & 
+Y                                   & % I d. Nachricht
+Y                                   & % A d. Resolvers
+N                                   & % A d. Antwort
+Y                                   & % V d. Verbindung
+N                                   & % V d. Resolver Antwort
+N                                     % V d. auth. DNS                    
+\\ 
+
+\hline
+\multicolumn{1}{|r|}{DoT / DoH}     & 
+Y                                   & % I d. Nachricht 
+Y                                   & % A d. Resolvers 
+N                                   & % A d. Antwort 
+Y                                   & % V d. Verbindung 
+N                                   & % V d. Resolver Antwort 
+N                                     % V d. auth. DNS                       
+\\ 
+
+\hline
+\multicolumn{1}{|r|}{QNAME min.}    & 
+N                                   & % I d. Nachricht 
+N                                   & % A d. Resolvers 
+N                                   & % A d. Antwort 
+N                                   & % V d. Verbindung 
+N                                   & % V d. Resolver Antwort
+Y\textsuperscript{\ref{fn2}}          % V d. auth. DNS                       
+\\ 
+
+\hline
+\multicolumn{1}{|r|}{EncDNS\textsuperscript{\ref{fn3}} / ODNS\textsuperscript{\ref{fn3}}} & 
+Y                                   & % I d. Nachricht 
+Y                                   & % A d. Resolvers 
+N                                   & % A d. Antwort 
+Y                                   & % V d. Verbindung 
+Y                                   & % V d. Resolver Antwort
+N                                     % V d. auth. DNS       
+\\ 
+
+\hline
+\end{tabular}
+\end{table}

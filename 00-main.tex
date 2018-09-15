@@ -49,8 +49,6 @@
 
 \usepackage[textsize=tiny]{todonotes}
 
-\usepackage[inlineFootnotes,citations,fencedCode,definitionLists,hashEnumerators,smartEllipses,hybrid]{markdown}
-
 \usepackage{framed}
 
 \renewenvironment{leftbar}[1][\hsize]
@@ -58,7 +56,7 @@
     \def\FrameCommand
     {%
         {\color{red}\vrule width 3pt}%
-        \hspace{0pt}%must no space.
+        \hspace{0pt}%
         \fboxsep=\FrameSep\colorbox{yellow}%
     }%
     \MakeFramed{\hsize#1\advance\hsize-\width\FrameRestore}%
@@ -102,6 +100,7 @@
 \pretolerance=4000
 \tolerance=2000 
 \emergencystretch=10pt
+
 %\par\smallskip
 
 \RedeclareSectionCommand[
@@ -116,10 +115,10 @@
 \RedeclareSectionCommand[
   beforeskip=-.25\baselineskip,
   afterskip=1pt]{subsubsection}
-\RedeclareSectionCommands[
-    beforeskip=-1.2ex plus -1ex minus -0.2ex,
-    afterskip=1sp,% smallest possible positive value
-]{paragraph,subparagraph}
+%\RedeclareSectionCommands[
+%    beforeskip=-1.2ex plus -1ex minus -0.2ex,
+%    afterskip=1sp,% smallest possible positive value
+%]{paragraph,subparagraph}
 
 % --------------------------------------------------------------------------- %
 \begin{document}
@@ -137,15 +136,15 @@
 
 \include{20-work/attacks}
 
-\include{20-work/goals}
-
 \include{20-work/solutions}
 
 \include{20-work/technologies}
 
 \include{30-impl/implementation}
 
-\include{40-conc/conclusion}
+\include{40-conc/results}
+
+\include{40-conc/discussion}
 
 \include{40-conc/future}
 
@@ -162,7 +161,7 @@
 \listoftables
 \clearpage
 
-% Listingsverzeichnis
+% Verzeichnis der Listings
 \lstlistoflistings
 \clearpage
 

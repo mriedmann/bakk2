@@ -53,6 +53,7 @@ Wie viele ältere Protokolle ist auch DNS von einer starken Anfälligkeit gegen 
 Da dieser Angriff derartig mächtig ist, bieten sich jedoch oft effektivere Wege um die Kontrolle über die Ziele auszuweiten. Die genauen Angriffswege und Möglichkeiten der Ausnutzung werden von Conti, Dragoni und Lesyk \cite{Conti2016} ausführlich beschrieben und würden den Rahmen dieser Arbeit sprengen.
 
 \section{Denial-Of-Service Angriff}
+\label{sec:attacks-dos}
 Denial-Of-Service Attacken (DoS) zielen darauf ab die Nutzung bestimmter Dienstleistungen, Funktionen oder Geräte zu verhindern \cite{BSIG040}. Durch einen solchen Angriff auf den verwendeten Resolver oder relevante, autoritative DNS-Servern können kritischen Unternehmensdienste kurzfristig außer Betrieb genommen werden. In den meisten Fällen wird für die Angriffe auf DNS die DNS-Infrastruktur selbst herangezogen. Ist es bei klassischen Distributed-DoS (DDoS) Attacken noch einfach die sendenden Hosts über Firewalls oder Routing stillzulegen, so kann das blockieren von DNS-Servern unvorhergesehene Auswirkungen auf die Funktionsweise des gesamten DNS haben \cite{Kambourakis2008}. 
 
 \subsection{DoS-Amplification Angriff}
@@ -110,3 +111,15 @@ amazgn.com = 61   6d   61 7a   67   6e 2e 63 6f 6d
                         ... 01100111 ...
                                 ^
 \end{lstlisting}
+
+\section{Übersicht}
+
+Gruppiert man nun die oben gezeigten Angriffe nach den in Kapitel \ref{chap:threads} beschriebenen Schwächen erhält man die in Abbildung \ref{img:attacks-summary} dargestellte Zuordnung.
+
+\begin{figure}[!hb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Overview_Attacks}
+    \caption{Übersicht des Bezugs zwischen den vorgestellten Sicherheits-Problemen und den Attacken die diese ausnutzen.}
+    \label{img:attacks-summary}
+\end{figure}
+

@@ -63,3 +63,15 @@ EncDNS
 Oblivious
 DNS-over-TCP
 Response-Rate-Limiting
+Address
+single-point-of-trust
+Kurven-Kryptosystem
+elliptic-curve-cryptography
+message-authentication-code
+Schlüsselaushandlung
+Fallback
+ DNS-over-TLS
+Queries-over-HTTPS
+Considerations
+Protocols
+Subnet
