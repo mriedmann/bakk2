@@ -1,9 +1,40 @@
-\chapter{Informationssicherheit}
+\chapter{Sicherheit in der IT}
 \label{chap:itsecurity}
 
-\todo[inline]{Definition Informationssicherheit, kurzes Bescheiben der CIA-Triade, Privacy definieren, Trust (CoT, WoT, SK, TOFU).}
-\todo[inline]{Cyber-Kill-Chain erklären (Verweis unter Angriffe)}
+Da sich diese Arbeit größtenteils mit Sicherheit beschäftigt, ist es notwendig dieses Thema bewusst einzugrenzen und mögliche Mehrdeutigkeiten vorab zu klären.
 
+\section{Allgemeine Definitionen}
+Um ein einheitliches Verständnis der Begrifflichkeiten zu erzielen, werden in diesem Kapitel die wichtigsten Schlagwörter kurz definiert.
 
+\paragraph{Informationssicherheit}
+Wie das Bundesamt für Sicherheit in der Informationstechnik (BSI) in seinem Glossar darlegt, hat Informationssicherheit den Schutz von Informationen als Ziel\cite{BSIGlossar}. Dieser Begriff ist bewusst nicht auf digitale Informationen oder Computer beschränkt, sondern umfasst alle Arten von Information. Um Informationssicherheit zu erreichen werden drei Schutzziele definiert: Vertraulichkeit (engl. confidentiality), Inegrität (engl. integrity) und Verfügbarkeit (engl. availability). Diese drei Ziele werden im englischen Sprachraum oft als CIA-Triade bezeichnet, wobei das diesem Ausdruck zugrunde liegende Sicherheitskonzept inzwischen an Bedeutung verloren hat\cite{Cherdantseva2013}.
 
-Die gängigsten Methoden sind \textit{Chain-of-trust}, \textit{Web-of-trust}, \textit{Shared Key} und \textit{Trust-On-First-Use} (TOFU). Wie im folgenden Kapitel beschrieben wird, beantworten die unterschiedlichen Technologien diese Frage auf diverse weise, wobei zumindest TOFU als unzureichend Sicher eingestuft werden kann \cite{Wendlandt2008}.
+\paragraph{Vertraulichkeit}
+Informationsvertraulichkeit von Daten und Systemen ist gegeben, wenn keine unautorisierte Informationsgewinnung möglich ist\cite[p. 10]{Eckert2013}. Hier wird bewusst die Möglichkeit auf Veränderung oder Besitz von der Definition ausgespart. Ist es also durchaus zulässig, blinde Änderungen an Daten zuzulassen oder eine unautorisierte Partei in Besitz der Daten kommen zu lassen, solange es nicht möglich ist die darin enthaltenen Informationen zu extrahieren. Dieses Szenario ist in den meisten verschlüsselten Netzwerkübertragungen durchaus der Fall und auch zulässig.    
+
+\paragraph{Integrität}
+Datenintegrität ist gewährleistet, wenn eine unautorisierte und unbemerkte Veränderung von Daten unmöglich ist\cite[p. 9]{Eckert2013}. Dabei liegt der Schwerpunkt, speziell im Bereich der Netzwerktechnik, auf dem erkennen von Veränderung, statt deren Verhinderung. Wird eine Veränderung immer erkannt, ist Integrität bereits gegeben.
+
+\paragraph{Verfügbarkeit}
+Verfügbarkeit behandelt die Nutzbarkeit eines Systems durch berechtigte Subjekte. Dabei darf er nicht zu einer unautorisierten Verweigerung des Zugriffs kommen \cite[p. 12]{Eckert2013}. Dies beinhaltet z.B. auch einen hardwarebedingten Ausfall eines Systems, schließt aber bewusst den aktiven Eingriff von Außen nicht aus.
+ 
+\paragraph{Authentizität}
+Ein abgeleitetes Schutzziel stellt dabei die Authentizität (engl. authenticity) dar. Diese ist gegeben, wenn  ``die Echtheit und Glaubwürdigkeit des Objekts bzw. Subjekts, die anhand einer eindeutigen Identität und charakteristischen Eigenschaften überprüfbar ist''\cite[p. 8]{Eckert2013}. Der Vorgang der Feststellung der Authentizität wird Authentifizierung genannt. Dabei wird die behauptete Identität über den Vergleich der charakteristischen Eigenschaften verifiziert. Ein einfaches Beispiel ist dabei die Eingabe eines Passworts, bei dem die behauptete Identität, also die Benutzerkennung, über die charakteristische Eigenschaft, das Passwort, überprüft wird.  
+
+\paragraph{Datenschutz}
+Das Konzept des Datenschutzes (engl. Privacy) wird in verschiedenen Quellen unterschiedlich definiert. Im Zuge dieser Arbeit genügt die vereinfachte Betrachtungsweise. Dabei ist Datenschutz als Schutz vor dem Missbrauch personenbezogener Daten zu verstehen. Auch die Festlegung was denn nun personenbezogene Daten seien variiert leicht. Auch hier ist es für diese Arbeit ausreichend festzustellen, dass es sich bei Daten die einen Rückschluss auf die Identität einer Person zulassen definitiv um personenbezogene Daten handelt. Dazu gehören explizit Adressen (auch IP-Adressen), sowie jede Form von einfach verknüpfbarer ``Online-Kennung''\cite{Schwenke2018}.     
+
+\paragraph{Verbindlichkeit}
+Als verbindlich, auch zuordenbar bzw. nicht abstreitbar (engl. non repudiation), werden Aktionen bezeichnet, deren Durchführung vom durchführenden Subjekt im Nachhinein nicht abgestritten werden können. Diese Eigenschaft bildet die Grundlage verschiedenster Dienstleistungen, da sie dazu in der Lage ist einzelne Personen an ihre Handlungen zu binden. Man denke an Online-Zahlungen oder das einreichen offizieller Formulare. Obwohl nicht zwingend notwendig, macht Verbindlichkeit oft nur bei hergestellter Authentizität Sinn und kann daher als untergeordnetes Schutzziel verstanden werden.
+
+\section{Vertrauen}
+Vertrauen (engl. Trust) hat verschiedenste Bedeutungen. In dieser Arbeit wird er jedoch in einem sehr spezifischen Kontext, der Kryptographie, verwendet. Das Vertrauen liegt dabei in der Fähigkeit eines Merkmals die Identität einer Person auch wirklich zu beweisen und baut damit auf der Definition von Authentizität auf\cite{Perrin2010}. Erlaubt man nun die eigennützige Spezifizierung, so beschreibt Vertrauen die Glaubwürdigkeit der Beziehung zwischen einem kryptografischen Schlüssen und der Identität der ihn besitzenden Person. Um diese Vertrautheit herzustellen existieren nun verschiedene Möglichkeiten. Diese werden hier als ``Prozesse zur Herstellung einer Vertrauensstellung'' (engl. Trust Establishment Process) bezeichnet. Nachfolgend werden die zum Verständnis relevanten Arten beschrieben.
+
+\paragraph{Direkt}
+Die einfachste Methode um eine Vertrauensstellung zwischen zwei Parteien herzustellen, ist die direkte Methode. Dabei wird die jede Partei über bekannte Merkmale wie Biometrie von der jeweils andere Authentifiziert. Dies passiert zum Beispiel beim physischen Überreichen einer Abschrift der jeweiligen Schüssel. Die Authentifizierung kann dabei visuell, auditiv oder haptisch erfolgen.
+
+\paragraph{Trust-On-First-Use}
+Das Trust-On-First-Use (TOFU) Konzept folgt der Annahme, dass ein Angreifer nur eine begrenztes Zeitfenster besitzt. Dadurch ist es unwahrscheinlich, dass genau die ersten Nutzung eines Services abgefangen werden kann. Somit ist es Valide die Vertrauensstellung während der ersten Verbindung zu einem Zielservice herzustellen. Diese Methode ist Nutzenden von Secure Shell (SSH) und HTTPS (mit selbstsignierten Zertifikaten) durchaus geläufig. Wie jedoch festgestellt werden konnte, ist dieses Verfahren von der Verantwortlichkeit des Users abhängig und damit als leicht Angreifbar zu werten.\cite{Wendlandt2008}
+
+\paragraph{Chain-Of-Trust}
+In der Chain-Of-Trust (CoT) wird die Idee des indirekten, transitiven Vertrauens eingeführt. Die bekannteste Umsetzung ist als Public-Key-Infrastructure (PKI) bekannt und liefert die Basis für den sicheren Datenaustausch im World-Wide-Web (WWW). Die Verknüpfung eines Schlüssels mit der Identität eines Subjekts wird dabei von einer dritten Stelle, der sogenannten Certificate Authority (CA) kontrolliert. Diese nimmt eine Zertifizierungsprozess bestimmter charakteristischer Merkmale vor. Bei Erfolg werden die zertifizierten Merkmalen, zusammen mit dem Schlüssel des Subjekt in ein Zertifikat geschrieben und von der CA signiert. Will nun eine andere Partei die Echtheit eines von dem Subjekt behaupteten Merkmals prüfen, kann sie über eine Kontrolle des Zertifikats sicher sein, dass eine dritte Partei den Zusammenhang überprüft hat. Was nun zur namensgebenden Kette führt, ist die Frage nach der Vertrauensstellung zu dieser dritten Partei, der CA. Dafür gibt es nun zwei Möglichkeiten: Entweder es wird eine direkte Vertrauensstellung zwischen der CA und der prüfenden Partei hergestellt, oder die CA weist selbst ein Zertifikat einer anderen Stelle vor. Bei dieser nächsten Stelle bestehen eben die selben zwei Möglichkeiten. Eine Beziehung kann in diesem Konzept dann als vertrauenswürdig angesehen werden, wenn ein Punkt in dieser Kette eine direkte Vertrauensstellung zur prüfenden Partei ausweist. Diesen Punkt der Kette wird allgemein als Wurzel (engl. Root) bezeichnet\cite[p. 423 ff.]{Eckert2013}.  

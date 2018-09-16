@@ -7,20 +7,8 @@
 % um die Umlaute korrekt wiederzugeben: utf8, latin, applemac
 \usepackage[utf8]{inputenc}
 
-\usepackage{lipsum}
-\setlipsumdefault{1-4}
-
 \usepackage{comment}
 \usepackage{hyperref}
-
-% Fehlermeldungen durch Kollision zwischen hyperref und babel stilllegen
-\usepackage{etoolbox}
-\makeatletter
-\patchcmd{\pdfstringdef}
-  {\csname HyPsd@babel@}
-  {\let\bbl@info\@gobble\csname HyPsd@babel@}
-  {}{}
-\makeatother
 
 % Einstellungen für Code-Listings
 \usepackage{listings}
@@ -54,42 +42,15 @@
   title=\lstname                  % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
 
+\usepackage{graphicx}
 \graphicspath{ {./PICs/} }
 \DeclareGraphicsExtensions{.pdf,.png}
 
-\usepackage[textsize=tiny]{todonotes}
-
-\usepackage{framed}
-
-\renewenvironment{leftbar}[1][\hsize]
-{%
-    \def\FrameCommand
-    {%
-        {\color{red}\vrule width 3pt}%
-        \hspace{0pt}%
-        \fboxsep=\FrameSep\colorbox{yellow}%
-    }%
-    \MakeFramed{\hsize#1\advance\hsize-\width\FrameRestore}%
-}
-{\endMakeFramed}
-
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10,babel]{microtype}
 
-%\usepackage{parskip}
 \usepackage{wrapfig}
 
 \usepackage{enumitem}
-
-% \usepackage{showframe}
-
-% Eigene Commands
-\newenvironment{draft}
-{\par
-  
-  \begin{leftbar}
-}{\par
-  \end{leftbar}
-}
 
 % Einstellungen der Class TWBOOK
 \title{DNS Client Security\\Bedohungen und Lösungswege}
@@ -111,7 +72,9 @@
 \tolerance=2000 
 \emergencystretch=10pt
 
-%\par\smallskip
+% --------------------------------------------------------------------------- %
+\begin{document}
+\maketitle
 
 \RedeclareSectionCommand[
   beforeskip=-1pt plus -16pt minus -1pt,
@@ -122,19 +85,13 @@
 \RedeclareSectionCommand[
   beforeskip=-.25\baselineskip,
   afterskip=.1\baselineskip]{subsection}
-\RedeclareSectionCommand[
-  beforeskip=-.25\baselineskip,
-  afterskip=1pt]{subsubsection}
+%\RedeclareSectionCommand[
+%  beforeskip=-.25\baselineskip,
+%  afterskip=1pt]{subsubsection}
 %\RedeclareSectionCommands[
 %    beforeskip=-1.2ex plus -1ex minus -0.2ex,
 %    afterskip=1sp,% smallest possible positive value
 %]{paragraph,subparagraph}
-
-% --------------------------------------------------------------------------- %
-\begin{document}
-\maketitle
-
-\listoftodos
 
 \include{10-intro/introduction}
 
@@ -155,6 +112,8 @@
 \include{40-conc/results}
 
 \include{40-conc/conclusion}
+
+\include{40-conc/future}
 
 % Literaturverzeichnis
 \bibliography{literatur} 

@@ -21,8 +21,6 @@ Eine mögliche Lösung dieses Problem stellt das einführen eines Authentifizier
 \section{Vertraulichkeit der Verbindung}
 Wie in Abschnitt \ref{sec:thread-priv} dargelegt ist DNS-Privacy zu einem wichtigen Thema geworden. Die nachhaltige Lösung zur Sicherstellung der Vertraulichkeit ist, wie damals auch bei HTTP, der Einsatz einer geeigneten Transportverschlüsselungstechnologie. Auf welcher Ebene diese Stattfindet ist dafür grundsätzlich nicht relevant. Der Einsatz von etablierten Technologien wie TLS liegt jedoch nahe, obwohl für DNS auch alternative Lösungen entwickelt wurden. 
 
-\todo[inline]{``Vertraulichkeit der Verbindung'': Bissal gar dünn}
-
 \section{Trennen von Adresse und Anfrage}
 \label{sec:goals-sourceanon}
 Um die sensiblen Verbindungsdaten zu Schützen ist es wichtig die Anonymität der anfragenden Person zu wahren. Konkreter sollen Adressen die mit der entschlüsselten Anfrage in Verbindung steht, nicht auf die anfragende Person zurückführbar sein. Durch den Einsatz von rekursiven Resolvern wird diese Kombination aus Adresse und Anfrage zwar vor den autoritativen DNS-Servern verborgen, verschiebt das Problem jedoch lediglich auf den Resolver. 
