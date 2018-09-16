@@ -1,4 +1,5 @@
 % !TEX encoding = IsoLatin2
+%spellcheck-off
 \documentclass[Bachelor, BIC, german]{twbook}
 
 \usepackage[T1]{fontenc}
@@ -11,6 +12,15 @@
 
 \usepackage{comment}
 \usepackage{hyperref}
+
+% Fehlermeldungen durch Kollision zwischen hyperref und babel stilllegen
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\pdfstringdef}
+  {\csname HyPsd@babel@}
+  {\let\bbl@info\@gobble\csname HyPsd@babel@}
+  {}{}
+\makeatother
 
 % Einstellungen für Code-Listings
 \usepackage{listings}
@@ -144,9 +154,7 @@
 
 \include{40-conc/results}
 
-\include{40-conc/discussion}
-
-\include{40-conc/future}
+\include{40-conc/conclusion}
 
 % Literaturverzeichnis
 \bibliography{literatur} 
@@ -177,5 +185,7 @@
 
 %Anhänge
 \include{50-append/appendixA}
+
+\include{50-append/appendixB}
 
 \end{document}

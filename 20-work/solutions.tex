@@ -1,6 +1,6 @@
-\chapter{Lösungsmöglichkeiten}
+\chapter{Empfehlungen}
 \label{chap:solutions}
-% Noch nicht auf spezielle technische Lösungen eingehen!
+Aufgrund der in den vorherigen Kapiteln beschriebenen Problemen und Angriffen können insgesamt 6 Lösungsvorschläge erstellt werden. Diese als Empfehlungen zu verstehenden, allgemeinen Beschreibungen werden bereits von verschiedenen Technologien erfüllt. Auf diese wird im diesem folgenden Kapitel \ref{chap:technologies} genauer eingegangen.
 
 \section{Authentizität der Records}
 \label{sec:solution-recordauth}
@@ -23,15 +23,6 @@ Wie in Abschnitt \ref{sec:thread-priv} dargelegt ist DNS-Privacy zu einem wichti
 
 \todo[inline]{``Vertraulichkeit der Verbindung'': Bissal gar dünn}
 
-
-\section{Vertraulichkeit der Anfragen}
-\label{sec:solutions-PrivRequest}
-Ein in der Vergangenheit wenig beachtetes Problem ist die Vertraulichkeit der Anfragen selbst und damit das notwendige Vertrauen an die Betreibenden der DNS-Infrastruktur selbst. Speziell Rekursive Resolver von großen ISPs akkumulieren eine große Menge an DNS-Daten, welche auf vergleichsweise einfache Art zur Nachvollziehung von Kommunikationsverläufe der Nutzenden herangezogen werden kann. Zum umgehen dieser Schwachstelle gibt es zwei getrennte Entwürfe.
-
-Auf der einen Seite gibt es Vorschläge die darauf abzielen personenbezogene Informationen wie die IP-Adresse bewusst von den Anfragedaten zu trennen. Dafür wird der Umstand ausgenützt, dass es möglich ist die Anfragen- und Antwortdaten von den Kommunikationsdaten zu trennen. Dies wird durch einen, für den Recursive Resolver transparente, Ende-zu-Ende-Verschlüsselung zwischen Stub Resolver und einem speziellen DNS-Server möglich. Der DNS-Server entschlüsselt dabei die erhaltene Anfrage und löst diese rekursiv auf, verschlüsselt die Antwort und sendet diese an der Recursive Resolver zurück, welcher die Antwort an den Client weiterreicht. Durch dieses Verfahren kann der Recursive Resolver weder Anfrage noch Antwort lesen, wobei der eigentlich auflösende Server zwar die Daten aber keinen Hinweis auf die Identität des Client erhält.
-
-Ein komplett anderer Entwurf basiert auf der Ablöse des DNS als Gesamtheit, da davon ausgegangen wird, das DNS, aufgrund seines Grundkonzepts, nie strengen Ansprüchen auf Vertraulichkeit genügen wird. Diese Alternativkonzepte bauen die für ein Namensauflösungssystem notwendige verteile Datenbank mithilfe von Technologien wie Dirstibute-Hash-Tables (DHT) oder Public Ledger auf Blockchain-Basis auf. Da diese Lösungsentwürfe radikal vom bestehenden Konzept des DNS abweichen, werden sie hier nicht weiter behandelt.      
-
 \section{Trennen von Adresse und Anfrage}
 \label{sec:goals-sourceanon}
 Um die sensiblen Verbindungsdaten zu Schützen ist es wichtig die Anonymität der anfragenden Person zu wahren. Konkreter sollen Adressen die mit der entschlüsselten Anfrage in Verbindung steht, nicht auf die anfragende Person zurückführbar sein. Durch den Einsatz von rekursiven Resolvern wird diese Kombination aus Adresse und Anfrage zwar vor den autoritativen DNS-Servern verborgen, verschiebt das Problem jedoch lediglich auf den Resolver. 
@@ -42,22 +33,6 @@ Die Lösung besteht nun in der simplen Trennung von Adresse des Clients und dess
 \label{sec:goals-trafficamp}
 Abgesehen von der Verfügbarkeit des DNS selbst, wird es, wie in Abschnitt \ref{sec:thread-dosamp} und \ref{sec:attack-dosamp} beschrieben, auch selbst als Verstärker (Traffic Amplification; DoS Amplification Attack) für DoS-Attacken eingesetzt. Es ist daher für zum Schutz anderer Internet-Services essenziell, dass DNS und dessen Implementierungen nicht lohnender für Traffic-Amplification Versuche sind als andere Services.
 
-Die einfachste Möglichkeit einer Lösung besteht im Ablösen des Verbindungslosen UDP zugunsten eines Verbindungsorientierten Protokolls wie TCP. Der notwendige Verbindungsaufbau könnte im Falle eines klassischen IP-Spoofings nicht abgeschlossen werden, was das Stellen einer Anfrage verhindern würde. Damit wäre DNS nicht mehr als Verstärker nutzbar. Die Nachteile dieser Lösung bestehen jedoch in ihrem Vorteil, da der Verbindungsaufbau viel Zeit in Anspruch nimmt und zusätzliche Ressourcen auf dem Server binden würde. Wie festgestellten werden konnte, ist die Auswirkung auf die Performance in den meisten Fällen jedoch stark überschätzt\cite{Zhu2015}.
+Die einfachste Möglichkeit einer Lösung besteht im Ablösen des Verbindungslosen UDP zugunsten eines Verbindungsorientierten Protokolls wie TCP. Der notwendige Verbindungsaufbau könnte im Falle eines klassischen IP-Spoofings nicht abgeschlossen werden, was das Stellen einer Anfrage verhindern würde. Damit wäre DNS nicht mehr als Verstärker nutzbar. Dieser Vorteil ist jedoch direkt mit dem Nachteil verbunden, da der Verbindungsaufbau viel Zeit in Anspruch nimmt und zusätzliche Ressourcen auf dem Server bindet. Wie festgestellten werden konnte, ist die Auswirkung auf die Performance in den meisten Fällen jedoch stark überschätzt\cite{Zhu2015}.
 
-Es ist anzumerken, dass Protokolle wie DTLS, trotz UDP, eine Form von Sitzung aufbauen, was die Möglichkeit zum Einsatz als Verstärker ebenfalls erschweren würde\cite{rfc6347}. 
-
-\section{Härten des Resolvers}
-
-\begin{draft}
-    \begin{itemize}
-        \item Source Port randomization
-        \item ACLs am Resolver
-        \item In-Domain check for Glue Records
-        \item 0x20 
-        \item TXID Randomization
-        \item TTL min. 
-    \end{itemize}
-
-(https://tools.ietf.org/html/rfc545)
-
-\end{draft}
+Neben TCP können auch Protokolle wie DTLS, trotz UDP Transportprotokoll, eingesetzt werden. DTLS baut eine Sitzung auf, was die Möglichkeit zum Einsatz als Verstärker ebenfalls erschweren würde, da der Server erst nach erfolgreichem Handshake Anfragen akzeptiert\cite{rfc6347}. 

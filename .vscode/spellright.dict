@@ -75,3 +75,9 @@ Queries-over-HTTPS
 Considerations
 Protocols
 Subnet
+ avg. 
+Unbound
+Build
+1.1.0h-fips
+Knot-Resolver
+ungecachten
