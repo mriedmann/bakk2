@@ -7,9 +7,6 @@
 % um die Umlaute korrekt wiederzugeben: utf8, latin, applemac
 \usepackage[utf8]{inputenc}
 
-\usepackage{comment}
-\usepackage{hyperref}
-
 % Einstellungen für Code-Listings
 \usepackage{listings}
 \usepackage{color}
@@ -42,11 +39,10 @@
   title=\lstname                  % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
 
-\usepackage{graphicx}
 \graphicspath{ {./PICs/} }
 \DeclareGraphicsExtensions{.pdf,.png}
 
-\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10,babel]{microtype}
+%\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10,babel]{microtype}
 
 \usepackage{wrapfig}
 
@@ -61,11 +57,11 @@
 
 \kurzfassung{\input{00-main/summary}}
 % TODO: Schlagwörter der Zusammenfassung ausfüllen
-\schlagworte{Schlagwort1, Schlagwort2, Schlagwort3, Schlagwort4}
+\schlagworte{DNS, DNS Sicherheit, IT-Sicherheit, DNSSEC, DNS-over-TLS}
 
 \outline{\input{00-main/abstract}}
 % TODO: Schlagwörter des Abstracts ausfüllen
-\keywords{Keyword1, Keyword2, Keyword3, Keyword4}
+\keywords{DNS, DNS Security, IT-Security, DNSSEC, DNS-over-TLS}
 
 % Allgemeine Einstellungen
 \pretolerance=4000
@@ -139,7 +135,7 @@
 \phantomsection
 \addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
 \chapter*{Abkürzungsverzeichnis}
-\begin{acronym}[XXXXX]
+\begin{acronym}[XXXXXX]
     \acro{IANA}[IANA]{Internet Assigned Numbers Authority}
     \acro{WWW}[WWW]{World Wide Web}
     \acro{TLD}[TLD]{Top Level Domain}
