@@ -7,11 +7,11 @@ Das Nachfolgende Listing stellt das Konfigurationsscript für die Host-Firewall 
 \lstinputlisting[language=Bash]{code/set-fw.sh}
 \clearpage
 
-Die Konfigurationsdatei \texttt{/etc/unbound/unbound.conf} des Unbound 1.4.7 Servers ist in folgendem Listing festgehalten. Die Kommentare ab Zeile 41 stellen dabei die einzelnen Betriebsmodi dar. Zum aktivieren einfach die aktuellen Zeilen aus- und die anderen einkommentieren.   
+Die Konfigurationsdatei \texttt{/etc/unbound/unbound.conf} des Unbound 1.4.7 Servers ist in folgendem Listing festgehalten. Die Kommentare ab Zeile 41 stellen dabei die einzelnen Betriebsmodi dar. Zum aktivieren einfach die aktuellen Zeilen aus- und die anderen einkommentieren. Achtung! Der Teil \texttt{\#dns.quad9.net} hinter den Zeilen beginnend mit \texttt{forward-addr:} sind keine Kommentare sondern die Hostnamen für die Validierung der TLS-Zertifikate. 
 
 \lstinputlisting[language=Bash]{code/unbound.conf}
 \clearpage
 
-Diese Listing foltg dem von oben, betrifft hier nur die Knot-Resolver-Config unter \texttt{/etc/knot-resolver/}.
+Diese Listing folgt dem von oben, betrifft hier nur die Knot-Resolver-Config unter \texttt{/etc/knot-resolver/}.
 
 \lstinputlisting[language={[5.0]Lua}]{code/kresd.conf}
