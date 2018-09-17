@@ -55,11 +55,11 @@
 \supervisor{FH-Prof. Dipl.-Ing. Alexander Mense}
 \place{Wien}
 
-\kurzfassung{\input{00-main/summary}}
+\kurzfassung{\input{001-summary}}
 % TODO: Schlagwörter der Zusammenfassung ausfüllen
 \schlagworte{DNS, DNS Sicherheit, IT-Sicherheit, DNSSEC, DNS-over-TLS}
 
-\outline{\input{00-main/abstract}}
+\outline{\input{002-abstract}}
 % TODO: Schlagwörter des Abstracts ausfüllen
 \keywords{DNS, DNS Security, IT-Security, DNSSEC, DNS-over-TLS}
 
@@ -77,7 +77,7 @@
 
 \RedeclareSectionCommand[
   beforeskip=-1pt plus -16pt minus -1pt,
-  afterskip=.25\baselineskip]{chapter}
+  afterskip=.5\baselineskip]{chapter}
 \RedeclareSectionCommand[
   beforeskip=-1em plus -3em minus -1pt,
   afterskip=.25\baselineskip]{section}
@@ -92,27 +92,25 @@
 %    afterskip=1sp,% smallest possible positive value
 %]{paragraph,subparagraph}
 
-\include{10-intro/introduction}
+\input{010-introduction}
 
-\include{10-intro/itsecurity}
+\input{020-itsecurity}
 
-\include{10-intro/dns}
+\input{030-dns}
 
-\include{20-work/threads}
+\input{040-problems}
 
-\include{20-work/attacks}
+\input{050-attacks}
 
-\include{20-work/solutions}
+\input{060-solutions}
 
-\include{20-work/technologies}
+\input{070-technologies}
 
-\include{30-impl/implementation}
+\input{080-implementation}
 
-\include{40-conc/results}
+\input{090-results}
 
-\include{40-conc/conclusion}
-
-\include{40-conc/future}
+\input{100-conclusion}
 
 % Literaturverzeichnis
 \bibliography{literatur} 
@@ -176,8 +174,8 @@
 \end{acronym}
 
 %Anhänge
-\include{50-append/appendixA}
+\include{999-appendixA}
 
-\include{50-append/appendixB}
+\include{999-appendixB}
 
 \end{document}
