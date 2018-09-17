@@ -1,11 +1,17 @@
 \chapter*{Anhang A}
 \label{chap:appA}
+In diesem Anhang werden die für die Reproduktion notwendigen Konfigurationsdateien zur Verfügung gestellt. 
 
-\begin{lstlisting}
-rc-update add iptables 
-/etc/init.d/iptables save
-\end{lstlisting}
+Das Nachfolgende Listing stellt das Konfigurationsscript für die Host-Firewall des Servers dar. Es wurde dabei ein minimales Setup gewählt. Dabei sind nur die notwendigen ein- und ausgehenden Verbindungen berechtigt.
 
-\lstinputlisting[language=Bash,caption={test}]{code/set-fw.sh}
+\lstinputlisting[language=Bash]{code/set-fw.sh}
+\clearpage
+
+Die Konfigurationsdatei \texttt{/etc/unbound/unbound.conf} des Unbound 1.4.7 Servers ist in folgendem Listing festgehalten. Die Kommentare ab Zeile 41 stellen dabei die einzelnen Betriebsmodi dar. Zum aktivieren einfach die aktuellen Zeilen aus- und die anderen einkommentieren.   
 
 \lstinputlisting[language=Bash]{code/unbound.conf}
+\clearpage
+
+Diese Listing foltg dem von oben, betrifft hier nur die Knot-Resolver-Config unter \texttt{/etc/knot-resolver/}.
+
+\lstinputlisting[language={[5.0]Lua}]{code/kresd.conf}
