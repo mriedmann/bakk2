@@ -57,7 +57,7 @@ Da dieser Angriff derartig mächtig ist, bieten sich oft effektivere Wege um die
 \label{sec:attacks-dos}
 \ac{DoS} Attacken  zielen darauf ab die Nutzung bestimmter Dienstleistungen, Funktionen oder Geräte zu verhindern \cite{BSIG040}. Durch einen solchen Angriff auf den verwendeten Resolver oder relevante, autoritative DNS-Servern können kritischen Unternehmensdienste kurzfristig außer Betrieb genommen werden. In den meisten Fällen wird für die Angriffe auf DNS die DNS-Infrastruktur selbst herangezogen. Ist es bei klassischen \ac{DoS} Attacken noch einfach die sendenden Hosts über Firewalls oder Routing stillzulegen, so kann das Blockieren von DNS-Servern unvorhergesehene Auswirkungen auf die Funktionsweise des gesamten DNS haben\cite{Kambourakis2008}. 
 
-\subsection{DoS-Amplification Angriff}
+\section{DoS-Amplification Angriff}
 \label{sec:attack-dosamp}
 \begin{wrapfigure}{r}{0.35\textwidth}
     \begin{center}
@@ -86,7 +86,7 @@ Werden stetig neue Anfragen gestellt und eine ausreichend hohe Anzahl an Zombie-
 \label{sec:attack-dnsrebind}
 Eine weniger bekannte Art die Schwachstellen von DNS auszunutzen ist das sogenannte \textit{DNS Rebinding}. Ziel des Angriffs besteht im Überwinden der als \textit{Access Within Same Origin Policy} genannte Sicherheits-Technik moderner Browser. Diese verbietet es Scripts einer Webseite auf Inhalte zuzugreifen die nicht unter dem selben Hostnamen erreichbar sind. Es können zwar Ausnahmen definiert werden, da dies jedoch am Ziel passieren muss, besteht dadurch keine Gefahr. Die Schwachstelle besteht im Fakt, dass DNS-Einträge mit sehr geringer TTL gesetzt werden können. Es wird dadurch möglich die Adresse eines Namens während der Ausführung eines Scripts zu verändern\cite{Jackson2009}. Das ermöglicht den folgenden Ablauf.
 
-\begin{enumerate}
+\begin{enumerate}[topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
     \item Das Opfer wird vom Angreifer, auf eine von ihm kontrolliere Website, gelockt. Der Nameserver des Angreifers vergibt für den DNS-Eintrag des Webservers eine sehr geringe TTL.
     \item Der Browser des Opfers führt die auf der Webseite eingebunden Scripts aus. Gleichzeitig läuft die TTL des gecachten Eintrags aus, was den Resolver zu einer erneuten Auflösung bewegt. Bei dieser wird vom Nameserver des Angreifers die Adresse eines Ziels zurückgeliefert.
     \item Nach diesem \textit{Rebinding} des Hostnamen kann das laufende Script über den eigenen Namen auf die Ressourcen der Adresse des Ziels zugreifen. Dies erlaubt dem Script z.B. Zugriffe auf netzinterne Ressourcen wie Administrationsoberflächen oder ermöglicht das Scannen des LANs. Außerdem wird damit der Browser des Opfers für andere Angriffe, wie \ac{DoS} Attacken, nutzbar.   
@@ -94,29 +94,12 @@ Eine weniger bekannte Art die Schwachstellen von DNS auszunutzen ist das sogenan
 
 Auch wenn es viele Gegenmaßnahmen in aktuellen Browsern gibt und einige der anfälligen Komponenten (Java Applets, Flash, etc.) an Verbreitung verlieren, besteht besonders durch die zunehmende Verbreitung von IoT-Geräten eine akute Bedrohung durch diesen Angriffsweg\cite{Dorsey2018}. 
 
-\section{BitSquatting}
-Eine weitere, ausgefallene Angriffsmöglichkeit bietet das sogenannte \textit{BitSquatting}. Bei diesem Angriff werden zufällige Fehler im Hauptspeicher von Geräten ohne Fehler-erkennende Speichermodule ausgenützt. Es konnte gezeigt werden, dass es durch solche Fehler zum Stellen fehlerhafter Anfragen an potenziell existente Domänen kommen kann\cite{Dinaburg2011}. Dieser Effekt kann bewusst ausgenutzt werden, indem eine große Anzahl an Domänen registriert werden, deren Name sich nur um ein Bit von viel besuchten Domänen unterscheidet (siehe Listing \ref{lst:bitquatting}). 
-Da es in diesem Fall zum Stellen falschen Anfragen kommt, gibt es keine Möglichkeit sich auf Protokoll- bzw. System-Ebene zu schützen. Die einzige effektive Lösung stellt der Einsatz von \textit{Error-correcting code memory} Hardware dar.  
-\begin{lstlisting}[caption={Drei mögliche BitSquatting-Domänen für die Zieldomäne \texttt{amazon.com}}, label={lst:bitquatting}]
-amazon.com = 61   6d   61 7a   6f   6e 2e 63 6f 6d
-           ... 01101101 ... 01101111 ... 
-aeazon.com = 61   65   61 7a   6f   6e 2e 63 6f 6d  
-           ... 01100101 ...
-                   ^
-a-azon.com = 61   e2   61 7a   6f   6e 2e 63 6f 6d 
-           ... 00101101 ...
-                ^
-amazgn.com = 61   6d   61 7a   67   6e 2e 63 6f 6d
-                        ... 01100111 ...
-                                ^
-\end{lstlisting}
-
 \section{Übersicht}
-Gruppiert man die oben gezeigten Angriffe nach den in Kapitel \ref{chap:threads} beschriebenen Schwächen erhält man die in Abbildung \ref{img:attacks-summary} dargestellte Zuordnung. DNS Rebinding und BitSquatting wurden als spezielle Attacke gesondert betrachtet.
+Gruppiert man die oben gezeigten Angriffe nach den in Kapitel \ref{chap:threads} beschriebenen Schwächen erhält man die in Abbildung \ref{img:attacks-summary} dargestellte Zuordnung. DNS Rebinding wurde als spezielle Attacke gesondert betrachtet.
 
 \begin{figure}[!hb]
     \centering
-    \includegraphics[width=\textwidth]{Overview_Attacks}
+    \includegraphics[width=0.8\textwidth]{Overview_Attacks}
     \caption{Übersicht des Bezugs zwischen den vorgestellten Sicherheits-Problemen und den Attacken die diese ausnutzen.}
     \label{img:attacks-summary}
 \end{figure}
