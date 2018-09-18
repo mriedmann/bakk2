@@ -17,7 +17,7 @@
 
 \lstset{ 
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
-  basicstyle=\tiny\ttfamily,        % the size of the fonts that are used for the code
+  basicstyle=\small\ttfamily,        % the size of the fonts that are used for the code
   breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
   breaklines=true,                 % sets automatic line breaking
   captionpos=b,                    % sets the caption-position to bottom
@@ -34,22 +34,18 @@
   showtabs=false,                  % show tabs within strings adding particular underscores
   stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
   tabsize=2,	                     % sets default tabsize to 2 spaces
-  %linewidth=15.5cm,
-  %xleftmargin=10pt,
+  %linewidth=14cm,
+  %xleftmargin=2cm,
   title=\lstname                  % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
 
-\graphicspath{ {./PICs/} }
-\DeclareGraphicsExtensions{.pdf,.png}
-
-%\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10,babel]{microtype}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10,babel]{microtype}
 
 \usepackage{wrapfig}
-
 \usepackage{enumitem}
 
 % Einstellungen der Class TWBOOK
-\title{DNS Client Security\\Bedohungen und Lösungswege}
+\title{DNS Client Security\\Bedrohungen und Lösungswege}
 \author{Michael Riedmann}
 \studentnumber{1510258054}
 \supervisor{FH-Prof. Dipl.-Ing. Alexander Mense}
@@ -64,12 +60,16 @@
 \keywords{DNS, DNS Security, IT-Security, DNSSEC, DNS-over-TLS}
 
 % Allgemeine Einstellungen
-\pretolerance=4000
+\pretolerance=1500
 \tolerance=2000 
 \emergencystretch=10pt
 
 \setkomafont{caption}{\footnotesize\itshape}
 \setkomafont{captionlabel}{\usekomafont{caption}}
+
+\graphicspath{ {./PICs/} }
+\DeclareGraphicsExtensions{.pdf,.png}
+\setlength{\belowcaptionskip}{-0.5\baselineskip}
 
 % --------------------------------------------------------------------------- %
 \begin{document}
@@ -134,46 +134,52 @@
 \addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
 \chapter*{Abkürzungsverzeichnis}
 \begin{acronym}[XXXXXX]
-    \acro{IANA}[IANA]{Internet Assigned Numbers Authority}
-    \acro{WWW}[WWW]{World Wide Web}
-    \acro{TLD}[TLD]{Top Level Domain}
-    \acroplural{TLD}[TLDs]{Top Level Domains}
-    \acro{SLD}[SLD]{Second Level Domain}
-    \acroplural{SLD}[SLDs]{Second Level Domains}
-    \acro{RR}[RR]{Ressource Record}
-    \acro{TTL}[TTL]{Time-To-Live}
-    \acro{RRset}[RRset]{Ressource Record Set}
-    \acro{ISP}[ISP]{Internet Service Providers}
-    \acro{DNS}[DNS]{Domain Name System}
     \acro{BSI}[BSI]{Bundesamt für Sicherheit in der Informationstechnik}
-    \acro{TOFU}[TOFU]{Trust-On-First-Use}
-    \acro{SSH}[SSH]{Secure Shell}
-    \acro{HTTPS}[HTTPS]{Hypertext Transfer Protocol Secure}
-    \acro{PKI}[PKI]{Public Key Infrastructure}
-    \acro{CoT}[CoT]{Chain-Of-Trust}
     \acro{CA}[CA]{Certificate Authority}
-    \acro{TXID}[TXID]{Transaktions-ID}
-    \acro{MTU}[MTU]{Maximum Transmission Unit}
-    \acro{MITM}[MITM]{Man-In-The-Middle}
-    \acro{DoS}[DoS]{Denial-Of-Service}
-    \acro{ECC}[ECC]{Elliptic Curve Cryptography}
-    \acro{MAC}[MAC]{Message Authentication Code}
+    \acro{CoT}[CoT]{Chain-Of-Trust}
     \acro{DJB}[DJB]{Daniel J. Bernstein}
-    \acro{DoT}[DoT]{DNS-over-TLS}
-    \acro{TLS}[TLS]{Transport-Layer-Security}
-    \acro{HTTP}[HTTP]{Hypertext Transfer Protocol}
-    \acro{T-DNS}[T-DNS]{DNS-over-TCP}
+    \acro{DNSSEC}[DNSSEC]{Domain Name System Security Extensions}
+    \acro{DNS}[DNS]{Domain Name System}
     \acro{DoH}[DoH]{DNS-over-HTTPS}
-    \acro{ODNS}[ODNS]{Oblivious DNS}
-    \acro{NAT}[NAT]{Network Address Translator}
+    \acro{DoS}[DoS]{Denial-Of-Service}
+    \acro{DoT}[DoT]{DNS-over-TLS}
+    \acro{ECC}[ECC]{Elliptic Curve Cryptography}
+    \acro{HTTPS}[HTTPS]{Hypertext Transfer Protocol Secure}
+    \acro{HTTP}[HTTP]{Hypertext Transfer Protocol}
+    \acro{IANA}[IANA]{Internet Assigned Numbers Authority}
     \acro{IETF}[IETF]{Internet Engineering Task Force}
+    \acro{ISP}[ISP]{Internet Service Providers}
+    \acro{MAC}[MAC]{Message Authentication Code}
+    \acro{MITM}[MITM]{Man-In-The-Middle}
+    \acro{MTU}[MTU]{Maximum Transmission Unit}
+    \acro{NAT}[NAT]{Network Address Translator}
     \acro{NTP}[NTP]{Network Time Protocol}
+    \acro{ODNS}[ODNS]{Oblivious DNS}
     \acro{OS}[OS]{Betriebssystem}
     \acroplural{OS}[OS]{Betriebssystemen}
-    \acro{DNSSEC}[DNSSEC]{Domain Name System Security Extensions}
+    \acro{PKI}[PKI]{Public Key Infrastructure}
+    \acro{RRset}[RRset]{Ressource Record Set}
+    \acro{RR}[RR]{Ressource Record}
+    \acro{SLD}[SLD]{Second Level Domain}
+    \acroplural{SLD}[SLDs]{Second Level Domains}
+    \acro{SSH}[SSH]{Secure Shell}
+    \acro{T-DNS}[T-DNS]{DNS-over-TCP}
+    \acro{TLD}[TLD]{Top Level Domain}
+    \acroplural{TLD}[TLDs]{Top Level Domains}
+    \acro{TLS}[TLS]{Transport-Layer-Security}
+    \acro{TOFU}[TOFU]{Trust-On-First-Use}
+    \acro{TTL}[TTL]{Time-To-Live}
+    \acro{TXID}[TXID]{Transaktions-ID}
+    \acro{WWW}[WWW]{World Wide Web}
 \end{acronym}
 
 %Anhänge
+\lstset{ 
+  basicstyle=\tiny\ttfamily,
+  linewidth=14cm,
+  xleftmargin=2cm
+}
+
 \include{999-appendixA}
 
 \include{999-appendixB}
