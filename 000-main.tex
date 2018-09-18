@@ -18,42 +18,76 @@
   {\textquoteleft}
   {\textquoteright}
 
-% Einstellungen für Code-Listings
-\usepackage{listings}
+% Hack zum stillegen der hyperref babel redefine warnings
+\makeatletter
+\patchcmd{\pdfstringdef}
+  {\csname HyPsd@babel@}
+  {\let\bbl@info\@gobble\csname HyPsd@babel@}
+  {}{}
+\makeatother
+
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10,babel]{microtype}
+
+\usepackage{wrapfig}
+\usepackage{enumitem}
+
+% FH Vorgaben
+\usepackage{biblatex}
+\bibliography{literatur}
+\renewcommand*{\bibfont}{\footnotesize}
+
+% Definition Code-Listings Formatierung:
+\usepackage[final]{listings}
 \usepackage{color}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 
-\lstset{ 
-  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
-  basicstyle=\small\ttfamily,        % the size of the fonts that are used for the code
-  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
-  breaklines=true,                 % sets automatic line breaking
-  captionpos=b,                    % sets the caption-position to bottom
-  commentstyle=\color{mygreen},    % comment style
-  frame=single,	                   % adds a frame around the code
-  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
-  keywordstyle=\color{blue},       % keyword style
-  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
-  numbersep=5pt,                   % how far the line-numbers are from the code
-  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
-  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
-  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  showstringspaces=false,          % underline spaces within strings only
-  showtabs=false,                  % show tabs within strings adding particular underscores
-  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
-  tabsize=2,	                     % sets default tabsize to 2 spaces
-  %linewidth=14cm,
-  %xleftmargin=2cm,
-  title=\lstname                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+\lstset{
+  captionpos=b, 
+  numberbychapter=false,
+  caption=\lstname,
+  frame=single, 
+  numbers=left,                   
+  numberstyle=\tiny\color{mygray},
+  stepnumber=1, 
+  numbersep=5pt, 
+  xleftmargin=10pt,  
+  numberstyle=\tiny, 
+  tabsize=2, 
+  columns=fixed, 
+  basicstyle={\fontfamily{pcr}\selectfont\footnotesize}, 
+  keywordstyle=\bfseries, 
+  commentstyle=\color{mygreen}, 
+  keepspaces,
+  breaklines, 
+  breakatwhitespace, 
+  breakautoindent
 }
 
-\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10,babel]{microtype}
-
-\usepackage{wrapfig}
-\usepackage{enumitem}
+%Formatieren des Quellcodeverzeichnisses
+\makeatletter
+% Setzen der Bezeichnungen für das Quellcodeverzeichnis/Abkürzungsverzeichnis in Abhängigkeit von der eingestellten Sprache
+\providecommand\listacroname{}
+\@ifclasswith{twbook}{english}
+{%
+    \renewcommand\lstlistingname{Code}
+    \renewcommand\lstlistlistingname{List of Code}
+    \renewcommand\listacroname{List of Abbreviations}
+}{%
+    \renewcommand\lstlistingname{Quellcode}
+    \renewcommand\lstlistlistingname{Quellcodeverzeichnis}
+    \renewcommand\listacroname{Abkürzungsverzeichnis}
+}
+% Wenn die Option listof=entryprefix gewählt wurde, Definition des Entyprefixes für das Quellcodeverzeichnis. Definition des Macros listoflolentryname analog zu listoflofentryname und listoflotentryname der KOMA-Klasse
+\@ifclasswith{scrbook}{listof=entryprefix}
+{%
+    \newcommand\listoflolentryname\lstlistingname
+}{%
+}
+\makeatother
+\newcommand{\listofcode}{\phantomsection\lstlistoflistings}
 
 % Einstellungen der Class TWBOOK
 \title{DNS Client Security\\Bedrohungen und Lösungswege}
@@ -63,11 +97,9 @@
 \place{Wien}
 
 \kurzfassung{\input{001-summary}}
-% TODO: Schlagwörter der Zusammenfassung ausfüllen
 \schlagworte{DNS, DNS Sicherheit, IT-Sicherheit, DNSSEC, DNS-over-TLS}
 
 \outline{\input{002-abstract}}
-% TODO: Schlagwörter des Abstracts ausfüllen
 \keywords{DNS, DNS Security, IT-Security, DNSSEC, DNS-over-TLS}
 
 % Allgemeine Einstellungen
@@ -124,8 +156,7 @@
 \input{100-conclusion}
 
 % Literaturverzeichnis
-\bibliography{literatur} 
-\bibliographystyle{ieeetr}
+\printbibliography
 \clearpage
 
 % Abbildungsverzeichnis
