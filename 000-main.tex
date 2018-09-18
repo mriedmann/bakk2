@@ -7,6 +7,17 @@
 % um die Umlaute korrekt wiederzugeben: utf8, latin, applemac
 \usepackage[utf8]{inputenc}
 
+% Einstellungen für Zitate
+\usepackage{csquotes}
+
+\DeclareQuoteStyle[quotes]{german}
+  {\itshape\textquotedblleft}
+  [\textquotedblleft]
+  {\textquotedblright}
+  [0.05em]
+  {\textquoteleft}
+  {\textquoteright}
+
 % Einstellungen für Code-Listings
 \usepackage{listings}
 \usepackage{color}
@@ -71,7 +82,6 @@
 \DeclareGraphicsExtensions{.pdf,.png}
 \setlength{\belowcaptionskip}{-0.5\baselineskip}
 
-\usepackage[allfiguresdraft]{draftfigure}
 % --------------------------------------------------------------------------- %
 \begin{document}
 \maketitle
