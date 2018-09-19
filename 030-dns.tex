@@ -17,7 +17,7 @@ Knoten der darunterliegenden und damit ersten Ebene werden als \acp{TLD} bezeich
 \section{Ressource Records, Sets und Zonen}
 Alle Datensätze in DNS werden in einer als \ac{RR} bezeichneter Datenstruktur abgelegt. Ein \ac{RR} besteht aus 5 Informationen: Namen, \ac{TTL}, Klasse (Class), Typ (Type), Datenfeld (Data). Die Felder \ac{TTL} und Class sind optional. Die Menge an Einträgen mit gleichen Werten der Felder Name, TTL, Class und Type bilden ein \ac{RRset}\cite{rfc2181}, das kleinstmögliche abfragbare Element in DNS. Alle \ac{RR} die einem definierten, zusammenhängenden Teil des DNS Namensraum zugeordnet sind, werden als Zone bezeichnet. Diese Sammlung an RR wird in einer Datei, dem \textit{Zone File}, gespeichert und von DNS-Server-Implementationen als Datenbasis genutzt.   
 
-Wie in Listing \ref{lst:dnsZoneFile} zu sehen ist, werden die Daten in einem menschenlesbaren Format gespeichert. Zeile 1 enthält die Anweisung den Namens \texttt{test.example.com.} zu den IPv4-Adressen \texttt{172.30.0.7} und \texttt{172.30.0.8} aufzulösen. Zeile 3 fügt dem Namen weiter Information im Freitextformat hinzu. Zeile 1 und 2 bilden zusammen ein RRset für \texttt{test.example.com 3600 IN A}.
+Wie in Listing \ref{lst:dnsZoneFile} zu sehen ist, werden die Daten in einem menschenlesbaren Format gespeichert. Zeile 1 enthält die Anweisung den Namen \texttt{test.example.com.} zu den IPv4-Adressen \texttt{172.30.0.7} und \texttt{172.30.0.8} aufzulösen. Zeile 3 fügt dem Namen weiter Information im Freitextformat hinzu. Zeile 1 und 2 bilden zusammen ein RRset für \texttt{test.example.com 3600 IN A}.
 
 \lstinputlisting[caption={Ausschnitt aus dem Zone-File \textit{example.com}}, label={lst:dnsZoneFile}]{code/example-zone.txt}
 
@@ -39,16 +39,16 @@ Eine spezielle Form des Rekursive Resolver wird als \textit{Forwarding DNS Serve
 
 \section{DNS Namensauflösungsprozess}
 \label{sec:dnsresolution}
-Der Namensauflösungsprozess erfolgt über mehrere Schritte und kann am besten anhand eines Beispiels dargestellt werden. Nehmen wir an, eine Applikation möchte die IPv4-Adresse des Namen \texttt{example.com} herausfinden und stellt eine Anfrage an den lokalen Stub Resolver des Client. Der Prozess ist in Abb. \ref{img:dnsresolution} visualisiert und kann Schrittweise wie folgt beschrieben werden:
+Der Namensauflösungsprozess erfolgt über mehrere Schritte und kann am besten anhand eines Beispiels dargestellt werden. Nehmen wir an, eine Applikation möchte die IPv4-Adresse des Namen \texttt{example.com} herausfinden und stellt eine Anfrage an den lokalen Stub Resolver des Client. Der Prozess ist in Abb. \ref{img:dnsresolution} visualisiert und kann schrittweise wie folgt beschrieben werden:
 
 \begin{enumerate}
     \item Der Stub stellt eine Anfrage nach dem A Record der Domäne example.com an den für ihn konfigurierten rekursiven Resolver.
     \item Der Resolver empfängt die Anfrage und prüft seinen lokalen Cache nach dem Eintrag. Da er diesen nicht auffindet, wird fortgefahren.
     \item Nun startet der Resolver den rekursiven Auflösungsvorgang. Geht man von einem leeren Cache aus, wird mit der Root-Zone (.) begonnen. Die Anfrage nach www.example.com wird dafür an einen der 13 vorkonfigurierten Root-DNS-Server gesendet.
-    \item Der Root-Server empfängt die Anfrage, kann jedoch nur den TLD Teil der Antwort auflösen. Es sendet daher die Adressen des autoritativen Nameserver für die TLD .com zurück.
+    \item Der Root-Server empfängt die Anfrage, kann jedoch nur den TLD Teil der Antwort auflösen. Es sendet daher die Adressen des autoritativen Nameservers für die TLD .com zurück.
     \item Der Resolver verarbeitet die Adressen und sendet die Anfrage an einen der autoritativen Server der .com Domäne.
     \item Der TLD Nameserver empfängt die Anfrage und prüft, ob für die Domäne example.com eine entsprechende Delegation existiert. Da diese in Form mehrerer NS Einträge vorliegt, wird eine Liste an autoritativen Nameserver-Adressen der SLD Domäne example.com als Antwort gesendet.
-    \item Da die Adresse eines autoritative Servers für Zieldomäne example.com gefunden wurde, kann die gewünschte Information abgefragt werden. Der Resolver sendet also ein letztes mal die Anfrage des Client, jetzt an den Nameserver der SLD example.com.
+    \item Da die Adresse eines autoritativen Servers für Zieldomäne example.com gefunden wurde, kann die gewünschte Information abgefragt werden. Der Resolver sendet also ein letztes mal die Anfrage des Clients, jetzt an den Nameserver der SLD example.com.
     \item Der autoritative Server der SDL example.com nimmt die Anfrage nach dem RR mit Typ A für die Domäne example.com entgegen und liefert nun die gewünschte Information in Form einer IPv4 Adresse.
     \item Der rekursive Resolver empfängt die Antwort, überträgt sie in seinen Cache und sendet dem anfragenden Stub die IPv4 Adresse zurück.
 \end{enumerate}
@@ -56,13 +56,13 @@ Der Namensauflösungsprozess erfolgt über mehrere Schritte und kann am besten a
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{DNS_Resolution}
-    \caption[Dargestellte des DNS Auflösungsprozess für \texttt{example.com}]{Der schrittweise dargestellte Auflösungsprozess des Namen \texttt{example.com} über DNS. Der zeitliche Ablauf wird über die nummerierten Markierungen angezeigt.}
+    \caption[Dargestellte des DNS Auflösungsprozess für \texttt{example.com}]{Der schrittweise dargestellte Auflösungsprozess des Namens \texttt{example.com} über DNS. Der zeitliche Ablauf wird über die nummerierten Markierungen angezeigt.}
     \label{img:dnsresolution}
 \end{figure}
 
 \section{DNS Security}
 \label{sec:dnssecurity}
-Obwohl oder gerade weil DNS eines der grundlegendsten Services im Internet darstellt, wurde bei der Spezifikation des Netzwerkprotokolls bewusst auf eine Authentifizierung verzichtet. Dies ist auf die Idee einer öffentlich zugänglichen, globalen Datenbank, nach dem Vorbild eines globalen Telefonregisters, zurückzuführen. Die Datenbasis der Namensauflösung wurde somit als frei öffentlich zugänglich definiert \cite{rfc1035}. Abgesehen davon stammt das Protokoll aus einer Zeit, in der modernen Schutzzielen, wie Sicherheit und Vertraulichkeit wenig Beachtung geschenkt wurde. Dies führt zu einer Vernachlässigung des Sicherheitsgedanken und hat sich über die Zeit zu einem ernstzunehmenden Problem entwickelt. Verschärfend kommt hinzu, dass kein allgemeiner Konsens über die Sicherheitsziele herrscht. Dies erschwert die Entwicklung einer Lösung und hat zu den unterschiedlichsten Ansätzen und Technologien geführt \cite{Grothoff2018}.
+Obwohl oder gerade weil DNS eines der grundlegendsten Services im Internet darstellt, wurde bei der Spezifikation des Netzwerkprotokolls bewusst auf eine Authentifizierung verzichtet. Dies ist auf die Idee einer öffentlich zugänglichen, globalen Datenbank, nach dem Vorbild eines globalen Telefonregisters, zurückzuführen. Die Datenbasis der Namensauflösung wurde somit als frei öffentlich zugänglich definiert \cite{rfc1035}. Abgesehen davon stammt das Protokoll aus einer Zeit, in der modernen Schutzzielen, wie Sicherheit und Vertraulichkeit wenig Beachtung geschenkt wurde. Dies führt zu einer Vernachlässigung des Sicherheitsgedankens und hat sich über die Zeit zu einem ernstzunehmenden Problem entwickelt. Verschärfend kommt hinzu, dass kein allgemeiner Konsens über die Sicherheitsziele herrscht. Dies erschwert die Entwicklung einer Lösung und hat zu den unterschiedlichsten Ansätzen und Technologien geführt \cite{Grothoff2018}.
 
 \section{Resolver Position}
 \label{sec:dnsresolverposition}
@@ -81,7 +81,7 @@ Die Mehrheit der Nutzenden im privaten oder einzelunternehmerischen Umfeld verwe
 Sogenannte \textit{Public Recursive Resolver} sind über ihre freie Zugänglichkeit definiert und haben je nach Fokus des Anbieters verschiedenste Regelungen was Privacy betrifft \cite{Prince2018}\cite{Quad92018}. Wird ein Anbieter mit speziellem Fokus auf Sicherheit und Vertraulichkeit gewählt, kann ein akzeptabler Grad an Privacy erreicht werden. Voraussetzung dafür ist die Sicherung der Übertragung zwischen Stub-Resolver und Recursive Resolver. Einige Projekte bieten dafür Unterstützung spezielle Netzwerkprotokolle, die diesen Zweck erfüllen sollen (siehe dazu Kapitel \ref{chap:technologies}). Resolver die speziellen, selbst auferlegten Vorschriften zur Verbesserung der Informationssicherheit folgen, werden als \textit{Trusted Resolver} bezeichnet, wobei diese öffentlich (public) oder nur mit Authentifizierung (private) zugänglich sein können.
 
 \paragraph{Local-Loopback Resolver}
-Eine Sonderform stellt der \textbf{Local-Loopback Resolver} dar. Dieser wird direkt auf dem Client-Rechner installiert und ist nur für Programme auf eben diesem Host erreichbar. Dies führt zu dem Umstand, dass der Stub-Resolver keine für das umliegende Netzwerk sichtbare Kommunikation mehr durchführt. Der Installierte Resolver löst die Anfragen dann entweder rekursiv über das Netzwerk auf oder fungiert als Forwarding Resolver (siehe Abschnitt \ref{sec:dnsserver}) und verhält sich somit wie ein Stub-Resolver.
+Eine Sonderform stellt der \textbf{Local-Loopback Resolver} dar. Dieser wird direkt auf dem Client-Rechner installiert und ist nur für Programme auf eben diesem Host erreichbar. Dies führt zu dem Umstand, dass der Stub-Resolver keine für das umliegende Netzwerk sichtbare Kommunikation mehr durchführt. Der installierte Resolver löst die Anfragen dann entweder rekursiv über das Netzwerk auf oder fungiert als Forwarding Resolver (siehe Abschnitt \ref{sec:dnsserver}) und verhält sich somit wie ein Stub-Resolver.
 
 \begin{figure}[htbp]
     \centering
