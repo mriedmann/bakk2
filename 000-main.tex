@@ -24,19 +24,19 @@
   {\csname HyPsd@babel@}
   {\let\bbl@info\@gobble\csname HyPsd@babel@}
   {}{}
-\makeatother
+%\makeatother
 
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10,babel]{microtype}
 
 \usepackage{wrapfig}
 \usepackage{enumitem}
 
-% FH Vorgaben
+% Bibliografie Einstellungen
 \usepackage{biblatex}
 \bibliography{literatur}
 \renewcommand*{\bibfont}{\footnotesize}
 
-% Definition Code-Listings Formatierung:
+%Formatieren des Quellcodeverzeichnisses
 \usepackage[final]{listings}
 \usepackage{color}
 
@@ -44,50 +44,15 @@
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 
-\lstset{
-  captionpos=b, 
-  numberbychapter=false,
-  caption=\lstname,
-  frame=single, 
-  numbers=left,                   
-  numberstyle=\tiny\color{mygray},
-  stepnumber=1, 
-  numbersep=5pt, 
-  xleftmargin=10pt,  
-  numberstyle=\tiny, 
-  tabsize=2, 
-  columns=fixed, 
-  basicstyle={\fontfamily{pcr}\selectfont\footnotesize}, 
-  keywordstyle=\bfseries, 
-  commentstyle=\color{mygreen}, 
-  keepspaces,
-  breaklines, 
-  breakatwhitespace, 
-  breakautoindent
+\lstset{captionpos=b, numberbychapter=false,caption=\lstname,frame=single, numbers=left,                   numberstyle=\tiny\color{mygray},stepnumber=1, numbersep=5pt, xleftmargin=10pt,  numberstyle=\tiny, tabsize=2, columns=fixed, basicstyle={\fontfamily{pcr}\selectfont\footnotesize}, keywordstyle=\bfseries, commentstyle=\color{mygreen}, keepspaces,breaklines, breakatwhitespace, breakautoindent
 }
 
-%Formatieren des Quellcodeverzeichnisses
-\makeatletter
+%\makeatletter
 % Setzen der Bezeichnungen für das Quellcodeverzeichnis/Abkürzungsverzeichnis in Abhängigkeit von der eingestellten Sprache
 \providecommand\listacroname{}
-\@ifclasswith{twbook}{english}
-{%
-    \renewcommand\lstlistingname{Code}
-    \renewcommand\lstlistlistingname{List of Code}
-    \renewcommand\listacroname{List of Abbreviations}
-}{%
-    \renewcommand\lstlistingname{Quellcode}
-    \renewcommand\lstlistlistingname{Quellcodeverzeichnis}
-    \renewcommand\listacroname{Abkürzungsverzeichnis}
-}
-% Wenn die Option listof=entryprefix gewählt wurde, Definition des Entyprefixes für das Quellcodeverzeichnis. Definition des Macros listoflolentryname analog zu listoflofentryname und listoflotentryname der KOMA-Klasse
-\@ifclasswith{scrbook}{listof=entryprefix}
-{%
-    \newcommand\listoflolentryname\lstlistingname
-}{%
-}
-\makeatother
-\newcommand{\listofcode}{\phantomsection\lstlistoflistings}
+\renewcommand\lstlistingname{Quellcode}
+\renewcommand\lstlistlistingname{Quellcodeverzeichnis}
+\renewcommand\listacroname{Abkürzungsverzeichnis}
 
 % Einstellungen der Class TWBOOK
 \title{DNS Client Security\\Bedrohungen und Lösungswege}
@@ -164,8 +129,8 @@
 \clearpage
 
 % Tabellenverzeichnis
-\listoftables
-\clearpage
+%\listoftables
+%\clearpage
 
 % Verzeichnis der Listings
 \lstlistoflistings
