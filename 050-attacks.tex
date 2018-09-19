@@ -72,11 +72,11 @@ Die Nutzbarkeit von DNS als Verstärker (Amplifier) von \ac{DoS} Attacken ist sc
 Verschärfend kommt hinzu, dass der übliche maximale Verstärkungsfaktor von 12,8 mittels \ac{DNSSEC} (siehe \ref{sec:tec-dnssec}) auf durchschnittlich 47,2 erhöht werden kann. Dies ist auf die mit \ac{DNSSEC} eingeführte Erweiterung EDNS0 zurückzuführen, die es ermöglicht größere Antwortpakete anzufragen. Es konnte gezeigt werden, dass beim Nutzen aller Möglichkeiten ein maximaler Verstärkungsfaktor von 102,4 möglich ist \cite{VanRijswijk-Deij2014}. Mit dieser Verstärkung wäre ein Angreifer mit 100Mbit/s Bandbreite dazu in der Lage ca. 10Gbit/s Traffic zu generieren.
 
 \paragraph{}
-Effektive Angriffe machen sich die beschriebene hohen Verstärkungsrate und geringen Transparenz des Systems zu Nutze \cite{Kambourakis2008}. Ein Angriff kann somit wie folgt ablaufen (siehe Abb. \ref{img:dnsdos}):
+Effektive Angriffe machen sich die beschriebene hohen Verstärkungsraten und geringen Transparenz des Systems zu Nutze \cite{Kambourakis2008}. Ein Angriff kann somit wie folgt ablaufen (siehe Abb. \ref{img:dnsdos}):
 \begin{enumerate}[topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
     \item Ein Angreifer bringt über Cache Poisoning einen speziellen RR (Amplifying Record) in einen Zielserver ein, der eine maximal große Antwort erzeigt.
     \item Einem zuvor gebildeter Bot-Netz wird das Kommando zum Anfragen dieses speziellen RR erteilt. 
-    \item Es werden somit gefälschte DNS-Anfragen mit der Absende-Adresse des Ziel an verschiedene offene Resolver gesendet.
+    \item Es werden somit gefälschte DNS-Anfragen mit der Absende-Adresse des Ziels an verschiedene offene Resolver gesendet.
     \item Die Resolver fragen den manipulierten Eintrag am und erhalten eine große Antwort.
     \item Da die Absende-Adresse gefälscht wurde, werden die Antworten an das Opfer gesendet und nehmen aufgrund ihrer Größe und Anzahl einen großen Anteil der Bandbreite ein. 
 \end{enumerate}
@@ -89,7 +89,7 @@ Eine weniger bekannte Art die Schwachstellen von DNS auszunutzen ist das sogenan
 \begin{enumerate}[topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
     \item Das Opfer wird vom Angreifer, auf eine von ihm kontrolliere Website, gelockt. Der Nameserver des Angreifers vergibt für den DNS-Eintrag des Webservers eine sehr geringe TTL.
     \item Der Browser des Opfers führt die auf der Webseite eingebunden Scripts aus. Gleichzeitig läuft die TTL des gecachten Eintrags aus, was den Resolver zu einer erneuten Auflösung bewegt. Bei dieser wird vom Nameserver des Angreifers die Adresse eines Ziels zurückgeliefert.
-    \item Nach diesem \textit{Rebinding} des Hostnamen kann das laufende Script über den eigenen Namen auf die Ressourcen der Adresse des Ziels zugreifen. Dies erlaubt dem Script z.B. Zugriffe auf netzinterne Ressourcen wie Administrationsoberflächen oder ermöglicht das Scannen des LANs. Außerdem wird damit der Browser des Opfers für andere Angriffe, wie \ac{DoS} Attacken, nutzbar.   
+    \item Nach diesem \textit{Rebinding} des Hostnamens kann das laufende Script über den eigenen Namen auf die Ressourcen der Adresse des Ziels zugreifen. Dies erlaubt dem Script z.B. Zugriffe auf netzinterne Ressourcen wie Administrationsoberflächen oder ermöglicht das Scannen des LANs. Außerdem wird damit der Browser des Opfers für andere Angriffe, wie \ac{DoS} Attacken, nutzbar.   
 \end{enumerate}
 
 Auch wenn es viele Gegenmaßnahmen in aktuellen Browsern gibt und einige der anfälligen Komponenten (Java Applets, Flash, etc.) an Verbreitung verlieren, besteht besonders durch die zunehmende Verbreitung von IoT-Geräten eine akute Bedrohung durch diesen Angriffsweg \cite{Dorsey2018}. 
